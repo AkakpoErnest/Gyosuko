@@ -6,8 +6,8 @@ For: you, in the field. Japanese first, read aloud if needed.
 1. Open https://gyosoku.netlify.app/fisherman/ on **your** phone once, so it is saved for offline use.
 2. Print or save these two QR codes: `artifacts/gyosoku-app-qr.png` (the app) and `artifacts/gyosoku-feedback-qr.png` (feedback).
 3. Charge your phone. Bring a power bank.
-4. Read answers any time at: https://gyosoku.netlify.app/api/feedback?token=dbb409af3dc3583d77a1c8e4f2bdbdb6
-   (private link, keep it to yourself; do not post it anywhere)
+4. Read answers any time at: https://gyosoku.netlify.app/api/feedback?token=YOUR_TOKEN
+   (the private token is given to you in chat, never stored in this repo; do not post the link anywhere)
 
 ## What each fisherman does (about 3 minutes)
 1. Scan the app QR code (or open the link). Tap **はじめる**.
