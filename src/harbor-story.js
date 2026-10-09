@@ -23,7 +23,16 @@ if (fig) {
       button.hidden = false; button.addEventListener('click', () => api.reset());
       host.classList.add('ready'); label(); update();
       // The story follows the page scroll: boat sails in, the fisherman lands the tuna and points at the phone.
-      const progress = () => { const r = fig.getBoundingClientRect(), vh = innerHeight; api.setProgress((vh * 0.92 - r.top) / (vh * 0.55 + r.height * 0.3)); };
+      // Three steps: the section is tall and the scene stays pinned (sticky); scrolling moves through the steps.
+      const sec = document.getElementById('predictions'), STEP = [0.12, 0.55, 1.0], items = [...fig.querySelectorAll('.story-steps li')];
+      let cur = -1;
+      const progress = () => {
+        const r = sec.getBoundingClientRect(), span = Math.max(1, r.height - innerHeight * 0.7);
+        const f = Math.max(0, Math.min(1, (innerHeight * 0.15 - r.top) / span)); // 0..1 through the pinned section
+        const step = f < 0.34 ? 0 : f < 0.67 ? 1 : 2;
+        if (step !== cur) { cur = step; items.forEach((li, i) => { li.classList.toggle('on', i === step); li.classList.toggle('done', i < step); }); }
+        api.setProgress(STEP[step]);
+      };
       addEventListener('scroll', progress, { passive: true }); addEventListener('resize', progress); progress();
     } catch { fallback(); }
   }
