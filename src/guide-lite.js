@@ -44,7 +44,7 @@ const hint = el('button', { class: 'lg-hint', type: 'button', hidden: true, on: 
 const panel = el('section', { class: 'lg-panel', role: 'dialog', hidden: true });
 document.body.append(fab, hint, panel);
 
-function toggle() { open = !open; hint.hidden = true; if (open && !msgs.length) msgs.push({ from: 'bot', text: T[lang()].hi }); draw(); if (open) panel.querySelector('input')?.focus({ preventScroll: true }); }
+function toggle() { open = !open; if (open) everOpened = true; hint.hidden = true; if (open && !msgs.length) msgs.push({ from: 'bot', text: T[lang()].hi }); draw(); if (open) panel.querySelector('input')?.focus({ preventScroll: true }); }
 function say(text, from = 'bot') { msgs.push({ from, text }); }
 
 async function ask(raw) {
@@ -75,5 +75,13 @@ function draw() {
 }
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && open) toggle(); });
 new MutationObserver(() => draw()).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
-setTimeout(() => { if (!hinted && !open) { hinted = true; hint.textContent = T[lang()].hint; hint.hidden = false; setTimeout(() => { hint.hidden = true; }, 9000); } }, 1500);
+// The speech bubble pops up for a few seconds, goes away, and comes back every ~14 s (6 times at most). It stops once the guide has been opened.
+let pops = 0, everOpened = false;
+function popHint() {
+  if (everOpened || pops >= 6) return;
+  pops++;
+  if (!open) { hint.textContent = T[lang()].hint; hint.hidden = false; setTimeout(() => { hint.hidden = true; }, 3200); }
+  setTimeout(popHint, 14000);
+}
+setTimeout(popHint, 1500);
 draw();

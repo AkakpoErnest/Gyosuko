@@ -41,7 +41,7 @@ const COPY = {
     savedTitle: '保存しました', savedBody: 'これは取引や出荷の依頼ではなく、見込みの共有です。', returnToday: '今日の画面へ', addAnother: 'もう1件入力',
     recordTitle: '入力した魚の見通し', arrival: '入港予定', state: '状況', remove: 'この入力を削除', removeConfirm: 'この入力を削除しますか？', cancel: 'やめる', deleteNow: '削除する',
     validation: '魚の名前、量、入港日、港を入力してください。', storageError: '保存できませんでした。', syncFail: 'クラウドに送れませんでした。端末には保存しました。', removeFail: 'クラウドから削除できませんでした。記録は残っています。再度お試しください。', sessionLost: 'ログインの有効期限が切れました。端末の記録は残っています。クラウドを使うには再ログインしてください。', cloudLoadFail: 'クラウドの記録を読み込めませんでした。端末の記録を表示しています。', pendingCloud: 'クラウド未同期の記録があります。この端末には保存されています。',
-    tabPulse: '詳細', tabToday: '今日', tabCatch: '入力', tabMe: '私', profile: 'プロフィール', editProfile: 'プロフィールを編集', signout: 'ログアウト', clear: '端末のデータを消去', clearConfirm: 'この端末の入力をすべて削除しますか？',
+    tabSea: '海況', seaTitle: '気仙沼の海況', seaLead: '天気と波の予報です。出航の判断は、公式の警報と現地の状況で行ってください。', auctionLink: '競り・市場の方はこちら ↗', tabToday: '今日', tabCatch: '入力', tabMe: '私', profile: 'プロフィール', editProfile: 'プロフィールを編集', signout: 'ログアウト', clear: '端末のデータを消去', clearConfirm: 'この端末の入力をすべて削除しますか？',
     cleared: '消去しました。', language: '言語', feedbackTitle: 'ご意見をください', projectFeedback: 'Gyosokuに感想を送る ↗', useful: '仕事で使いたいですか？', yes: '使いたい', maybe: '少し変えれば', no: '今は不要',
     easy: '入力は分かりやすいですか？', easyYes: '分かりやすい', easyMaybe: '少し難しい', easyNo: '難しい', change: '変えてほしいこと（任意）', feedbackSave: '送る', thanks: 'ありがとうございます', feedbackRequired: '2つの質問に回答してください。',
     install: 'ホーム画面に追加', installBody: 'iPhone：Safariの共有 → ホーム画面に追加。Android：Chromeのメニュー → アプリをインストール。', download: 'データを書き出す',
@@ -76,7 +76,7 @@ const COPY = {
     savedTitle: 'Saved', savedBody: 'This shares an outlook. It is not a trade or a delivery request.', returnToday: 'Back to today', addAnother: 'Add another',
     recordTitle: 'Your catch estimate', arrival: 'Expected arrival', state: 'Status', remove: 'Delete this entry', removeConfirm: 'Delete this entry?', cancel: 'Cancel', deleteNow: 'Delete entry',
     validation: 'Enter the fish name, quantity, arrival date and port.', storageError: 'Could not save.', syncFail: 'Could not reach the cloud. Saved on this device.', removeFail: 'Could not delete from the cloud. Your record is still here. Please retry.', sessionLost: 'Your sign-in expired. Records on this device are still here. Sign in again to use the cloud.', cloudLoadFail: 'Could not load cloud records. Showing records saved on this device.', pendingCloud: 'Some records are saved on this device and have not synced to the cloud.',
-    tabPulse: 'Details', tabToday: 'Today', tabCatch: 'Add', tabMe: 'Me', profile: 'Profile', editProfile: 'Edit profile', signout: 'Sign out', clear: 'Clear this device’s data', clearConfirm: 'Delete everything saved on this device?',
+    tabSea: 'Sea', seaTitle: 'Sea conditions', seaLead: 'Weather and wave forecasts for Kesennuma. Use official warnings and local conditions to decide whether to sail.', auctionLink: 'Auction or market? Start here ↗', tabToday: 'Today', tabCatch: 'Add', tabMe: 'Me', profile: 'Profile', editProfile: 'Edit profile', signout: 'Sign out', clear: 'Clear this device’s data', clearConfirm: 'Delete everything saved on this device?',
     cleared: 'Cleared.', language: 'Language', feedbackTitle: 'Tell us what you think', projectFeedback: 'Send feedback to Gyosoku ↗', useful: 'Would you use this for work?', yes: 'Yes', maybe: 'With changes', no: 'Not now',
     easy: 'Was it easy to enter a catch?', easyYes: 'Easy', easyMaybe: 'A little hard', easyNo: 'Hard', change: 'What would you change? (optional)', feedbackSave: 'Send', thanks: 'Thank you', feedbackRequired: 'Please answer both questions.',
     install: 'Add to home screen', installBody: 'iPhone: Safari → Share → Add to Home Screen. Android: Chrome menu → Install app.', download: 'Export my data',
@@ -175,7 +175,7 @@ function oceanScene(bubbles, fish, cls = '') {
 }
 
 const ICON = {
-  pulse: 'M3 12h4l2.5-6 4 12 2.5-6H21',
+  sea: 'M3 9c2.5-2.5 4.5-2.5 7 0s4.5 2.5 7 0 3-1.5 4-.5M3 15c2.5-2.5 4.5-2.5 7 0s4.5 2.5 7 0 3-1.5 4-.5',
   today: 'M3 12l9-8 9 8M5 10v10h5v-6h4v6h5V10',
   add: 'M12 5v14M5 12h14',
   me: 'M12 12a4 4 0 100-8 4 4 0 000 8zM4 21c0-4 4-6 8-6s8 2 8 6',
@@ -281,7 +281,8 @@ function welcomeView() {
 function roleView() {
   return [el('h1', { tabindex: '-1' }, t('whoTitle')), el('p', { class: 'muted' }, t('whoBody')),
     el('div', { class: 'roles' }, ROLES.map((r, i) => el('button', { type: 'button', class: 'role', style: `--i:${i}`, on: { click: () => chooseRole(r) } },
-      el('span', { class: 'role__icon' }, roleIcon(r)), el('strong', {}, t(r)), el('span', {}, t(`${r}D`)))))];
+      el('span', { class: 'role__icon' }, roleIcon(r)), el('strong', {}, t(r)), el('span', {}, t(`${r}D`))))),
+    el('a', { class: 'role-auction', href: '/auction/' }, t('auctionLink'))];
 }
 
 function accessView() {
@@ -534,9 +535,10 @@ function captureDraft() {
   if (f) S.draft = { ...S.draft, ...Object.fromEntries(new FormData(f)) };
 }
 
-const VIEWS = { welcome: welcomeView, role: roleView, access: accessView, auth: authView, details: detailsView, today: todayView, catch: catchView, review: reviewView, saved: () => detailView(true), detail: () => detailView(false), me: meView };
-const HARBORPULSE_URL = 'https://app.dev.tracesource.co/apps/6ac7f781714a8f4d47c2595c/harborpulse';
-const TABS = [['today', 'tabToday'], ['catch', 'tabCatch'], ['pulse', 'tabPulse'], ['me', 'tabMe']];
+// The forecast card itself is drawn into <main> by src/field-conditions.js while this screen is open.
+function seaView() { return [el('h1', { tabindex: '-1' }, t('seaTitle')), el('p', { class: 'muted' }, t('seaLead'))]; }
+const VIEWS = { sea: seaView, welcome: welcomeView, role: roleView, access: accessView, auth: authView, details: detailsView, today: todayView, catch: catchView, review: reviewView, saved: () => detailView(true), detail: () => detailView(false), me: meView };
+const TABS = [['today', 'tabToday'], ['catch', 'tabCatch'], ['sea', 'tabSea'], ['me', 'tabMe']];
 
 function render() {
   document.documentElement.lang = S.lang;
@@ -545,13 +547,13 @@ function render() {
   const logout = document.getElementById('logout'); logout.hidden = true;
   document.querySelector('footer').hidden = true;
   document.getElementById('trial').hidden = true;
-  const inApp = !!S.profile && ['today', 'catch', 'review', 'saved', 'detail', 'me'].includes(S.screen);
+  const inApp = !!S.profile && ['today', 'catch', 'review', 'saved', 'detail', 'sea', 'me'].includes(S.screen);
   const tabs = document.getElementById('tabs');
   tabs.hidden = !inApp;
   tabs.replaceChildren(...TABS.filter(([k]) => k !== 'catch' || isFisher()).map(([k, label]) => el('button', {
     type: 'button', class: S.screen === k || (k === 'today' && ['saved', 'detail'].includes(S.screen)) ? 'active' : '', 'aria-label': t(label),
-    on: { click: () => { if (k === 'pulse') window.open(HARBORPULSE_URL, '_blank', 'noopener,noreferrer'); else if (k === 'catch') startCatch(); else go(k); } },
-  }, icon(k === 'catch' ? 'add' : k), el('span', {}, t(label) + (k === 'pulse' ? ' ↗' : '')))));
+    on: { click: () => { if (k === 'catch') startCatch(); else go(k); } },
+  }, icon(k === 'catch' ? 'add' : k), el('span', {}, t(label)))));
   const view = (VIEWS[S.screen] || todayView)();
   main.replaceChildren(...view.flat(Infinity).filter(Boolean));
   guideRender();
@@ -721,7 +723,7 @@ function guideRender(scroll) {
   let panel = document.getElementById('guide');
   const g = gt();
   if (!fab) {
-    fab = el('button', { id: 'guide-fab', type: 'button', class: 'guide-fab', title: '↔', on: { click: () => { if (fab.dataset.dragged) return; G.hint = false; G.open = !G.open; if (G.open && !G.msgs.length) { gSay(gt().hi); G.showChips = true; } try { localStorage.setItem(GUIDE_KEY, '1'); } catch {} guideRender(true); } } },
+    fab = el('button', { id: 'guide-fab', type: 'button', class: 'guide-fab', title: '↔', on: { click: () => { if (fab.dataset.dragged) return; G.hint = false; G.open = !G.open; if (G.open) G.everOpened = true; if (G.open && !G.msgs.length) { gSay(gt().hi); G.showChips = true; } try { localStorage.setItem(GUIDE_KEY, '1'); } catch {} guideRender(true); } } },
       el('img', { src: '/public/logo.png', alt: '', width: 46, height: 46, draggable: 'false' }));
     panel = el('section', { id: 'guide', class: 'guide', role: 'dialog', 'aria-label': 'guide', hidden: true });
     phone.append(fab, panel);
@@ -748,7 +750,8 @@ function guideRender(scroll) {
   if (scroll) log.scrollTop = log.scrollHeight;
 }
 // First visit: a small speech bubble beside the guide icon (never covers the main buttons).
-try { if (!localStorage.getItem(GUIDE_KEY)) setTimeout(() => { G.hint = true; guideRender(); setTimeout(() => { G.hint = false; guideRender(); }, 9000); }, 900); } catch {}
+// Speech bubble: pops up for a few seconds, goes away, comes back every ~14 s (6 times at most); stops once the guide was opened.
+{ let pops = 0; const popHint = () => { if (G.everOpened || pops >= 6) return; pops++; if (!G.open) { G.hint = true; guideRender(); setTimeout(() => { G.hint = false; guideRender(); }, 3200); } setTimeout(popHint, 14000); }; setTimeout(popHint, 1200); }
 
 // ------------------------------------------------------------------ "are you sure?" on the way out
 function confirmBox({ title, body, yes, no }) {

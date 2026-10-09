@@ -358,3 +358,7 @@ body[data-screen=access] .phone>main{overflow:hidden;padding-bottom:24px!importa
 .photo__text{display:grid;gap:2px;min-width:0}.photo__text span{color:var(--muted);font-size:13px}.photo__rm{justify-self:start;padding:0;min-height:36px;color:#9d2424}
 .hello{display:flex;align-items:center;gap:12px}.hello h1{margin:6px 0 12px;min-width:0}
 .mini{width:46px;height:46px;border-radius:50%;object-fit:cover;flex:none;box-shadow:0 0 0 2px #fff,0 6px 14px -6px rgba(6,32,43,.5)}
+
+/* auction/market entry on the role screen */
+.role-auction{display:block;text-align:center;margin:14px 0 0;padding:10px;color:var(--teal);font-weight:700;text-decoration:none;min-height:44px}
+body[data-screen=role] .roles{margin-bottom:0}

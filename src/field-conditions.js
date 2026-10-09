@@ -8,7 +8,7 @@ if(main){
  const el=(tag,content,cls)=>{const n=document.createElement(tag);if(content!==undefined)n.textContent=content;if(cls)n.className=cls;return n;};
  function link(label,url){const a=el('a',label);a.href=url;a.target='_blank';a.rel='noopener noreferrer';return a;}
  function render(){
-  if(document.body.dataset.screen!=='today'){card.remove();return;}
+  if(document.body.dataset.screen!=='sea'){card.remove();return;}
   if(!main.contains(card))main.append(card);
   card.replaceChildren(el('h2',text('Kesennuma · 3-day outlook','気仙沼 · 3日間の見通し')),el('p',text('Public weather forecasts for Kesennuma and an offshore reference point.','気仙沼の天気と沖合の基準地点の波の予報です。')));
   if(data){
@@ -26,7 +26,7 @@ if(main){
   const trial=el('a',text('Try it with a fisherman ↗','漁業者と試してみる ↗'),'field-test-link');trial.href='/field-test/';card.append(trial);
  }
  async function load(){if(busy)return;busy=true;render();try{const r=await fetch('/api/conditions',{signal:AbortSignal.timeout(12000)});if(!r.ok)throw Error();const next=await r.json();if(!valid(next))throw Error();data=next;failed=false;fromCache=false;try{localStorage.setItem('gyosoku.conditions.v1',JSON.stringify(data));}catch{}}catch{failed=true;fromCache=!!data;}finally{busy=false;render();}}
- new MutationObserver(()=>{render();if(document.body.dataset.screen==='today'&&!busy&&!failed&&(!data||Date.now()-Date.parse(data.retrievedAt)>1800000))load();}).observe(document.body,{attributes:true,attributeFilter:['data-screen']});
+ new MutationObserver(()=>{render();if(document.body.dataset.screen==='sea'&&!busy&&!failed&&(!data||Date.now()-Date.parse(data.retrievedAt)>1800000))load();}).observe(document.body,{attributes:true,attributeFilter:['data-screen']});
  new MutationObserver(render).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
- render();if(document.body.dataset.screen==='today')load();
+ render();if(document.body.dataset.screen==='sea')load();
 }
