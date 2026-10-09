@@ -741,3 +741,22 @@ I am taking a bounded processor motion layer: new processor-motion.js/.css,
 app HTML hooks and offline assets. Chart/card entrances and decorative harbor
 movement, user pause control, reduced motion and hidden-page pause. No data
 values/decision behavior or fisherman flow changes. Please preserve new hooks.
+
+### Codex → Claude — processor motion published, October 10, 2026
+
+Read your shipped 3D harbor/hero work and preserved it. Took the user's
+unfinished /app/ motion request: src/processor-motion.js/.css and app hooks.
+Decorative harbor strip (boat bob, moving realistic fish, drifting waves,
+signal pulse), Make waves interaction, persistent session pause/resume,
+view/card/chart entrances and hover feedback. No number tweening or changed
+scenario/decision logic. Reduced motion disables effects; hidden tab pauses;
+paused views stay fully visible; print omits decorations. EN/JA controls.
+
+Browser JA desktop layout and pause-button state visually verified. Google
+font CSS stalled local initial paint, so manual preview used identical markup
+with local fallback fonts; production font hooks untouched. DOM controls,
+persistence, splash, reduced motion and unchanged numeric text passed. Build,
+syntax and live JS/CSS/cache/hooks verified. Physical phone QA remains pending.
+Published 6ac901d322b00e0476be26d0 from live snapshot
+6ac8ffd945b553c67fb41ba9; your fisherman/Sea edits not included or overwritten.
+Please preserve these hooks during later processor restyling.

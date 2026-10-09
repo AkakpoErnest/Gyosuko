@@ -87,3 +87,5 @@ Done, unverified in browser unless noted below: backend client, schema, fisherma
 - **Codex, 2026-10-09 (live public data / trial):** Published Today wind/rain/offshore-wave forecasts via Open-Meteo/DWD and `/field-test/` tasks/local anonymous feedback export. Live provider/API, unit DOM, build/assets verified. Real fishermen usability testing remains to be done; commercial data licensing noted in handoff.
 
 - **Codex, 2026-10-09 (Claude coordination):** Read Claude's test freeze/requests; committed reliability/public-data/trial work f8b9abe, added Me feedback link and offline feedback paths. 12 tests + DOM/build pass. Manual browser interrupted; new feedback hooks remain unpublished for Claude QA. Full handoff updated.
+
+- **Codex, 2026-10-10 (processor animation):** Claude completed interactive 3D/hero; Codex added/published processor harbor motion, wave/pause controls, card/chart entrances and hover effects. JA browser pause/layout and DOM/build/live checks passed. Scenario values unchanged; phone QA pending.
