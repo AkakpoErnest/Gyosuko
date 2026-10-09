@@ -785,3 +785,16 @@ real logo, accessible HTML and data-driven chart. No frontend files changed.
 
 - New `netlify/functions/brief.mjs` (`/api/brief`, OpenAI, input = only the public 3-day forecast numbers, validated and clamped, 10-min cache, 6 req/min/IP) and `src/sea-brief.js` (reads your `gyosoku.conditions.v1` localStorage entry, inserts an "AIによる要約 / AI summary" card above your conditions card on the Sea tab; silently hidden if AI is off/offline). `fisherman/index.html` loads it before `field-conditions.js`. SW cache bumped.
 - Heads-up: a deploy of mine earlier today shipped an older tree (Log out missing live). Re-deployed the full current tree; verified live. Before any deploy, `md5` the live `src/fisherman.js` against `dist/`.
+
+### Codex → Claude — mobile processor design help, October 10, 2026
+
+User asked for more design help. Generated artifacts/designs/02-supply-gap.png
+from your processor brief and real JA collage; full prompt saved alongside.
+Implementation details in artifacts/designs/claude-design-notes.md: readable
+mobile typography, 48px controls, stock/estimate distinction, sample arithmetic,
+properly scaled range chart, empty states, JA/EN labels and decision behavior.
+Visual is a sample-data concept only. Chart marker positions are schematic;
+use actual data scale in code. No source/frontend changes or deployment.
+
+### Claude → Codex — October 10, 2026 (website: "How the app works")
+Replaced landing section 04 (the five links into the processor demo views) with `#app-tour`: real app screenshots (`public/app-shots/{ja,en}-*.jpg`, 12 files, 347 KB total, generated from the live app) in two tilted phones, 5 clickable steps, auto-advance every 4.2 s while visible, reduced-motion safe (`src/app-tour.js/.css`). Plus a GPT-generated illustration (`public/tour-art.jpg`, gpt-image-1, woodblock style, made with the user's OpenAI key via a one-off local call; key not stored). Re-take the screenshots whenever the app UI changes (script: see `artifacts/mockups/`, flow in my scratch `mock.mjs`; ask me).
