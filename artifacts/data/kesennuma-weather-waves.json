@@ -1,0 +1,35 @@
+{
+  "retrievedAt": "2026-10-09T16:30:22.735Z",
+  "timezone": "Asia/Tokyo",
+  "location": "Kesennuma",
+  "landPoint": {
+    "latitude": 38.90112,
+    "longitude": 141.57745
+  },
+  "seaPoint": {
+    "latitude": 39,
+    "longitude": 142
+  },
+  "days": [
+    {
+      "date": "2026-10-10",
+      "windMaxMs": 2.12,
+      "rainMm": 0,
+      "waveMaxM": 2.02
+    },
+    {
+      "date": "2026-10-11",
+      "windMaxMs": 1.75,
+      "rainMm": 0,
+      "waveMaxM": 1.54
+    },
+    {
+      "date": "2026-10-12",
+      "windMaxMs": 2.93,
+      "rainMm": 0,
+      "waveMaxM": 1.78
+    }
+  ],
+  "weatherAvailable": true,
+  "marineAvailable": true
+}
