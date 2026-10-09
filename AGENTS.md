@@ -1,3 +1,5 @@
+> **Codex: start with [docs/codex-tasks-now.md](docs/codex-tasks-now.md)** (current prioritised tasks), then the handoff file.
+
 # Gyosoku — agent handoff (Claude ⇄ Codex)
 
 > **Canonical coordination file: [docs/codex-claude-handoff.md](docs/codex-claude-handoff.md).** Ownership: Codex = `src/backend.js`, `supabase/`; Claude = `src/fisherman.*`, `fisherman/`, landing page. This file is background and task list only.

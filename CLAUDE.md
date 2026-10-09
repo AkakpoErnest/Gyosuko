@@ -1,3 +1,5 @@
+> **Codex: start with [docs/codex-tasks-now.md](docs/codex-tasks-now.md)** (current prioritised tasks), then the handoff file.
+
 # Gyosoku collaboration
 
 Read [docs/codex-claude-handoff.md](docs/codex-claude-handoff.md) before working
