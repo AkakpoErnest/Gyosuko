@@ -87,3 +87,5 @@ header,main,footer{position:relative;z-index:1}
 @media (max-width:640px){main>.section{min-height:auto}html{scroll-snap-type:none}}
 /* the pinned story section overrides the generic one-screen sections and the snap (it scrolls through 3 steps) */
 @media (min-width:901px) and (prefers-reduced-motion:no-preference){main>#predictions.section{min-height:240vh;display:grid;align-content:start;scroll-snap-align:none}}
+
+@media(max-width:900px){main>#predictions.section{min-height:auto;display:block}}

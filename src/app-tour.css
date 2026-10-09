@@ -29,3 +29,6 @@
 @media (max-width:900px){.app-tour{grid-template-columns:1fr;gap:12px}.tour-phones{height:520px}.tphone{width:210px;border-radius:34px}.tphone--front{width:228px;right:4%}.tphone--back{left:3%}}
 @media (max-width:420px){.tphone{width:176px}.tphone--front{width:190px}.tour-phones{height:440px}}
 
+/* phones: smaller on mobile so both fit without crowding the text */
+@media (max-width:900px){.tour-phones{height:400px}.tphone{width:158px;border-radius:28px;padding:6px}.tphone::after{top:10px;width:46px;height:13px}.tscreen{border-radius:23px}.tphone--front{width:172px;right:6%;top:0}.tphone--back{left:6%;top:36px}.tour-steps{margin:16px 0 20px}.tour-steps strong{font-size:16px}}
+@media (max-width:420px){.tour-phones{height:350px}.tphone{width:138px}.tphone--front{width:150px}}

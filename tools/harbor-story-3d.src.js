@@ -162,7 +162,7 @@ export function mountHarbor(host, opts = {}) {
   let prog = reduced ? 1 : 0, progT = prog, manPrev = new THREE.Vector3(), walk = 0, kShown = -1;
   const lerpV = (a, b, t) => new THREE.Vector3().lerpVectors(a, b, t);
   function applyStory(dt, t) {
-    prog += (progT - prog) * Math.min(1, dt * 4);
+    prog += (progT - prog) * Math.min(1, dt * 1.5); // slow, gentle catch-up so each step plays out
     const p = prog;
     // boat sails in
     const sail = seg(p, 0.0, 0.3), pos = lerpV(BOAT_START, BOAT_END, sail);
@@ -177,7 +177,7 @@ export function mountHarbor(host, opts = {}) {
     const d = new THREE.Vector3().subVectors(mp, manPrev); const speed = d.length() / Math.max(dt, 0.001); manPrev.copy(mp);
     if (speed > 0.15) face = Math.atan2(d.x, d.z); else face = p < 0.3 ? 1.9 : p < 0.66 ? 2.6 : 3.7; // idle: look at the crate / phone
     man.rotation.y += (Math.atan2(Math.sin(face - man.rotation.y), Math.cos(face - man.rotation.y))) * Math.min(1, dt * 8);
-    const moving = speed > 0.15 && (p > 0.3 && p < 0.8); walk += dt * (moving ? 9 : 0);
+    const moving = speed > 0.15 && (p > 0.3 && p < 0.8); walk += dt * (moving ? 6 : 0);
     const sw = moving ? Math.sin(walk) * 0.7 : 0; legL.rotation.x = sw; legR.rotation.x = -sw;
     const holding = p > 0.3 && p < 0.55; armL.rotation.x = holding ? -1.15 : -sw * 0.8; armR.rotation.x = holding ? -1.15 : sw * 0.8;
     if (p >= 0.78) { armR.rotation.x = -1.4 + Math.sin(t * 2) * 0.1; } // points at the phone

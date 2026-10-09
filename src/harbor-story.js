@@ -17,7 +17,7 @@ if (fig) {
     if (api || failed) return;
     if (!webgl()) return fallback();
     try {
-      const { mountHarbor } = await import('/public/js/harbor-story.bundle.js?v=3');
+      const { mountHarbor } = await import('/public/js/harbor-story.bundle.js?v=4');
       api = mountHarbor(host, { reducedMotion: reduced.matches });
       host.addEventListener('harbor:lost', fallback);
       button.hidden = false; button.addEventListener('click', () => api.reset());
@@ -27,9 +27,12 @@ if (fig) {
       const sec = document.getElementById('predictions'), STEP = [0.12, 0.55, 1.0], items = [...fig.querySelectorAll('.story-steps li')];
       let cur = -1;
       const progress = () => {
-        const r = sec.getBoundingClientRect(), span = Math.max(1, r.height - innerHeight * 0.7);
-        const f = Math.max(0, Math.min(1, (innerHeight * 0.15 - r.top) / span)); // 0..1 through the pinned section
-        const step = f < 0.34 ? 0 : f < 0.67 ? 1 : 2;
+        // desktop: the whole aside is sticky inside the section; mobile: the figure is sticky inside a tall aside
+        const aside = fig.closest('.story-aside'), desktopPin = getComputedStyle(aside).position === 'sticky';
+        const r = (desktopPin ? sec : aside).getBoundingClientRect(), pin = desktopPin ? innerHeight * 0.15 : 70;
+        const span = Math.max(1, r.height - (desktopPin ? innerHeight * 0.7 : fig.offsetHeight + 90));
+        const f = Math.max(0, Math.min(1, (pin - r.top) / span)); // 0..1 through the pinned stretch
+        const step = f < 0.3 ? 0 : f < 0.62 ? 1 : 2;
         if (step !== cur) { cur = step; items.forEach((li, i) => { li.classList.toggle('on', i === step); li.classList.toggle('done', i < step); }); }
         api.setProgress(STEP[step]);
       };

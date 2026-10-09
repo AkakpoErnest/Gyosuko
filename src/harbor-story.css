@@ -25,3 +25,17 @@
   #predictions>div:not(.story-aside){position:sticky;top:84px;align-self:start}
   #predictions{grid-template-columns:minmax(300px,1fr) 1.4fr}
 }
+
+/* Mobile: the scene stays pinned under the header while the 3 steps play; each step gets its own stretch of scrolling */
+@media (max-width:900px) and (prefers-reduced-motion:no-preference){
+  #predictions .story-aside{min-height:300vh;align-self:start}
+  #predictions .story-aside>.eyebrow{position:static}
+  #predictions .harbor-story{position:sticky;top:66px;margin:0 auto;z-index:2;background:var(--paper,#f7f4ee);padding:10px 0 6px}
+  #predictions .harbor-3d,#predictions .harbor-fallback{aspect-ratio:16/10;max-height:34vh;width:100%}
+  #predictions .harbor-story figcaption{display:none}
+  .story-steps{margin:10px 0 0}
+  .story-steps li{font-size:13.5px}
+  .story-steps li:not(.on){display:none}
+  .story-steps li.on{display:grid}
+  .harbor-story-toggle{min-height:44px;margin-top:8px}
+}
