@@ -40,9 +40,9 @@ const COPY = {
     review: '内容を確認', back: '← 戻る', reviewTitle: 'これで合っていますか？', reviewBody: '保存する前に、魚の種類・量・時間を確認してください。', save: '保存する', edit: '修正する',
     savedTitle: '保存しました', savedBody: 'これは取引や出荷の依頼ではなく、見込みの共有です。', returnToday: '今日の画面へ', addAnother: 'もう1件入力',
     recordTitle: '入力した魚の見通し', arrival: '入港予定', state: '状況', remove: 'この入力を削除', removeConfirm: 'この入力を削除しますか？', cancel: 'やめる', deleteNow: '削除する',
-    validation: '魚の名前、量、入港日、港を入力してください。', storageError: '保存できませんでした。', syncFail: 'クラウドに送れませんでした。端末には保存しました。',
+    validation: '魚の名前、量、入港日、港を入力してください。', storageError: '保存できませんでした。', syncFail: 'クラウドに送れませんでした。端末には保存しました。', removeFail: 'クラウドから削除できませんでした。記録は残っています。再度お試しください。', sessionLost: 'ログインの有効期限が切れました。端末の記録は残っています。クラウドを使うには再ログインしてください。', cloudLoadFail: 'クラウドの記録を読み込めませんでした。端末の記録を表示しています。', pendingCloud: 'クラウド未同期の記録があります。この端末には保存されています。',
     tabPulse: '詳細', tabToday: '今日', tabCatch: '入力', tabMe: '私', profile: 'プロフィール', editProfile: 'プロフィールを編集', signout: 'ログアウト', clear: '端末のデータを消去', clearConfirm: 'この端末の入力をすべて削除しますか？',
-    cleared: '消去しました。', language: '言語', feedbackTitle: 'ご意見をください', useful: '仕事で使いたいですか？', yes: '使いたい', maybe: '少し変えれば', no: '今は不要',
+    cleared: '消去しました。', language: '言語', feedbackTitle: 'ご意見をください', projectFeedback: 'Gyosokuに感想を送る ↗', useful: '仕事で使いたいですか？', yes: '使いたい', maybe: '少し変えれば', no: '今は不要',
     easy: '入力は分かりやすいですか？', easyYes: '分かりやすい', easyMaybe: '少し難しい', easyNo: '難しい', change: '変えてほしいこと（任意）', feedbackSave: '送る', thanks: 'ありがとうございます', feedbackRequired: '2つの質問に回答してください。',
     install: 'ホーム画面に追加', installBody: 'iPhone：Safariの共有 → ホーム画面に追加。Android：Chromeのメニュー → アプリをインストール。', download: 'データを書き出す',
     timezone: '時刻は日本時間です。', change2: '変更', skip: 'あとで',
@@ -75,9 +75,9 @@ const COPY = {
     review: 'Review the details', back: '← Back', reviewTitle: 'Does this look right?', reviewBody: 'Check the fish, quantity and arrival before saving.', save: 'Save', edit: 'Change details',
     savedTitle: 'Saved', savedBody: 'This shares an outlook. It is not a trade or a delivery request.', returnToday: 'Back to today', addAnother: 'Add another',
     recordTitle: 'Your catch estimate', arrival: 'Expected arrival', state: 'Status', remove: 'Delete this entry', removeConfirm: 'Delete this entry?', cancel: 'Cancel', deleteNow: 'Delete entry',
-    validation: 'Enter the fish name, quantity, arrival date and port.', storageError: 'Could not save.', syncFail: 'Could not reach the cloud. Saved on this device.',
+    validation: 'Enter the fish name, quantity, arrival date and port.', storageError: 'Could not save.', syncFail: 'Could not reach the cloud. Saved on this device.', removeFail: 'Could not delete from the cloud. Your record is still here. Please retry.', sessionLost: 'Your sign-in expired. Records on this device are still here. Sign in again to use the cloud.', cloudLoadFail: 'Could not load cloud records. Showing records saved on this device.', pendingCloud: 'Some records are saved on this device and have not synced to the cloud.',
     tabPulse: 'Details', tabToday: 'Today', tabCatch: 'Add', tabMe: 'Me', profile: 'Profile', editProfile: 'Edit profile', signout: 'Sign out', clear: 'Clear this device’s data', clearConfirm: 'Delete everything saved on this device?',
-    cleared: 'Cleared.', language: 'Language', feedbackTitle: 'Tell us what you think', useful: 'Would you use this for work?', yes: 'Yes', maybe: 'With changes', no: 'Not now',
+    cleared: 'Cleared.', language: 'Language', feedbackTitle: 'Tell us what you think', projectFeedback: 'Send feedback to Gyosoku ↗', useful: 'Would you use this for work?', yes: 'Yes', maybe: 'With changes', no: 'Not now',
     easy: 'Was it easy to enter a catch?', easyYes: 'Easy', easyMaybe: 'A little hard', easyNo: 'Hard', change: 'What would you change? (optional)', feedbackSave: 'Send', thanks: 'Thank you', feedbackRequired: 'Please answer both questions.',
     install: 'Add to home screen', installBody: 'iPhone: Safari → Share → Add to Home Screen. Android: Chrome menu → Install app.', download: 'Export my data',
     timezone: 'Times are in Japan time.', change2: 'Change', skip: 'Later',
@@ -384,7 +384,7 @@ function todayView() {
   } else {
     nodes.push(el('a', { class: 'primary glow linkbtn', href: '/app/' }, t('openProcessor') + ' ↗'));
   }
-  nodes.push(fleetCard(), el('p', { class: 'hint' }, backend.getSession() ? t('storedCloud') : t('storedLocal')));
+  nodes.push(fleetCard(), el('p', { class: 'hint' }, backend.getSession() ? t(S.records.some(r => !r.remote) ? 'pendingCloud' : 'storedCloud') : t('storedLocal')));
   return nodes;
 }
 
@@ -432,19 +432,26 @@ function reviewView() {
 }
 
 async function saveRecord() {
-  S.busy = true; render();
-  const rec = { ...S.draft, quantity: Number(S.draft.quantity), id: S.editingId || crypto.randomUUID(), createdAt: new Date().toISOString() };
+  if (S.busy || !S.draft) return;
+  S.busy = true;
+  S.draft.id = S.editingId || S.draft.id || crypto.randomUUID();
+  render();
+  const rec = { ...S.draft, quantity: Number(S.draft.quantity), createdAt: S.draft.createdAt || new Date().toISOString(), remote: false };
+  let syncFailed = false;
   if (backend.getSession()) {
     const existing = S.records.find((r) => r.id === S.editingId);
-    if (existing?.remote) { if (await backend.updateCatch(existing.id, rec)) rec.remote = true; else toast(t('syncFail')); }
+    if (existing?.remote) rec.remote = await backend.updateCatch(existing.id, rec);
     else {
       const row = await backend.saveCatch(rec);
-      if (row) { rec.id = row.id; rec.remote = true; } else toast(t('syncFail'));
+      if (row) { rec.id = row.id; rec.remote = true; }
     }
+    syncFailed = !rec.remote;
   }
   S.busy = false;
-  S.records = S.editingId ? S.records.map((r) => (r.id === S.editingId ? rec : r)) : [...S.records, rec];
-  if (persist()) { S.selected = rec.id; go('saved'); } else render();
+  const previous = S.records;
+  S.records = S.records.some(r => r.id === rec.id) ? S.records.map(r => r.id === rec.id ? rec : r) : [...S.records, rec];
+  if (persist()) { S.selected = rec.id; go('saved'); if (syncFailed) toast(t('syncFail')); }
+  else { S.records = previous; render(); }
 }
 
 function detailView(saved) {
@@ -454,9 +461,10 @@ function detailView(saved) {
     el('div', { class: 'actions' }, btn(t('returnToday'), () => go('today')), saved ? btn(t('addAnother'), startCatch, 'secondary') : btn(t('edit'), () => { S.editingId = r.id; S.draft = { ...r, otherSpecies: SPECIES.includes(r.species) ? '' : r.species, species: SPECIES.includes(r.species) ? r.species : 'other' }; go('catch'); }, 'secondary')),
     saved ? null : S.confirmDelete
       ? el('div', { class: 'card' }, el('p', {}, t('removeConfirm')), btn(t('deleteNow'), async () => {
-        if (r.remote) await backend.deleteCatch(r.id);
+        if (r.remote && !(await backend.deleteCatch(r.id))) { toast(t('removeFail')); return; }
+        const previous = S.records;
         S.records = S.records.filter((x) => x.id !== r.id);
-        if (persist()) go('today');
+        if (persist()) go('today'); else S.records = previous;
       }, 'secondary'), btn(t('cancel'), () => { S.confirmDelete = false; render(); }, 'quiet'))
       : btn(t('remove'), () => { S.confirmDelete = true; render(); }, 'quiet')];
 }
@@ -495,10 +503,10 @@ function meView() {
         p.photo ? el('button', { type: 'button', class: 'quiet photo__rm', on: { click: () => { S.profile = { ...S.profile, photo: '' }; if (persist()) render(); } } }, t('photoRemove')) : null)),
     el('h1', { tabindex: '-1' }, p.name || t('profile')), el('span', { class: 'pill' }, t(p.role || S.role || 'other')),
     el('div', { class: 'card' }, el('dl', { class: 'summary' }, rows.map(([k, v]) => el('div', {}, el('dt', {}, k), el('dd', {}, v)))), btn(t('editProfile'), () => go('details'), 'secondary')),
-    el('details', { class: 'card' }, el('summary', {}, t('feedbackTitle')), fb),
+    el('details', { class: 'card' }, el('summary', {}, t('feedbackTitle')), fb, el('a', { class: 'quiet', href: '/feedback/', style: 'display:inline-flex;align-items:center;min-height:48px' }, t('projectFeedback'))),
     el('details', { class: 'card' }, el('summary', {}, t('install')), el('p', { class: 'hint' }, t('installBody'))),
     el('div', { class: 'actions' }, btn(t('download'), exportData, 'secondary'),
-      backend.getSession() ? btn(t('signout'), () => { backend.signOut(); S.records = []; S.profile = null; S.role = null; persist(); go('welcome'); }, 'quiet') : null,
+      backend.getSession() ? btn(t('signout'), () => { backend.signOut(); S.records = []; S.profile = null; S.role = null; persist(); go('welcome'); }, 'quiet') : backend.isConfigured() ? btn(t('accessLogin'), () => go('auth'), 'quiet') : null,
       S.confirmClear ? el('div', { class: 'card' }, el('p', {}, t('clearConfirm')), btn(t('clear'), () => { S.records = []; S.feedback = []; S.profile = null; S.confirmClear = false; persist(); toast(t('cleared')); go('welcome'); }, 'secondary'), btn(t('cancel'), () => { S.confirmClear = false; render(); }, 'quiet')) : btn(t('clear'), () => { S.confirmClear = true; render(); }, 'quiet'))];
 }
 
@@ -777,14 +785,20 @@ window.addEventListener('popstate', async () => {
 });
 window.addEventListener('beforeunload', (e) => { if (S.screen === 'catch' && formDirty()) { e.preventDefault(); e.returnValue = ''; } });
 
+backend.onSessionLost?.(() => toast(t('sessionLost')));
+
 async function boot() {
   render();
   await backend.init();
   if (backend.getSession()) {
     const prof = await backend.getProfile();
     if (prof) S.profile = { role: prof.role, name: prof.display_name, ...(prof.details || {}) };
-    S.records = (await backend.listCatches()).map(fromRow);
-    persist();
+    const rows = await backend.listCatches();
+    if (rows) {
+      const merged = new Map(rows.map(fromRow).map(r => [r.id, r]));
+      for (const record of S.records.filter(r => !r.remote)) merged.set(record.id, record);
+      S.records = [...merged.values()]; persist();
+    } else toast(t('cloudLoadFail'));
   }
   S.screen = S.profile ? 'today' : backend.getSession() && S.role ? 'details' : S.screen === 'welcome' && !S.profile ? 'welcome' : S.screen;
   if (backend.getSession() && !S.profile) S.screen = S.role ? 'details' : 'role';

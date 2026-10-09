@@ -1,8 +1,8 @@
 const KEY = 'gyosoku.predictions.v1';
-const LANG = 'gyosoku.predictions.language';
+const LANG = 'gyosoku.lang';
 const species = { skipjack: ['Skipjack', 'カツオ'], tuna: ['Tuna', 'マグロ'], mackerel: ['Mackerel', 'サバ'], sardine: ['Sardine', 'イワシ'] };
-let lang = 'en', records = [], readable = true;
-try { lang = localStorage.getItem(LANG) === 'ja' ? 'ja' : 'en'; const saved = JSON.parse(localStorage.getItem(KEY) || '[]'); if (!Array.isArray(saved)) throw Error('Invalid saved board'); records = saved.filter(valid).slice(0, 500); }
+let lang = 'ja', records = [], readable = true;
+try { lang = (localStorage.getItem(LANG) || localStorage.getItem('gyosoku.predictions.language')) === 'en' ? 'en' : 'ja'; const saved = JSON.parse(localStorage.getItem(KEY) || '[]'); if (!Array.isArray(saved)) throw Error('Invalid saved board'); records = saved.filter(valid).slice(0, 500); }
 catch { readable = false; }
 const text = (en, ja) => lang === 'ja' ? ja : en;
 const number = n => new Intl.NumberFormat(lang === 'ja' ? 'ja-JP' : 'en-US').format(n);

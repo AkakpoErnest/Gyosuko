@@ -6,6 +6,13 @@
 const SESSION_KEY = 'gyosoku.session.v1';
 let config = null;
 let session = null;
+let refreshing = null;
+const sessionLost = new Set();
+export function onSessionLost(callback) { sessionLost.add(callback); return () => sessionLost.delete(callback); }
+function loseSession() {
+  const hadSession = !!session; store(null);
+  if (hadSession) for (const callback of sessionLost) { try { callback(); } catch {} }
+}
 
 export const isConfigured = () => !!config;
 export const getSession = () => session;
@@ -41,49 +48,67 @@ export async function init() {
   } else {
     try { session = JSON.parse(localStorage.getItem(SESSION_KEY) || 'null'); } catch {}
   }
-  if (session && session.expires_at - Date.now() < 60_000) await refresh();
+  if (session && session.expires_at - Date.now() < 60_000 && !(await refresh())) return;
   if (session) {
     const user = await api('/auth/v1/user');
-    if (user && user.id) session.user = user;
-    else store(null);
+    if (session && user && user.id) store({ ...session, user });
+    // A temporary network failure must not erase a stored session.
   }
 }
 
 async function refresh() {
-  if (!session?.refresh_token) return store(null);
-  const res = await fetch(`${config.supabaseUrl}/auth/v1/token?grant_type=refresh_token`, {
-    method: 'POST',
-    headers: { apikey: config.supabaseAnonKey, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ refresh_token: session.refresh_token }),
-  });
-  if (!res.ok) return store(null);
-  const j = await res.json();
-  store({ access_token: j.access_token, refresh_token: j.refresh_token, expires_at: Date.now() + j.expires_in * 1000 });
+  if (refreshing) return refreshing;
+  refreshing = (async () => {
+    if (!session?.refresh_token) { loseSession(); return false; }
+    const previous = session;
+    try {
+      const res = await fetch(`${config.supabaseUrl}/auth/v1/token?grant_type=refresh_token`, {
+        method: 'POST', headers: { apikey: config.supabaseAnonKey, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ refresh_token: previous.refresh_token }),
+      });
+      if (session !== previous) return false; // Ignore a response after sign-out.
+      if (!res.ok) { if ([400, 401, 403].includes(res.status)) loseSession(); return false; }
+      const j = await res.json();
+      if (session !== previous || !j.access_token || !j.refresh_token || !Number.isFinite(j.expires_in)) return false;
+      store({ access_token: j.access_token, refresh_token: j.refresh_token, expires_at: Date.now() + j.expires_in * 1000, user: previous.user });
+      return true;
+    } catch { return false; }
+  })();
+  try { return await refreshing; } finally { refreshing = null; }
 }
 
 async function api(path, { method = 'GET', body, headers = {} } = {}) {
-  const res = await fetch(config.supabaseUrl + path, {
-    method,
-    headers: {
-      apikey: config.supabaseAnonKey,
-      Authorization: `Bearer ${session?.access_token || config.supabaseAnonKey}`,
-      'Content-Type': 'application/json',
-      ...headers,
-    },
-    body: body === undefined ? undefined : JSON.stringify(body),
-  });
-  if (!res.ok) return null;
-  return res.status === 204 ? true : res.json().catch(() => true);
+  if (!config || !session) return null;
+  if (session.expires_at - Date.now() < 60_000 && !(await refresh())) return null;
+  async function request() {
+    return fetch(config.supabaseUrl + path, {
+      method, headers: { apikey: config.supabaseAnonKey, Authorization: `Bearer ${session.access_token}`, 'Content-Type': 'application/json', ...headers },
+      body: body === undefined ? undefined : JSON.stringify(body),
+    });
+  }
+  try {
+    let res = await request();
+    if (res.status === 401) {
+      if (!(await refresh())) return null;
+      res = await request();
+      if (res.status === 401) loseSession();
+    }
+    if (!res.ok) return null;
+    return res.status === 204 ? true : res.json().catch(() => null);
+  } catch { return null; }
 }
 
 /** Email a one-time sign-in link. Resolves true if the request was accepted. */
 export async function sendMagicLink(email) {
+  if (!config) return false;
+  try {
   const res = await fetch(`${config.supabaseUrl}/auth/v1/otp?redirect_to=${encodeURIComponent(location.origin + location.pathname)}`, {
     method: 'POST',
     headers: { apikey: config.supabaseAnonKey, 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, create_user: true }),
   });
   return res.ok;
+  } catch { return false; }
 }
 
 export const signOut = () => store(null);
@@ -91,12 +116,13 @@ export const signOut = () => store(null);
 // ------------------------------------------------------------------ profiles
 
 export async function getProfile() {
-  if (!session) return null;
+  if (!session?.user?.id) return null;
   const rows = await api(`/rest/v1/profiles?id=eq.${session.user.id}&select=role,display_name,details`);
   return Array.isArray(rows) ? rows[0] || null : null;
 }
 
 export async function saveProfile(role, displayName, details = {}) {
+  if (!session?.user?.id) return false;
   const ok = await api('/rest/v1/profiles?on_conflict=id', {
     method: 'POST',
     headers: { Prefer: 'resolution=merge-duplicates,return=minimal' },
@@ -118,25 +144,25 @@ const toRow = (r) => ({
 });
 
 export async function saveCatch(record) {
-  const rows = await api('/rest/v1/catch_reports', {
+  const rows = await api('/rest/v1/catch_reports?on_conflict=id', {
     method: 'POST',
-    headers: { Prefer: 'return=representation' },
-    body: toRow(record),
+    headers: { Prefer: 'resolution=merge-duplicates,return=representation' },
+    body: { ...toRow(record), id: record.id },
   });
   return Array.isArray(rows) ? rows[0] : null;
 }
 
 export async function listCatches() {
   const rows = await api('/rest/v1/catch_reports?select=*&order=arrival_date.desc&limit=200');
-  return Array.isArray(rows) ? rows : [];
+  return Array.isArray(rows) ? rows : null;
 }
 
 export async function updateCatch(id, record) {
-  const ok = await api(`/rest/v1/catch_reports?id=eq.${encodeURIComponent(id)}`, { method: 'PATCH', headers: { Prefer: 'return=minimal' }, body: toRow(record) });
-  return !!ok;
+  const rows = await api(`/rest/v1/catch_reports?id=eq.${encodeURIComponent(id)}`, { method: 'PATCH', headers: { Prefer: 'return=representation' }, body: toRow(record) });
+  return Array.isArray(rows) && rows.some(row => row.id === id);
 }
 
-export const deleteCatch = (id) => api(`/rest/v1/catch_reports?id=eq.${encodeURIComponent(id)}`, { method: 'DELETE' });
+export const deleteCatch = async (id) => !!(await api(`/rest/v1/catch_reports?id=eq.${encodeURIComponent(id)}`, { method: 'DELETE' }));
 
 /** Aggregated expected landings (needs >= 3 reporters; otherwise empty). */
 export async function expectedLandings(species, until) {
