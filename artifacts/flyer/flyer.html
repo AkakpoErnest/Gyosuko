@@ -4,7 +4,7 @@ body{font-family:'Hiragino Sans','Hiragino Kaku Gothic ProN','Yu Gothic','Noto S
 .page{width:210mm;height:297mm;position:relative;overflow:hidden;background:#f7f4ee;page-break-after:always;display:flex;flex-direction:column}
 .hero{position:relative;height:50mm;flex:none;overflow:hidden}.hero>img{width:100%;height:100%;object-fit:cover;object-position:60% 62%}
 .fade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(247,244,238,.96) 0%,rgba(247,244,238,.7) 34%,rgba(247,244,238,0) 62%)}
-.brand{position:absolute;left:14mm;top:8mm;display:flex;align-items:center;gap:4mm}.brand img{width:20mm;height:20mm;border-radius:5mm;box-shadow:0 1mm 3mm rgba(0,0,0,.25)}.brand b{display:block;font-size:30pt;line-height:1;letter-spacing:.04em}.brand span{font-size:13pt;letter-spacing:.2em;color:#14786f;font-weight:700}
+.brand{position:absolute;left:14mm;top:8mm;display:flex;align-items:center;gap:4mm}.brand img{width:20mm;height:20mm;border-radius:5mm;border:.3mm solid rgba(11,42,53,.2);}.brand b{display:block;font-size:30pt;line-height:1;letter-spacing:.04em}.brand span{font-size:13pt;letter-spacing:.2em;color:#14786f;font-weight:700}
 .body{padding:4mm 14mm 0;flex:1;display:flex;flex-direction:column}
 .kicker{margin:0 0 2mm;font-size:11pt;font-weight:700;color:#14786f;letter-spacing:.06em}
 h1{margin:0;font-size:31pt;line-height:1.24;font-weight:800;letter-spacing:-.01em;color:#0b2a35}
@@ -18,7 +18,7 @@ h1{margin:0;font-size:31pt;line-height:1.24;font-weight:800;letter-spacing:-.01e
 .steps h2{margin:0;font-size:19pt;line-height:1.3;font-weight:800}
 .steps p{margin:.5mm 0 0;font-size:13pt;line-height:1.5;color:#3d5a60}
 .phones{position:relative;height:56mm}
-.ph{position:absolute;width:26mm;background:#0b1217;border-radius:5mm;padding:1.2mm;box-shadow:0 3mm 6mm rgba(11,42,53,.35)}.ph img{display:block;width:100%;border-radius:4mm}
+.ph{outline:.35mm solid rgba(11,42,53,.35);position:absolute;width:26mm;background:#0b1217;border-radius:5mm;padding:1.2mm;}.ph img{display:block;width:100%;border-radius:4mm}
 .ph.back{left:2mm;top:7mm;transform:rotate(-8deg)}.ph.front{right:0;top:0;width:28mm;transform:rotate(5deg)}
 .qrs{margin-top:3mm;display:grid;grid-template-columns:1.25fr 1fr;gap:7mm;align-items:end}
 .qr{text-align:center}.tag{display:inline-block;background:#ff7a3d;color:#fff;font-weight:800;font-size:16pt;padding:1.2mm 6mm;border-radius:99px;margin-bottom:2mm}.tag.alt{background:#0b3a45}
