@@ -10,7 +10,7 @@ const TZ = 'Asia/Tokyo';
 const en = {
   // App shell
   'app.name': 'Gyosoku',
-  'app.tagline': 'A clearer next move when fish supply is uncertain',
+  'app.tagline': 'Order, stock and landing forecast on one sheet',
   'app.demoBanner': 'Demo data only. Forecast accuracy has not been validated. Human approval required.',
   'app.langToggle': '日本語',
   'app.scenario': 'Synthetic Skipjack scenario',
@@ -35,6 +35,7 @@ const en = {
   'common.p90': 'P90 (high)',
   'common.asOf': 'As of {date}',
   'common.kg': 'kg',
+  'common.notInTotal': 'shown separately, not in total',
 
   // Overview
   'overview.title': 'Overview',
@@ -154,6 +155,13 @@ const en = {
   'status.expected': 'Expected',
   'status.uncertain': 'Uncertain',
   'status.approved': 'Approved',
+  'status.approved.mark': 'A',
+  'status.rejected.mark': 'R',
+  'status.review.mark': 'H',
+  'ledger.date': 'Date',
+  'ledger.vessel': 'Vessel',
+  'ledger.quantity': 'Quantity',
+  'ledger.status': 'Status',
   'status.rejected': 'Rejected',
   'status.review': 'Under review',
 
@@ -179,7 +187,7 @@ const en = {
 const ja = {
   // App shell
   'app.name': 'Gyosoku',
-  'app.tagline': '魚の供給が不確かなときに、次の一手を明確にする',
+  'app.tagline': '注文・在庫・水揚げ見込みを一枚で',
   'app.demoBanner': 'デモデータのみ。予測精度は未検証です。人による承認が必要です。',
   'app.langToggle': 'English',
   'app.scenario': 'カツオの合成デモシナリオ',
@@ -204,6 +212,7 @@ const ja = {
   'common.p90': 'P90（高位）',
   'common.asOf': '{date} 時点',
   'common.kg': 'kg',
+  'common.notInTotal': '別掲（合計に含めず）',
 
   // Overview
   'overview.title': '概要',
@@ -323,6 +332,13 @@ const ja = {
   'status.expected': '入港予定',
   'status.uncertain': '不確定',
   'status.approved': '承認',
+  'status.approved.mark': '承',
+  'status.rejected.mark': '却',
+  'status.review.mark': '保',
+  'ledger.date': '日付',
+  'ledger.vessel': '漁船',
+  'ledger.quantity': '数量',
+  'ledger.status': '状態',
   'status.rejected': '却下',
   'status.review': '保留',
 

@@ -64,22 +64,45 @@ function tFirst(...keys) {
 
 const chipText = (tone, text) => h('span', { class: `chip chip--${tone}` }, text);
 const chip = (statusKey) => chipText(TONE[statusKey] || 'muted', t(`status.${statusKey}`));
-const stamp = (decision) => h('span', { class: `stamp stamp--${decision}` }, t(`status.${decision}`));
+const stamp = (decision) => h('span', { class: `stamp stamp--${decision}` },
+  h('span', { class: 'stamp__mark', 'aria-hidden': 'true' }, t(`status.${decision}.mark`)),
+  h('span', { class: 'stamp__text' }, t(`status.${decision}`)));
+const fmtNum = (kg) => fmtKg(kg).replace(/\s*kg$/, '');
 
-function card(title, value, meta, extra) {
-  return h('article', { class: 'card' },
-    h('h3', { class: 'card__title' }, title),
-    h('p', { class: 'card__value' }, value),
-    meta ? h('p', { class: 'card__meta' }, meta) : null,
-    extra || null);
+function figure(label, kg, text, range) {
+  return h('div', { class: 'figure' },
+    h('p', { class: 'figure__label' }, label),
+    h('p', { class: 'figure__n' }, fmtNum(kg), h('small', {}, t('common.kg'))),
+    h('div', { class: 'figure__text' },
+      text ? h('p', {}, text) : null,
+      range ? h('p', { class: 'figure__range' }, range) : null));
 }
 
-const viewTitle = (view, key) => h('h2', { class: 'view__title', id: `view-title-${view}` }, t(key));
+// The arithmetic the whole demo rests on, as a ruled ledger.
+function arithmeticLedger(c) {
+  const row = (label, kg, cls, extra) => h('tr', { class: cls || null },
+    h('th', { scope: 'row' }, label, extra ? h('span', { class: 'is-dim' }, ` · ${extra}`) : null),
+    h('td', { class: 'num' }, fmtKg(kg)));
+  return h('table', { class: 'ledger ledger--arith' },
+    h('tbody', {},
+      row(t('common.need'), c.need),
+      row(t('common.stock'), c.stock, null, t(`location.${scenario.stock.location}`)),
+      row(t('common.landings'), landingsKg('p50'), null, 'P50'),
+      row(t('common.coverage'), c.coverage.p50, 'is-total'),
+      row(t('common.gap'), c.gap.p50, 'is-gap'),
+      c.verifiedOffersKg > 0 ? row(t('common.verifiedOffers'), c.verifiedOffersKg, 'is-dim', t('common.notInTotal')) : null));
+}
+
+function ledgerHead(...labels) {
+  return h('thead', {}, h('tr', {}, labels.map(([label, cls]) => h('th', { scope: 'col', class: cls || null }, label))));
+}
+
+const viewTitle = (view, key) => h('h1', { class: 'view__title', id: `view-title-${view}`, tabindex: -1 }, t(key));
+const metaLine = () => h('p', { class: 'meta' },
+  `${t('provenance.synthetic')} · ${t('common.asOf', { date: fmtDateTime(scenario.meta.asOf) })} · ${t('tech.notValidated')}`);
 
 function pilotPanel() {
-  return h('article', { class: 'card card--pilot' },
-    h('h3', { class: 'card__title' }, t('pilot.title')),
-    h('p', { class: 'card__meta' }, t('pilot.body')));
+  return h('section', { class: 'pilot' }, h('h3', {}, t('pilot.title')), h('p', {}, t('pilot.body')));
 }
 
 // ---------------------------------------------------------------- data
@@ -106,44 +129,39 @@ const latestDecisionFor = (suggestionKey) => state.activity.find((a) => a.sugges
 
 let ribbonSeq = 0;
 function renderRibbon(c, { compact = false } = {}) {
-  const W = 600, H = compact ? 40 : 104, pad = 14;
-  const max = Math.max(c.need, c.coverage.p90, c.stock + c.verifiedOffersKg);
-  const x = (kg) => pad + (kg / max) * (W - 2 * pad);
-  const barY = compact ? 12 : 34, barH = compact ? 14 : 20;
-  const id = `ribbon-title-${++ribbonSeq}`;
-  const label = (text, px, py, anchor = 'middle', cls = 'ribbon__label') =>
-    s('text', { x: px, y: py, 'text-anchor': anchor, class: cls }, text);
-
+  const max = Math.max(c.need, c.coverage.p90, c.stock + c.verifiedOffersKg) * 1.04;
+  const pct = (kg) => `${((kg / max) * 100).toFixed(2)}%`;
+  const H = compact ? 44 : 104;
+  const top = compact ? 10 : 36, bh = compact ? 24 : 32, mid = top + bh / 2;
+  const id = `ribbon-title-${++ribbonSeq}`, hatch = `hatch-${ribbonSeq}`;
+  const text = (str, kg, y, anchor, cls) => s('text', { x: pct(kg), y, 'text-anchor': anchor, class: cls || null }, str);
   const kids = [
     s('title', { id }, t('a11y.ribbon', { p10: fmtKg(c.coverage.p10), p50: fmtKg(c.coverage.p50), p90: fmtKg(c.coverage.p90), need: fmtKg(c.need) })),
-    s('rect', { x: x(0), y: barY, width: x(max) - x(0), height: barH, rx: 3, class: 'ribbon__track' }),
-    s('rect', { x: x(c.stock), y: barY, width: x(c.coverage.p90) - x(c.stock), height: barH, class: 'ribbon__forecast' }),
-    s('rect', { x: x(c.coverage.p10), y: barY, width: x(c.coverage.p90) - x(c.coverage.p10), height: barH, class: 'ribbon__range' }),
-    s('rect', { x: x(0), y: barY, width: x(c.stock) - x(0), height: barH, rx: 3, class: 'ribbon__stock' }),
+    s('defs', {}, s('pattern', { id: hatch, patternUnits: 'userSpaceOnUse', width: 6, height: 6 }, s('path', { d: 'M0 6L6 0', class: 'ribbon__hatch' }))),
+    s('line', { x1: 0, x2: '100%', y1: mid, y2: mid, class: 'ribbon__track' }),
+    s('rect', { x: pct(c.coverage.p10), y: top, width: pct(c.coverage.p90 - c.coverage.p10), height: bh, fill: `url(#${hatch})` }),
+    c.need > c.coverage.p50 ? s('rect', { x: pct(c.coverage.p50), y: top, width: pct(c.need - c.coverage.p50), height: bh, class: 'ribbon__gap' }) : null,
+    s('rect', { x: 0, y: top, width: pct(c.stock), height: bh, class: 'ribbon__stock' }),
+    c.verifiedOffersKg > 0 ? s('rect', { x: pct(c.stock), y: top, width: pct(c.verifiedOffersKg), height: bh, class: 'ribbon__verified' }) : null,
+    s('line', { x1: pct(c.coverage.p50), x2: pct(c.coverage.p50), y1: top - 6, y2: top + bh + 6, class: 'ribbon__p50' }),
+    s('line', { x1: pct(c.need), x2: pct(c.need), y1: compact ? top - 8 : 18, y2: top + bh + 8, class: 'ribbon__need' }),
   ];
-  for (const p of PCTS) {
-    const px = x(c.coverage[p]);
-    kids.push(s('line', { x1: px, x2: px, y1: barY - 4, y2: barY + barH + 4, class: `ribbon__marker ribbon__marker--${p}` }));
-    if (!compact) kids.push(label(p.toUpperCase(), px, barY - 9), label(fmtKg(c.coverage[p]), px, barY + barH + 16));
-  }
-  const nx = x(c.need);
-  kids.push(s('line', { x1: nx, x2: nx, y1: 6, y2: barY + barH + 6, class: 'ribbon__need' }));
   if (!compact) {
-    kids.push(label(`${t('supply.requirements')} ${fmtKg(c.need)}`, Math.min(nx, W - pad), 12, 'end'));
-    kids.push(label(`${t('supply.stock')} ${fmtKg(c.stock)}`, x(0), barY + barH + 16, 'start'));
+    const below = top + bh + 18;
+    kids.push(
+      text(`${t('common.need')} ${fmtKg(c.need)}`, c.need, 12, 'end', 'is-accent'),
+      text(`P50 ${fmtKg(c.coverage.p50)}`, c.coverage.p50, top - 12, 'end', 'is-ink'),
+      text(`${t('common.stock')} ${fmtKg(c.stock)}`, 0, below, 'start'),
+      text(`P10 ${fmtKg(c.coverage.p10)}`, c.coverage.p10, below, 'start'),
+      text(`P90 ${fmtKg(c.coverage.p90)}`, c.coverage.p90, below, 'end'));
+    if (c.verifiedOffersKg > 0) kids.push(text(`${t('status.verified')} +${fmtKg(c.verifiedOffersKg)}`, c.stock + c.verifiedOffersKg, top - 12, 'start'));
   }
-  if (c.verifiedOffersKg > 0) {
-    const vy = compact ? barY + barH + 3 : barY + barH + 24;
-    kids.push(s('rect', { x: x(c.stock), y: vy, width: x(c.stock + c.verifiedOffersKg) - x(c.stock), height: compact ? 5 : 8, rx: 2, class: 'ribbon__verified' }));
-    if (!compact) kids.push(label(`${t('status.verified')} +${fmtKg(c.verifiedOffersKg)}`, x(c.stock + c.verifiedOffersKg) + 6, vy + 7, 'start'));
-  }
-
-  const svg = s('svg', { class: 'ribbon__svg', viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-labelledby': id, preserveAspectRatio: 'none' }, kids);
+  const svg = s('svg', { class: 'ribbon__svg', width: '100%', height: H, role: 'img', 'aria-labelledby': id }, kids);
   const parts = PCTS.map((p) => `${p.toUpperCase()} ${fmtKg(c.coverage[p])}`);
   if (c.verifiedOffersKg > 0) parts.push(`${t('status.verified')} +${fmtKg(c.verifiedOffersKg)}`);
-  parts.push(`${t('supply.requirements')} ${fmtKg(c.need)}`);
+  parts.push(`${t('common.need')} ${fmtKg(c.need)}`);
   return h('figure', { class: `ribbon${compact ? ' ribbon--compact' : ''}` }, svg,
-    h('figcaption', { class: 'ribbon__caption' }, `${t('supply.stock')} ${fmtKg(c.stock)} · ${parts.join(' · ')}`));
+    h('figcaption', { class: 'ribbon__caption' }, `${t('common.stock')} ${fmtKg(c.stock)} · ${parts.join(' · ')}`));
 }
 
 function renderPercentiles() {
@@ -175,25 +193,27 @@ function freshnessChips(c) {
 
 // ---------------------------------------------------------------- views
 
+function arrivalsTable() {
+  return h('table', { class: 'ledger ledger--data' },
+    ledgerHead([t('ledger.date')], [t('ledger.vessel')], [t('ledger.quantity'), 'num'], [t('ledger.status')]),
+    h('tbody', {}, scenario.arrivals.map((a) => h('tr', {},
+      h('td', {}, h('time', { datetime: a.date }, fmtDate(a.date))),
+      h('td', {}, t(`vessel.${a.vesselKey}`)),
+      h('td', { class: 'num' }, fmtKg(a.expectedKg)),
+      h('td', {}, chip(a.status))))));
+}
+
 function renderOverview(c) {
   const o = scenario.order;
   return [
-    viewTitle('overview', 'overview.title'),
-    h('div', { class: 'cards' },
-      card(t('overview.activeOrder'), fmtKg(o.quantityKg), `${t(`species.${o.species}`)} · ${t(`buyer.${o.buyer}`)} · ${t('overview.due', { date: fmtDate(o.dueDate) })}`),
-      card(t('overview.confirmedStock'), fmtKg(c.stock), `${t(`location.${scenario.stock.location}`)} · ${fmtDateTime(scenario.stock.verifiedAt)}`, chip('verified')),
-      card(t('overview.forecastRange'), `${fmtKg(c.coverage.p10)} – ${fmtKg(c.coverage.p90)}`, `P50 ${fmtKg(c.coverage.p50)}`, chipText('muted', t('provenance.synthetic'))),
-      card(t('overview.possibleGap'), fmtKg(c.gap.p50), `P90 ${fmtKg(c.gap.p90)} – P10 ${fmtKg(c.gap.p10)}`, chipText('warn', t('tech.notValidated'))),
-      card(t('overview.nextDeadline'), fmtDate(o.dueDate), o.id)),
-    h('section', { class: 'panel' },
-      h('h3', { class: 'panel__title' }, t('overview.arrivals')),
-      h('ol', { class: 'timeline' }, scenario.arrivals.map((a) =>
-        h('li', { class: 'timeline__item' },
-          h('time', { class: 'timeline__date', datetime: a.date }, fmtDate(a.date)),
-          h('span', { class: 'timeline__vessel' }, t(`vessel.${a.vesselKey}`)),
-          h('span', { class: 'timeline__kg' }, fmtKg(a.expectedKg)),
-          chip(a.status))))),
-    pilotPanel(),
+    viewTitle('overview', 'overview.title'), metaLine(),
+    h('p', { class: 'lede' }, `${o.id} · ${t('overview.orderMeta', { species: t(`species.${o.species}`), buyer: t(`buyer.${o.buyer}`) })} · ${t('overview.due', { date: fmtDate(o.dueDate) })}`),
+    figure(t('overview.possibleGap'), c.gap.p50, t('decision.shortageLead', { gap: fmtKg(c.gap.p50) }),
+      `P10 ${fmtKg(c.gap.p10)} · P50 ${fmtKg(c.gap.p50)} · P90 ${fmtKg(c.gap.p90)}`),
+    renderRibbon(c),
+    h('div', { class: 'split' },
+      h('section', {}, h('h3', { class: 'panel__title' }, t('supply.trace')), arithmeticLedger(c)),
+      h('section', {}, h('h3', { class: 'panel__title' }, t('overview.arrivals')), arrivalsTable())),
   ];
 }
 
@@ -202,41 +222,35 @@ function toggleOffer(id) {
   if (!offer || offer.status === 'declined') return;
   offer.status = offer.status === 'verified' ? 'offered' : 'verified';
   renderAll();
+  document.querySelector(`[data-offer="${id}"]`)?.focus();
 }
 
 function renderSupply(c) {
-  const offersTable = h('table', { class: 'offers' },
-    h('thead', {}, h('tr', {},
-      h('th', { scope: 'col' }, t('supply.colSupplier')), h('th', { scope: 'col' }, t('supply.colQuantity')),
-      h('th', { scope: 'col' }, t('supply.colEta')), h('th', { scope: 'col' }, t('supply.colStatus')), h('th', { scope: 'col' }, t('supply.colAction')))),
+  const offersTable = h('table', { class: 'ledger ledger--data' },
+    ledgerHead([t('supply.colSupplier')], [t('supply.colQuantity'), 'num'], [t('supply.colEta')], [t('supply.colStatus')], [t('supply.colAction')]),
     h('tbody', {}, state.offers.map((o) => h('tr', { class: 'offers__row' },
       h('td', {}, t(`supplier.${o.supplier}`)),
       h('td', { class: 'num' }, fmtKg(o.quantityKg)),
       h('td', {}, fmtDate(o.etaDate)),
       h('td', {}, chip(o.status)),
       h('td', {}, o.status === 'declined' ? null : h('button', {
-        class: `btn ${o.status === 'verified' ? 'btn--ghost' : 'btn--primary'}`, type: 'button',
+        class: `btn btn--small${o.status === 'verified' ? ' btn--ghost' : ''}`, type: 'button', 'data-offer': o.id,
         'aria-pressed': String(o.status === 'verified'), onclick: () => toggleOffer(o.id),
       }, t(o.status === 'verified' ? 'supply.unmarkVerified' : 'supply.markVerified')))))));
 
   return [
-    viewTitle('supply', 'supply.title'),
-    h('div', { class: 'cards' },
-      card(t('supply.requirements'), fmtKg(c.need), `${t(`species.${scenario.order.species}`)} · ${t('overview.due', { date: fmtDate(scenario.order.dueDate) })}`),
-      card(t('supply.stock'), fmtKg(c.stock), t(`location.${scenario.stock.location}`), chip('verified')),
-      card(t('common.verifiedOffers'), fmtKg(c.verifiedOffersKg), `${fmtKg(c.offeredUnconfirmedKg)} — ${t('supply.offeredNotCounted')}`, chip(c.verifiedOffersKg > 0 ? 'verified' : 'offered'))),
-    h('section', { class: 'panel' }, h('h3', { class: 'panel__title' }, t('supply.offers')), offersTable),
-    h('section', { class: 'panel' },
-      h('h3', { class: 'panel__title' }, t('supply.forecast')),
-      renderRibbon(c),
-      freshnessChips(c),
-      h('details', { class: 'disclosure' },
-        h('summary', {}, t('supply.howFormed')),
-        h('p', {}, t('supply.percentilesIntro')),
-        renderPercentiles(),
-        h('h4', {}, t('supply.trace')),
-        renderTrace(c))),
-    h('p', { class: 'note' }, t('tech.notEvidence')),
+    viewTitle('supply', 'supply.title'), metaLine(),
+    renderRibbon(c),
+    h('div', { class: 'split split--offers' },
+      h('section', {}, h('h3', { class: 'panel__title' }, t('supply.requirements')), arithmeticLedger(c)),
+      h('section', {}, h('h3', { class: 'panel__title' }, t('supply.offers')), offersTable,
+        c.offeredUnconfirmedKg > 0 ? h('p', { class: 'note' }, t('supply.offeredNotCounted')) : null)),
+    h('details', { class: 'disclosure' },
+      h('summary', {}, t('supply.howFormed')),
+      h('p', {}, t('supply.percentilesIntro')),
+      renderPercentiles(),
+      h('h4', {}, t('supply.trace')),
+      renderTrace(c)),
   ];
 }
 
@@ -263,13 +277,6 @@ function recordDecision() {
 
 function renderDecision(c) {
   const chosen = state.selectedSuggestion;
-  const inputs = h('ul', { class: 'inputs' },
-    h('li', {}, `${t('supply.requirements')}: ${fmtKg(c.need)}`),
-    h('li', {}, `${t('supply.stock')}: ${fmtKg(c.stock)}`),
-    h('li', {}, `P50 ${t('supply.forecast')}: ${fmtKg(landingsKg('p50'))}`),
-    c.verifiedOffersKg > 0 ? h('li', {}, `${t('status.verified')} ${t('supply.offers')}: ${fmtKg(c.verifiedOffersKg)}`) : null,
-    c.offeredUnconfirmedKg > 0 ? h('li', {}, `${t('status.offered')} ${fmtKg(c.offeredUnconfirmedKg)} — ${t('supply.offeredNotCounted')}`) : null);
-
   const options = scenario.suggestions.map((sug) => {
     const id = `sug-${sug.id}`;
     const last = latestDecisionFor(sug.key);
@@ -278,26 +285,27 @@ function renderDecision(c) {
         onchange: () => { state.selectedSuggestion = sug.key; state.notice = null; renderAll(); document.getElementById(id)?.focus(); } }),
       h('span', { class: 'suggestion__body' },
         h('span', { class: 'suggestion__head' }, h('span', { class: 'suggestion__title' }, t(`suggest.${sug.key}`)), last ? stamp(last.decision) : null),
-        h('span', { class: 'suggestion__reason' }, `${t('decision.reason')}: ${t(`suggest.${sug.key}.desc`)}`),
+        h('span', { class: 'suggestion__reason' }, t(`suggest.${sug.key}.desc`)),
         h('span', { class: 'suggestion__evidence-label' }, t('decision.evidence')),
         h('ul', { class: 'evidence' }, sug.evidenceKeys.map((k) => h('li', {}, evidenceText(k, c))))));
   });
-
   const btn = (action, cls) => h('button', { class: `btn ${cls}`, type: 'button', disabled: !chosen, onclick: () => requestDecision(DECISIONS[action]) }, t(`decision.${action}`));
 
   return [
-    viewTitle('decision', 'decision.title'),
-    h('article', { class: 'card card--shortage' },
-      h('h3', { class: 'card__title' }, t('decision.shortage')),
-      h('p', { class: 'card__value' }, fmtKg(c.gap.p50)),
-      h('p', { class: 'card__lead' }, t('decision.shortageLead', { gap: fmtKg(c.gap.p50) })),
-      h('h4', { class: 'card__meta' }, t('decision.gapInputs')), inputs,
-      chipText('warn', t('tech.notValidated'))),
-    h('fieldset', { class: 'suggestions' }, h('legend', {}, t('decision.suggestions')), options),
-    h('div', { class: 'actions' }, btn('approve', 'btn--primary'), btn('reject', 'btn--danger'), btn('review', 'btn--ghost')),
-    !chosen ? h('p', { class: 'hint' }, t('decision.needChoice')) : null,
-    h('p', { class: 'note' }, t('decision.humanRequired')),
-    state.notice ? h('p', { class: 'notice notice--ok', role: 'status' }, stamp(state.notice.decision), ` ${t('decision.recorded')}`) : null,
+    viewTitle('decision', 'decision.title'), metaLine(),
+    h('div', { class: 'decision' },
+      h('div', { class: 'decision__left' },
+        figure(t('decision.shortage'), c.gap.p50, t('decision.shortageLead', { gap: fmtKg(c.gap.p50) }),
+          `P10 ${fmtKg(c.gap.p10)} · P50 ${fmtKg(c.gap.p50)} · P90 ${fmtKg(c.gap.p90)}`),
+        h('h3', { class: 'panel__title' }, t('decision.gapInputs')),
+        arithmeticLedger(c),
+        c.offeredUnconfirmedKg > 0 ? h('p', { class: 'note' }, `${t('status.offered')} ${fmtKg(c.offeredUnconfirmedKg)} — ${t('supply.offeredNotCounted')}`) : null),
+      h('div', { class: 'decision__right' },
+        h('fieldset', { class: 'suggestions' }, h('legend', {}, t('decision.suggestions')), options),
+        h('div', { class: 'actions' }, btn('approve', 'btn--primary'), btn('reject', 'btn--danger'), btn('review', 'btn--ghost'),
+          !chosen ? h('span', { class: 'hint' }, t('decision.needChoice')) : null),
+        h('p', { class: 'note' }, t('decision.humanRequired')),
+        state.notice ? h('p', { class: 'notice', role: 'status' }, stamp(state.notice.decision), h('span', {}, t('decision.recorded'))) : null)),
   ];
 }
 
@@ -305,30 +313,27 @@ function renderActivity(c) {
   const col = (name) => tFirst(`activity.columns.${name}`, `activity.${name}`);
   const body = state.activity.length === 0
     ? h('p', { class: 'empty' }, t('activity.empty'))
-    : h('table', { class: 'activity' },
-      h('thead', {}, h('tr', {}, ['time', 'suggestion', 'decision', 'evidence'].map((n) => h('th', { scope: 'col' }, col(n))))),
+    : h('table', { class: 'ledger activity' },
+      ledgerHead([col('time')], [col('suggestion')], [col('decision')], [col('evidence')]),
       h('tbody', {}, state.activity.map((a) => h('tr', { class: 'activity__row' },
         h('td', {}, h('time', { datetime: a.time }, fmtDateTime(a.time))),
-        h('td', {}, t(`suggest.${a.suggestionKey}`), h('span', { class: 'activity__gap' }, ` · ${t('activity.gapAtTime', { gap: fmtKg(a.gapKg) })}`)),
+        h('td', {}, t(`suggest.${a.suggestionKey}`), h('span', { class: 'is-dim' }, ` · ${t('activity.gapAtTime', { gap: fmtKg(a.gapKg) })}`)),
         h('td', {}, stamp(a.decision)),
         h('td', {}, h('ul', { class: 'evidence' }, a.evidenceKeys.map((k) => h('li', {}, evidenceText(k, c)))))))));
-  return [viewTitle('activity', 'activity.title'), body, h('p', { class: 'note' }, t('activity.resetsNote'))];
+  return [viewTitle('activity', 'activity.title'), metaLine(), body, h('p', { class: 'note' }, t('activity.resetsNote'))];
 }
 
 function renderTechnical(c) {
   const m = scenario.meta;
-  const integrations = h('table', { class: 'integrations' },
-    h('tbody', {}, Object.entries(m.integrations).map(([k, v]) => {
-      const label = tFirst(`tech.integration.${k}`, `integration.${k}`);
-      return h('tr', {},
-        h('th', { scope: 'row' }, label === `tech.${k}` ? k : label),
-        h('td', {}, chipText('muted', v === 'not-connected' ? t('tech.notConnected') : v)));
-    })));
+  const integrations = h('table', { class: 'ledger' },
+    h('tbody', {}, Object.entries(m.integrations).map(([k, v]) => h('tr', {},
+      h('th', { scope: 'row' }, tFirst(`tech.integration.${k}`, `integration.${k}`)),
+      h('td', {}, chipText('muted', v === 'not-connected' ? t('tech.notConnected') : v))))));
   const row = (label, ...val) => [h('dt', {}, label), h('dd', {}, ...val)];
   return [
-    viewTitle('technical', 'tech.title'),
+    viewTitle('technical', 'tech.title'), metaLine(),
     h('dl', { class: 'tech' },
-      row(t('tech.provenance'), chipText('muted', t('provenance.synthetic'))),
+      row(t('tech.provenance'), t('provenance.synthetic')),
       row(t('tech.freshness'), fmtDateTime(m.asOf)),
       row(t('tech.validation'), chipText('warn', t('tech.notValidated'))),
       row(t('tech.percentiles'), renderPercentiles()),
@@ -410,13 +415,14 @@ function setRail(open) {
   dom.toggle.setAttribute('aria-expanded', String(open));
 }
 
-function routeFromHash() {
+function routeFromHash(focusTitle = false) {
   const v = location.hash.replace(/^#/, '');
   state.view = VIEWS.includes(v) ? v : 'overview';
   applyRoute();
+  if (focusTitle) document.getElementById(`view-title-${state.view}`)?.focus();
 }
 
-window.addEventListener('hashchange', routeFromHash);
+window.addEventListener('hashchange', () => routeFromHash(true));
 for (const link of dom.links) {
   link.addEventListener('click', () => { location.hash = `#${link.dataset.view}`; setRail(false); });
 }
