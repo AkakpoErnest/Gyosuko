@@ -41,6 +41,7 @@ const COPY = {
     savedTitle: '保存しました', savedBody: 'これは取引や出荷の依頼ではなく、見込みの共有です。', returnToday: '今日の画面へ', addAnother: 'もう1件入力',
     recordTitle: '入力した魚の見通し', arrival: '入港予定', state: '状況', remove: 'この入力を削除', removeConfirm: 'この入力を削除しますか？', cancel: 'やめる', deleteNow: '削除する',
     validation: '魚の名前、量、入港日、港を入力してください。', storageError: '保存できませんでした。', syncFail: 'クラウドに送れませんでした。端末には保存しました。', removeFail: 'クラウドから削除できませんでした。記録は残っています。再度お試しください。', sessionLost: 'ログインの有効期限が切れました。端末の記録は残っています。クラウドを使うには再ログインしてください。', cloudLoadFail: 'クラウドの記録を読み込めませんでした。端末の記録を表示しています。', pendingCloud: 'クラウド未同期の記録があります。この端末には保存されています。',
+    tabStats: '分析', statsTitle: 'あなたの水揚げ分析', statsLead: 'この端末に保存した入力から計算します。', stats7: '直近7日', stats30: '直近30日', statsKg: '合計', statsN: '件', statsAvg: '1件あたり', statsBySpecies: '魚種ごとの量', statsConfirmed: '確認済みの割合', statsConfirmedHint: '「漁獲量を確認済み」にした量の割合', statsBusy: '一番多い日', statsEmpty: 'まだ分析できる入力がありません。見込みを入れると、ここに集計が出ます。', statsMoon: '今日の月齢', statsMoonNote: '計算による目安です。', moonNew: '新月', moonWax: '満ちていく月', moonFull: '満月', moonWane: '欠けていく月',
     tabSea: '海況', seaTitle: '気仙沼の海況', seaLead: '天気と波の予報です。出航の判断は、公式の警報と現地の状況で行ってください。', auctionLink: '競り・市場の方はこちら ↗', tabToday: '今日', tabCatch: '入力', tabMe: '私', profile: 'プロフィール', editProfile: 'プロフィールを編集', signout: 'ログアウト', logoutTitle: 'ログアウトしますか？', logoutBody: 'この端末に保存した入力は残ります。もう一度ログインすれば続きから使えます。', loggedOut: 'ログアウトしました。', clear: '端末のデータを消去', clearConfirm: 'この端末の入力をすべて削除しますか？',
     cleared: '消去しました。', language: '言語', feedbackTitle: 'ご意見をください', projectFeedback: 'Gyosokuに感想を送る ↗', useful: '仕事で使いたいですか？', yes: '使いたい', maybe: '少し変えれば', no: '今は不要',
     easy: '入力は分かりやすいですか？', easyYes: '分かりやすい', easyMaybe: '少し難しい', easyNo: '難しい', change: '変えてほしいこと（任意）', feedbackSave: '送る', thanks: 'ありがとうございます', feedbackRequired: '2つの質問に回答してください。',
@@ -76,6 +77,7 @@ const COPY = {
     savedTitle: 'Saved', savedBody: 'This shares an outlook. It is not a trade or a delivery request.', returnToday: 'Back to today', addAnother: 'Add another',
     recordTitle: 'Your catch estimate', arrival: 'Expected arrival', state: 'Status', remove: 'Delete this entry', removeConfirm: 'Delete this entry?', cancel: 'Cancel', deleteNow: 'Delete entry',
     validation: 'Enter the fish name, quantity, arrival date and port.', storageError: 'Could not save.', syncFail: 'Could not reach the cloud. Saved on this device.', removeFail: 'Could not delete from the cloud. Your record is still here. Please retry.', sessionLost: 'Your sign-in expired. Records on this device are still here. Sign in again to use the cloud.', cloudLoadFail: 'Could not load cloud records. Showing records saved on this device.', pendingCloud: 'Some records are saved on this device and have not synced to the cloud.',
+    tabStats: 'Stats', statsTitle: 'Your landing analysis', statsLead: 'Calculated from the entries saved on this device.', stats7: 'Last 7 days', stats30: 'Last 30 days', statsKg: 'Total', statsN: 'entries', statsAvg: 'Per entry', statsBySpecies: 'Quantity by fish', statsConfirmed: 'Share checked', statsConfirmedHint: 'Share of kilograms marked “Catch quantity checked”', statsBusy: 'Busiest day', statsEmpty: 'Nothing to analyse yet. Add a catch estimate and your totals appear here.', statsMoon: 'Moon age today', statsMoonNote: 'Calculated, approximate.', moonNew: 'New moon', moonWax: 'Waxing', moonFull: 'Full moon', moonWane: 'Waning',
     tabSea: 'Sea', seaTitle: 'Sea conditions', seaLead: 'Weather and wave forecasts for Kesennuma. Use official warnings and local conditions to decide whether to sail.', auctionLink: 'Auction or market? Start here ↗', tabToday: 'Today', tabCatch: 'Add', tabMe: 'Me', profile: 'Profile', editProfile: 'Edit profile', signout: 'Log out', logoutTitle: 'Log out?', logoutBody: 'Entries saved on this device will stay. Sign in again to carry on.', loggedOut: 'Logged out.', clear: 'Clear this device’s data', clearConfirm: 'Delete everything saved on this device?',
     cleared: 'Cleared.', language: 'Language', feedbackTitle: 'Tell us what you think', projectFeedback: 'Send feedback to Gyosoku ↗', useful: 'Would you use this for work?', yes: 'Yes', maybe: 'With changes', no: 'Not now',
     easy: 'Was it easy to enter a catch?', easyYes: 'Easy', easyMaybe: 'A little hard', easyNo: 'Hard', change: 'What would you change? (optional)', feedbackSave: 'Send', thanks: 'Thank you', feedbackRequired: 'Please answer both questions.',
@@ -175,6 +177,7 @@ function oceanScene(bubbles, fish, cls = '') {
 }
 
 const ICON = {
+  stats: 'M4 20V10M10 20V4M16 20v-7M22 20H2',
   sea: 'M3 9c2.5-2.5 4.5-2.5 7 0s4.5 2.5 7 0 3-1.5 4-.5M3 15c2.5-2.5 4.5-2.5 7 0s4.5 2.5 7 0 3-1.5 4-.5',
   today: 'M3 12l9-8 9 8M5 10v10h5v-6h4v6h5V10',
   add: 'M12 5v14M5 12h14',
@@ -331,6 +334,7 @@ function detailsView() {
     if (!fisher && !g('name')) return toast(t('orgReq'));
     S.profile = { photo: p.photo || '', role, name: g('name'), vessel: g('vessel'), reg: g('reg'), homePort: g('homePort'), method: g('method'), species, capacity: Number(g('capacity')) || null, phone: g('phone'), company: g('company'), location: g('location') };
     if (!persist()) return;
+    window.gyTrack?.('profile_saved');
     if (backend.getSession()) {
       const { name, role: _r, photo: _photo, ...details } = S.profile; // the photo stays on this device
       if (!(await backend.saveProfile(role, name, details))) toast(t('syncFail'));
@@ -451,7 +455,7 @@ async function saveRecord() {
   S.busy = false;
   const previous = S.records;
   S.records = S.records.some(r => r.id === rec.id) ? S.records.map(r => r.id === rec.id ? rec : r) : [...S.records, rec];
-  if (persist()) { S.selected = rec.id; go('saved'); if (syncFailed) toast(t('syncFail')); }
+  if (persist()) { window.gyTrack?.('catch_saved'); S.selected = rec.id; go('saved'); if (syncFailed) toast(t('syncFail')); }
   else { S.records = previous; render(); }
 }
 
@@ -484,6 +488,33 @@ async function pickPhoto(file) {
 }
 const avatarNode = (p, cls = 'avatar') => (p.photo ? el('img', { class: `${cls} ${cls}--img`, src: p.photo, alt: '' }) : el('div', { class: cls, 'aria-hidden': 'true' }, (p.name || '?').slice(0, 1).toUpperCase()));
 
+// ------------------------------------------------------------------ stats: analysis of the user's own entries (local, no server)
+function moonAge(d = new Date()) { // days since a known new moon (2000-01-06 18:14 UTC); synodic month 29.530588 days
+  const days = (d.getTime() - Date.UTC(2000, 0, 6, 18, 14)) / 86400000; return ((days % 29.530588) + 29.530588) % 29.530588;
+}
+function statsView() {
+  const now = jst(), within = (r, n) => r.date >= addDays(now, -n + 1) && r.date <= addDays(now, 7);
+  const rows = S.records, r7 = rows.filter((r) => within(r, 7)), r30 = rows.filter((r) => within(r, 30));
+  const sum = (a) => a.reduce((x, r) => x + Number(r.quantity), 0);
+  const tile = (label, list) => el('div', { class: 'tile' }, el('span', {}, label), el('strong', {}, `${num(Math.round(sum(list)))}`, el('small', {}, ' kg')), el('em', {}, `${list.length} ${t('statsN')}`));
+  const age = moonAge(), ph = age < 1.8 || age > 27.7 ? 'moonNew' : age < 13.3 ? 'moonWax' : age < 16.2 ? 'moonFull' : 'moonWane';
+  const nodes = [el('h1', { tabindex: '-1' }, t('statsTitle')), el('p', { class: 'muted' }, t('statsLead'))];
+  if (!rows.length) { nodes.push(el('div', { class: 'card empty' }, el('p', { class: 'muted' }, t('statsEmpty')), btn(t('newCatch'), startCatch, 'primary'))); }
+  else {
+    nodes.push(el('div', { class: 'tiles' }, tile(t('stats7'), r7), tile(t('stats30'), r30)));
+    const by = new Map(); for (const r of r30) by.set(fishName(r), (by.get(fishName(r)) || 0) + Number(r.quantity));
+    const list = [...by].sort((a, b) => b[1] - a[1]), max = Math.max(1, ...list.map((x) => x[1]));
+    nodes.push(el('div', { class: 'card' }, el('h2', {}, t('statsBySpecies')), list.length ? list.map(([n, kg]) => el('div', { class: 'hbar' }, el('span', {}, n), el('div', { class: 'hbar__track' }, el('i', { style: `width:${Math.round((kg / max) * 100)}%` })), el('b', {}, `${num(Math.round(kg))} kg`))) : el('p', { class: 'muted' }, '—')));
+    const total = sum(r30), conf = sum(r30.filter((r) => r.certainty === 'confirmed')), pct = total ? Math.round((conf / total) * 100) : 0;
+    const byDay = new Map(); for (const r of r30) byDay.set(r.date, (byDay.get(r.date) || 0) + Number(r.quantity)); const busy = [...byDay].sort((a, b) => b[1] - a[1])[0];
+    nodes.push(el('div', { class: 'card' }, el('h2', {}, t('statsConfirmed')), el('div', { class: 'ring', style: `--p:${pct}` }, el('b', {}, `${pct}%`)), el('p', { class: 'hint' }, t('statsConfirmedHint')),
+      busy ? el('p', {}, `${t('statsBusy')}: `, el('b', {}, `${dateText(busy[0])} · ${num(Math.round(busy[1]))} kg`)) : null,
+      r30.length ? el('p', {}, `${t('statsAvg')}: `, el('b', {}, `${num(Math.round(total / r30.length))} kg`)) : null));
+  }
+  nodes.push(el('div', { class: 'card moon' }, el('div', { class: 'moon__disc', style: `--a:${(age / 29.53).toFixed(3)}` }), el('div', {}, el('strong', {}, `${t('statsMoon')}: ${age.toFixed(1)}`), el('p', { class: 'hint' }, `${t(ph)} · ${t('statsMoonNote')}`))));
+  return nodes;
+}
+
 function meView() {
   const p = S.profile || {};
   const rows = [[t('name'), p.name], [t('vessel'), p.vessel], [t('homePort'), p.homePort], [t('method'), p.method && t(p.method)], [t('species'), (p.species || []).map(t).join(' · ')], [t('company'), p.company], [t('location'), p.location]].filter(([, v]) => v);
@@ -514,6 +545,7 @@ function meView() {
 // Log out: ends the cloud session (if any) and returns to the start. Entries stay on this device, so nothing is lost.
 async function logOut() {
   if (!(await confirmBox({ title: t('logoutTitle'), body: t('logoutBody'), yes: t('signout'), no: t('stay') }))) return;
+  window.gyTrack?.('logout');
   try { backend.signOut(); } catch {}
   S.profile = null; S.role = null; S.draft = null; S.selected = null; G.msgs = [];
   persist(); go('welcome'); toast(t('loggedOut'));
@@ -527,6 +559,7 @@ function exportData() {
 // ------------------------------------------------------------------ navigation
 
 async function chooseRole(role) {
+  window.gyTrack?.('role_chosen');
   S.role = role;
   if (S.profile) S.profile.role = role;
   // Offer sign-in only when the backend exists; without it the choice would be a dead end, so go straight on.
@@ -535,6 +568,7 @@ async function chooseRole(role) {
 
 function go(screen) {
   if (S.screen === 'catch') captureDraft();
+  if (screen === 'sea') window.gyTrack?.('sea_viewed'); if (screen === 'stats') window.gyTrack?.('stats_viewed');
   S.screen = screen; S.confirmDelete = false; S.confirmClear = false;
   render(); window.scrollTo(0, 0); main.scrollTop = 0; main.querySelector('h1, h2')?.focus({ preventScroll: true });
 }
@@ -545,8 +579,8 @@ function captureDraft() {
 
 // The forecast card itself is drawn into <main> by src/field-conditions.js while this screen is open.
 function seaView() { return [el('h1', { tabindex: '-1' }, t('seaTitle')), el('p', { class: 'muted' }, t('seaLead'))]; }
-const VIEWS = { sea: seaView, welcome: welcomeView, role: roleView, access: accessView, auth: authView, details: detailsView, today: todayView, catch: catchView, review: reviewView, saved: () => detailView(true), detail: () => detailView(false), me: meView };
-const TABS = [['today', 'tabToday'], ['catch', 'tabCatch'], ['sea', 'tabSea'], ['me', 'tabMe']];
+const VIEWS = { stats: statsView, sea: seaView, welcome: welcomeView, role: roleView, access: accessView, auth: authView, details: detailsView, today: todayView, catch: catchView, review: reviewView, saved: () => detailView(true), detail: () => detailView(false), me: meView };
+const TABS = [['today', 'tabToday'], ['catch', 'tabCatch'], ['stats', 'tabStats'], ['sea', 'tabSea'], ['me', 'tabMe']];
 
 function render() {
   document.documentElement.lang = S.lang;
@@ -555,7 +589,7 @@ function render() {
   const logout = document.getElementById('logout'); logout.hidden = true;
   document.querySelector('footer').hidden = true;
   document.getElementById('trial').hidden = true;
-  const inApp = !!S.profile && ['today', 'catch', 'review', 'saved', 'detail', 'sea', 'me'].includes(S.screen);
+  const inApp = !!S.profile && ['today', 'catch', 'review', 'saved', 'detail', 'stats', 'sea', 'me'].includes(S.screen);
   const tabs = document.getElementById('tabs');
   tabs.hidden = !inApp;
   tabs.replaceChildren(...TABS.filter(([k]) => k !== 'catch' || isFisher()).map(([k, label]) => el('button', {
@@ -643,6 +677,7 @@ function guideAct(text) {
   askGuide(text, g);
 }
 function askGuide(text, g) {
+  window.gyTrack?.('ai_asked');
   // Not a command: ask the AI (if the server has it enabled), otherwise offer the built-in options.
   const lang = S.lang;
   gSay(g.thinking); const idx = G.msgs.length - 1;

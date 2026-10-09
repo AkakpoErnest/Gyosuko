@@ -30,7 +30,7 @@ function render() {
     btn.disabled = true; btn.textContent = t('sending');
     try {
       const r = await fetch('/api/feedback', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d), signal: AbortSignal.timeout(15000) });
-      if (!r.ok) throw new Error('x');
+      if (!r.ok) throw new Error('x'); window.gyTrack?.('feedback_sent');
       root.replaceChildren(el('div', { class: 'done' }, el('img', { src: '/public/logo.png', alt: '', width: 88, height: 88 }), el('h1', {}, t('thanks')), el('p', { class: 'muted' }, t('thanksBody')), el('a', { href: '/fisherman/' }, t('back'))));
       window.scrollTo(0, 0);
     } catch { btn.disabled = false; btn.textContent = t('send'); err.textContent = t('fail'); }

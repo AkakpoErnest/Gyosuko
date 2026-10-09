@@ -513,3 +513,28 @@ body[data-screen=sea] .field-conditions{background:none}
 .ai-brief[hidden]{display:none}
 .ai-brief__tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;color:#ffd9bf;background:rgba(255,138,76,.22);border-radius:99px;padding:2px 10px;margin-bottom:6px}
 .ai-brief p{margin:0;font-size:15px;line-height:1.55}
+
+/* Keep the mobile AI invitation attached to its button, above the tab bar. */
+@media (max-width:559px){
+  .guide-fab{width:48px;height:48px;right:12px;animation:none}
+  .guide-hint{right:68px;bottom:calc(76px + env(safe-area-inset-bottom));min-height:48px;max-width:min(200px,calc(100vw - 80px));display:flex;align-items:center;text-align:left;line-height:1.35;animation:none}
+  .guide-hint[hidden]{display:none}
+  body[data-screen=welcome] .guide-hint{bottom:calc(20px + env(safe-area-inset-bottom))}
+  /* A dragged button no longer has the default dock position. */
+  .guide-fab[style*="left:"]~.guide-hint{display:none}
+  .guide__x{width:48px;height:48px;flex-shrink:0}
+}
+
+/* Stats tab */
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.tile{background:#fff;border-radius:16px;padding:14px;box-shadow:0 1px 2px rgba(16,39,43,.06)}
+.tile span{display:block;font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.04em}
+.tile strong{display:block;font-size:30px;font-weight:800;line-height:1.15;font-variant-numeric:tabular-nums}.tile strong small{font-size:14px;color:var(--muted)}
+.tile em{font-style:normal;font-size:12.5px;color:var(--muted)}
+.hbar{display:grid;grid-template-columns:5.5em 1fr auto;gap:8px;align-items:center;margin:8px 0;font-size:14px}
+.hbar__track{height:12px;border-radius:99px;background:#e6efeb;overflow:hidden}.hbar__track i{display:block;height:100%;background:linear-gradient(90deg,var(--teal),#4fc3b3);border-radius:99px}
+.ring{width:96px;height:96px;border-radius:50%;margin:6px 0 8px;display:grid;place-items:center;background:conic-gradient(var(--teal) calc(var(--p)*1%),#e6efeb 0)}
+.ring b{width:72px;height:72px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:20px}
+.moon{display:flex;gap:14px;align-items:center}
+.moon__disc{width:46px;height:46px;border-radius:50%;flex:none;background:radial-gradient(circle at calc(30% + var(--a)*40%) 50%,#f5f1d8 0 55%,#2a3b4a 56%);box-shadow:inset 0 0 0 1px rgba(16,39,43,.15)}
+.moon p{margin:0}
