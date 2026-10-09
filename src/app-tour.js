@@ -22,5 +22,3 @@ if (root) {
   show(0, true);
 }
 
-// swap the illustration's alt text with the language
-{ const im = document.querySelector('.tour-art img'); if (im) { const en = im.alt; const set = () => { im.alt = document.documentElement.lang.startsWith('ja') ? im.dataset.jaAlt : en; }; new MutationObserver(set).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] }); set(); } }

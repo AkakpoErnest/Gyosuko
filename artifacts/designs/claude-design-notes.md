@@ -1,5 +1,7 @@
 # Mobile supply screen: implementation handoff
 
+**Superseded for feature behavior:** read `feature-parity.md` and use `02-supply-gap-aligned.png`. Existing app routes, action labels, confirmation and history behavior take precedence over this original visual brief.
+
 Reference: `02-supply-gap.png`, generated with built-in imagegen from your processor brief and existing Japanese app collage. Full prompt: `02-supply-gap-prompt.txt`. This is a visual concept; no live screens changed.
 
 ## Build priorities
