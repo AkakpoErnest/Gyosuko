@@ -17,7 +17,7 @@ if (fig) {
     if (api || failed) return;
     if (!webgl()) return fallback();
     try {
-      const { mountHarbor } = await import('/public/js/harbor-story.bundle.js');
+      const { mountHarbor } = await import('/public/js/harbor-story.bundle.js?v=3');
       api = mountHarbor(host, { reducedMotion: reduced.matches });
       host.addEventListener('harbor:lost', fallback);
       button.hidden = false; button.addEventListener('click', () => api.reset());

@@ -73,3 +73,5 @@ header,main,footer{position:relative;z-index:1}
   .hero-wrap .hero{min-height:0;padding-bottom:230px}
 }
 @media(prefers-reduced-motion:reduce){.hero-bg video{display:none}}
+
+.hero h1{text-wrap:balance}html[lang=ja] .hero h1{font-size:clamp(30px,3.6vw,52px);word-break:auto-phrase;line-break:strict}
