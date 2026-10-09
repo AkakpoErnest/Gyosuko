@@ -45,3 +45,16 @@ header,main,footer{position:relative;z-index:1}
 .no-intro .rv,.no-intro [data-words] .w{opacity:1!important;transform:none!important;filter:none!important;transition:none!important;animation:none!important}
 .no-intro .harbor-prepared:not(.harbor-arrived)>:not(.section-tide){opacity:1!important;transform:none!important}
 .no-intro .harbor-arrived>*,.no-intro .section-tide{animation:none!important;transition:none!important}
+
+/* Closing banner: a sea scene with rolling waves */
+.closing{position:relative;overflow:hidden;isolation:isolate;padding-bottom:150px;background:linear-gradient(180deg,#0f2a3d 0%,#123c4c 55%,#17594f 100%)}
+.closing>*{position:relative;z-index:2}
+.closing::before,.closing::after,.closing .sea-w3{content:"";position:absolute;left:0;right:0;bottom:0;height:140px;background-repeat:repeat-x;background-size:1200px 140px;pointer-events:none;z-index:1}
+.closing::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 140' preserveAspectRatio='none'%3E%3Cpath fill='%232f8f84' fill-opacity='0.35' d='M0 77 C 300 43%2C 300 43%2C 600 77 S 900 111%2C 1200 77 V140 H0Z'/%3E%3C/svg%3E");height:150px;bottom:34px;animation:seaA 22s linear infinite}
+.closing::after{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 140' preserveAspectRatio='none'%3E%3Cpath fill='%231d6f6a' fill-opacity='0.55' d='M0 77 C 300 49%2C 300 49%2C 600 77 S 900 105%2C 1200 77 V140 H0Z'/%3E%3C/svg%3E");height:130px;bottom:14px;animation:seaB 15s linear infinite}
+.closing .sea-w3{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 140' preserveAspectRatio='none'%3E%3Cpath fill='%23f7f4ee' fill-opacity='1' d='M0 77 C 300 57%2C 300 57%2C 600 77 S 900 97%2C 1200 77 V140 H0Z'/%3E%3C/svg%3E");height:100px;bottom:-8px;animation:seaA 11s linear infinite}
+@keyframes seaA{to{background-position-x:-1200px}}
+@keyframes seaB{to{background-position-x:1200px}}
+.closing .eyebrow{color:#9fd8cf}
+@media (max-width:640px){.closing{padding-bottom:120px}.closing::before,.closing::after,.closing .sea-w3{background-size:800px 100px}@keyframes seaA{to{background-position-x:-800px}}@keyframes seaB{to{background-position-x:800px}}}
+@media (prefers-reduced-motion:reduce){.closing::before,.closing::after,.closing .sea-w3{animation:none}}
