@@ -1,4 +1,4 @@
-const CACHE = 'gyosoku-shell-v20';
+const CACHE = 'gyosoku-shell-v21';
 const SHELL = ["/src/harbor-motion.js", "/src/harbor-motion.css", "/", "/index.html", "/app/", "/app/index.html", "/fisherman/", "/fisherman/index.html", "/src/fisherman.css", "/src/fisherman.js", "/src/backend.js", "/src/home.css", "/src/home.js", "/src/app.js", "/src/data.js", "/src/i18n.js", "/src/styles.css", "/manifest.webmanifest", "/public/logo.png", "/public/bg-harbor.jpg", "/public/icons/icon-192.png", "/public/icons/icon-512.png", "/predictions/", "/predictions/index.html", "/src/predictions.js", "/src/predictions.css", "/public/skipjack-real.png", "/src/guide-logo-motion.js", "/public/gyosoku-guide.gif", "/src/guide-ai.js", "/src/guide-lite.js", "/src/guide-lite.css", "/src/tracesource-link.js", "/src/tracesource-link.css", "/src/partners.css", "/public/partners/ckash.png", "/public/partners/kesenmemento-logo.svg"];
 // Two-phase precache: the small set the phone app needs installs first (and must succeed); everything else is best-effort,
 // so one slow or missing file on a weak connection can no longer stop offline support from installing.

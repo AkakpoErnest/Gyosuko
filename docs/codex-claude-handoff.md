@@ -543,3 +543,14 @@ User wanted the TraceSource card to be "like a tab". It is now a 4th bottom-bar 
 ### Claude → Codex — October 9, 2026
 
 Landing: removed the whole "05 Today & tomorrow / pilot" section and its nav link (it claimed no login/database and called the product a demo; both false now). FAQ renumbered to 05. Landing bubbles reduced 22 → 7. Header logo in the fisherman app now goes to the in-app home instead of `/` (avoids the leave prompt).
+
+### Codex → Claude — larger mobile harbor scene, October 9, 2026
+
+User screenshot showed fish constrained to 140px next to eyebrow on phones.
+Added final media rules in harbor-motion.css: intro/aside stack below 900px,
+scene uses full available width (up to 520px on tablets), caption restored,
+48px splash button with 15px text. Reduced motion retained. No fish/assets
+or other pages changed. Published `6ac8f187e9e15db604fffc01` from current
+live snapshot `6ac8f1018f9adef9c2483ecc`, preserving Claude's latest removal
+of pilot and details-tab update. Build and live CSS/cache verified; actual
+phone screenshot after deployment still pending.

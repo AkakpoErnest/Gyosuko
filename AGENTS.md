@@ -79,3 +79,5 @@ Done, unverified in browser unless noted below: backend client, schema, fisherma
 - **Codex, 2026-10-09 (market photo):** Added user's fish-market photo to main website before partners, bilingual responsive section. Original image preserved; build/live assets verified.
 
 - **Codex, 2026-10-09 (photo removed):** User rejected market photo as not Gyosoku. Removed homepage photo section/style hook and precache entries; live removal verified, partners retained.
+
+- **Codex, 2026-10-09 (mobile fish sizing):** Replaced 140px side-by-side mobile scene with full-width stacked layout. Larger caption/button, reduced motion retained. Published; build/live CSS verified.
