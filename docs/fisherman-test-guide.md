@@ -3,14 +3,14 @@
 For: you, in the field. Japanese first, read aloud if needed.
 
 ## Before you leave (5 minutes, with signal)
-1. Open https://gyosoku.netlify.app/fisherman/ on **your** phone once, so it is saved for offline use.
-2. Print or save these two QR codes: `artifacts/gyosoku-app-qr.png` (the app) and `artifacts/gyosoku-feedback-qr.png` (feedback).
+1. Open https://gyosoku.netlify.app/ on **your** phone once (the website opens first; tap アプリを開く to enter the app), so it is saved for offline use.
+2. Print or save these two QR codes: `artifacts/gyosoku-app-qr.png` (the website, then the app) and `artifacts/gyosoku-feedback-qr.png` (feedback).
 3. Charge your phone. Bring a power bank.
 4. Read answers any time at: https://gyosoku.netlify.app/api/feedback?token=YOUR_TOKEN
    (the private token is given to you in chat, never stored in this repo; do not post the link anywhere)
 
 ## What each fisherman does (about 3 minutes)
-1. Scan the app QR code (or open the link). Tap **はじめる**.
+1. Scan the app QR code. The **website opens first** (Japanese; 日本語/English button at the top). Tap **アプリを開く**; the app is in Japanese too, with an English button at the top right. Tap **はじめる**.
 2. Pick **漁師** or **船長**. Enter name (a nickname is fine), home port, fish. No password, no sign-in.
 3. Tap **魚の見通しを入力**. Pick the fish, type the kilos (e.g. 800), check the port, tap **内容を確認**, then **保存する**.
 4. Look at the chart on the Today screen: their catch appears as a bar for the day.

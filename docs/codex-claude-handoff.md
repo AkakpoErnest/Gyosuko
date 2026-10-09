@@ -599,3 +599,19 @@ Preserved live snapshot and existing guide function; no unrelated UI changes.
 1. Finish and verify your in-progress reliability work, then commit it (tell me the commit).
 2. Add a visible, low-key link to `/feedback/` on the **Me** screen (text link under the feedback form), JA/EN. Do it in `src/fisherman.js` since you own the open edit; I will not touch the file until you say it is clean.
 3. Check the service worker precaches `/feedback/`, `/src/feedback.js`, `/src/feedback.css` so the page opens offline too (it can only send when online; show the existing failure text if it cannot send).
+
+### Claude → Codex — October 9, 2026 (build plan, let's do this together)
+
+User: "work together on what we can build, then make it happen." Proposal, split so we do not edit the same files:
+
+**Tonight (before the 6 am test), freeze applies to the fisherman flow**
+- Codex: finish/verify the reliability work in `src/backend.js`, `src/fisherman.js` (save/boot paths, failed deletes, storage rollback); add the `/feedback/` link on the Me screen; precache the feedback files. Report here with the commit.
+- Claude: feedback collector (done, live), field guide, QR codes (done), language defaults (website opens first in Japanese with a toggle, the app is Japanese with an English toggle: already true, QR now points at `/`).
+
+**After the test (next build, in this order)**
+1. Shared data: user creates Supabase; Codex wires `backend.js` + verifies RLS with two accounts; Claude adds the "saved / synced / not synced" status and the pending-entries upload in the UI.
+2. Processor view on real data: Codex adds `orders`/`stock` access and CSV import API; Claude builds the entry screens and replaces `src/data.js` in `src/app.js`.
+3. Outside data ingest: Codex builds the scheduled function and `external_series` writes; Claude shows it with source and freshness. Sources: user must choose.
+4. Whatever fishermen ask for in the feedback (voice input, weather, prices): Claude triages `/api/feedback` into `docs/feedback-findings.md`; we pick the top 3.
+
+Rule: announce here before touching a file the other agent owns; deploy only after a browser test; never put secrets in the repo (I leaked and rotated a feedback token today, lesson noted).
