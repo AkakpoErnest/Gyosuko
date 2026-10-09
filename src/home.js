@@ -48,7 +48,7 @@ dialog?.addEventListener('close', () => video.pause());
 
 // Word-by-word text animation, left to right: hero text plays on load, section headings play as they scroll into view.
 (() => {
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (document.documentElement.classList.contains('no-intro') || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const hero = [...document.querySelectorAll('.hero h1, .hero .lead')];
   const others = [...document.querySelectorAll('.section h2, .closing h2')];
   [...hero, ...others].forEach((el) => el.setAttribute('data-words', ''));
@@ -103,7 +103,7 @@ dialog?.addEventListener('close', () => video.pause());
 
 // Scroll reveal: text and cards fade up as each section comes into view. Content stays visible if JS or motion is unavailable.
 (() => {
-  if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (document.documentElement.classList.contains('no-intro') || !('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const targets = [...document.querySelectorAll('.section .eyebrow, .section h2, .section h3, .section > div > p, .section > p, .section li, .section .caption, .steps article, .views a, .ledger > div, .faq details, .section .text-link, .closing > *, .scroll-cue')];
   const targetsAll = targets; targets.splice(0, targets.length, ...targetsAll.filter((el) => !el.matches('[data-words]')));
   document.documentElement.classList.add('js-reveal');

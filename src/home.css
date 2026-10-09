@@ -39,3 +39,9 @@ header,main,footer{position:relative;z-index:1}
 .bgw{position:absolute;left:0;bottom:0;width:200%;height:120px;fill:rgba(43,102,95,.07);animation:bgDrift 28s linear infinite}
 .bgw2{bottom:-24px;height:130px;fill:rgba(16,43,59,.05);animation-duration:42s;animation-direction:reverse}
 @keyframes bgDrift{to{transform:translateX(-50%)}}
+
+/* Repeat view in the same visit: show the finished page, no entrance motion (ambient bubbles/waves excepted). */
+.no-intro .hero-copy>*,.no-intro .hero-art,.no-intro .hero-actions,.no-intro .hero .caption{animation:none!important;opacity:1!important;transform:none!important;filter:none!important}
+.no-intro .rv,.no-intro [data-words] .w{opacity:1!important;transform:none!important;filter:none!important;transition:none!important;animation:none!important}
+.no-intro .harbor-prepared:not(.harbor-arrived)>:not(.section-tide){opacity:1!important;transform:none!important}
+.no-intro .harbor-arrived>*,.no-intro .section-tide{animation:none!important;transition:none!important}
