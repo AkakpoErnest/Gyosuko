@@ -8,12 +8,26 @@ if (main) {
   const el = (t, c, txt) => { const n = document.createElement(t); if (c) n.className = c; if (txt != null) n.textContent = txt; return n; };
   const compass = (d) => ['北', '北東', '東', '南東', '南', '南西', '西', '北西'][Math.round((d % 360) / 45) % 8];
   const compassEn = (d) => ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'][Math.round((d % 360) / 45) % 8];
-  const day = (iso, i) => (i === 0 ? (ja() ? '今日' : 'Today') : i === 1 ? (ja() ? '明日' : 'Tomorrow') : (ja() ? '明後日' : 'Day after'));
+  // label by the forecast's real date (JST), so an old or cached forecast is never shown as "Today"
+  const jstDay = (ms) => new Date(ms + 9 * 3600e3).toISOString().slice(0, 10);
+  const day = (iso) => {
+    const diff = Math.round((Date.parse(iso) - Date.parse(jstDay(Date.now()))) / 864e5), m = Number(iso.slice(5, 7)), d = Number(iso.slice(8, 10));
+    if (diff === 0) return ja() ? '今日' : 'Today';
+    if (diff === 1) return ja() ? '明日' : 'Tomorrow';
+    if (diff === 2) return ja() ? '明後日' : 'Day after';
+    return ja() ? `${m}月${d}日` : `${m}/${d}`;
+  };
   function draw() {
     if (document.body.dataset.screen !== 'sea') { card.remove(); return; }
     if (!data) return;
     card.replaceChildren();
-    if (data.warning) { const w = el('div', 'sea-extra__warn'); w.append(el('b', '', ja() ? '気象庁の発表' : 'JMA notice'), el('p', '', data.warning.text)); card.append(w); }
+    const w = el('div', 'sea-extra__warn'), link = el('a', '', ja() ? '気象庁で警報・注意報を確認' : 'Check warnings on JMA'); link.href = 'https://www.jma.go.jp/bosai/warning/#area_type=class20s&area_code=0420500&lang=ja'; link.target = '_blank'; link.rel = 'noopener';
+    if (data.warning) {
+      const at = new Date(data.warning.reportedAt).toLocaleString(ja() ? 'ja-JP' : 'en-GB', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Tokyo' });
+      const names = data.warning.active.join(ja() ? '、' : ', ');
+      w.append(el('b', '', ja() ? '気象庁 気仙沼市の警報・注意報' : 'JMA warnings, Kesennuma'), el('p', '', names ? (ja() ? `発表中：${names}` : `Active: ${names}`) : (ja() ? '発表中の警報・注意報はありません' : 'None active')), el('small', '', ja() ? `${at} 時点の発表` : `As of ${at} JST`));
+    } else w.append(el('b', '', ja() ? '警報・注意報' : 'Warnings'), el('p', '', ja() ? '現在の発表状況を取得できませんでした。気象庁のページで確認してください。' : 'Could not load the current warning status. Please check the JMA page.'));
+    w.append(link); card.append(w);
     if (data.sea && (data.sea.tempC != null || data.sea.currentKmh != null)) {
       const row = el('div', 'sea-extra__tiles');
       if (data.sea.tempC != null) { const t = el('div', 'tile'); t.append(el('span', '', ja() ? '海面水温' : 'Sea temperature'), el('strong', '', `${data.sea.tempC}`), el('em', '', '°C')); row.append(t); }
