@@ -1,0 +1,15 @@
+{
+  "id": "/",
+  "name": "Gyosoku — Fisherman Trial",
+  "short_name": "Gyosoku",
+  "description": "Bilingual seafood supply planning for Kesennuma, Miyagi: fishermen's expected landings and processors' orders.",
+  "start_url": "/fisherman/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f7f4ee",
+  "theme_color": "#141516",
+  "icons": [
+    { "src": "/public/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/public/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

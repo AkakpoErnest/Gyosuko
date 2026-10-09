@@ -1,71 +1,47 @@
 <!doctype html>
-<html lang="en">
+<html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Gyosoku</title>
-  <meta name="description" content="Gyosoku demo: order, stock and landing forecast on one sheet. Synthetic data only.">
-  <meta name="color-scheme" content="light">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif&family=BIZ+UDPGothic:wght@400;700&family=Noto+Serif+JP:wght@600&display=swap">
-  <link rel="stylesheet" href="src/styles.css">
-  <script type="module" src="src/app.js"></script>
-</head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gyosoku — A clearer next move when fish supply is uncertain</title>
+<meta name="description" content="Gyosoku: bilingual seafood supply planning for Kesennuma. It connects fishermen's expected landings with processors' orders, stock and human decisions.">
+<meta name="theme-color" content="#102b3b">
+<meta property="og:title" content="Gyosoku — A clearer next move">
+<meta property="og:description" content="See the supply gap. Understand the evidence. Choose the next move.">
+<meta property="og:image" content="https://gyosoku.netlify.app/public/gyosoku-cover.png">
+<meta property="og:url" content="https://gyosoku.netlify.app/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/public/icons/icon-192.png"><link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/public/icons/icon-180.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif&family=BIZ+UDPGothic:wght@400;700&display=swap">
+<link rel="stylesheet" href="/src/home.css"><link rel="stylesheet" href="/src/harbor-motion.css"><script type="module" src="/src/home.js"></script><script type="module" src="/src/harbor-motion.js"></script>
+<link rel="stylesheet" href="/src/guide-lite.css"><script type="module" src="/src/guide-lite.js"></script><link rel="stylesheet" href="/src/partners.css"></head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
-
-  <div class="app">
-    <nav class="rail" aria-label="Main">
-      <div class="rail__brand">
-        <span class="rail__name">Gyosoku</span>
-        <span class="rail__tagline"></span>
-      </div>
-
-      <button class="rail__toggle" type="button" aria-expanded="false" aria-controls="rail-nav" aria-label="Menu">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-             stroke-linecap="round" aria-hidden="true" focusable="false">
-          <path d="M4 7h16M4 12h16M4 17h16"/>
-        </svg>
-      </button>
-
-      <div class="rail__nav" id="rail-nav">
-        <button class="rail__link" type="button" data-view="overview">Overview</button>
-        <button class="rail__link" type="button" data-view="supply">Supply plan</button>
-        <button class="rail__link" type="button" data-view="decision">Decision review</button>
-        <button class="rail__link" type="button" data-view="activity">Activity</button>
-        <button class="rail__link" type="button" data-view="technical">Technical details</button>
-      </div>
-
-      <div class="rail__lang">
-        <button class="lang-toggle" type="button">日本語</button>
-      </div>
-    </nav>
-
-    <main class="workspace" id="main" tabindex="-1">
-      <p class="banner banner--demo" role="note">
-        Demo data only. Forecast accuracy has not been validated. Human approval required.
-      </p>
-      <section class="view" data-view="overview" aria-labelledby="view-title-overview"></section>
-      <section class="view" data-view="supply" aria-labelledby="view-title-supply" hidden></section>
-      <section class="view" data-view="decision" aria-labelledby="view-title-decision" hidden></section>
-      <section class="view" data-view="activity" aria-labelledby="view-title-activity" hidden></section>
-      <section class="view" data-view="technical" aria-labelledby="view-title-technical" hidden></section>
-    </main>
-
-    <aside class="signal" aria-label="Signal"></aside>
-  </div>
-
-  <dialog class="confirm" aria-labelledby="confirm-title" aria-describedby="confirm-body">
-    <form method="dialog" class="confirm__form">
-      <h2 class="confirm__title" id="confirm-title">Confirm decision</h2>
-      <p class="confirm__body" id="confirm-body"></p>
-      <p class="confirm__detail"></p>
-      <div class="confirm__actions">
-        <button class="btn btn--ghost confirm__no" type="submit" value="cancel">Cancel</button>
-        <button class="btn btn--primary confirm__yes" type="submit" value="confirm">Confirm</button>
-      </div>
-    </form>
-  </dialog>
-</body>
-</html>
+<a class="skip" href="#main" data-ja="本文へ移動">Skip to content</a>
+<header><a class="brand" href="/"><img class="mark" src="/public/logo.png" alt="" width="38" height="38"><span>Gyosoku <small>魚測</small></span></a><nav aria-label="Main navigation"><a href="#about" data-ja="魚測について">About</a><a href="#workflow" data-ja="使い方">How it works</a></nav><div class="header-actions"><button id="language" type="button">日本語</button><a class="button small" href="/fisherman/" data-ja="アプリを開く">Open app ↗</a></div></header>
+<main id="main">
+<section class="hero">
+<div class="hero-copy"><p class="eyebrow" data-ja="気仙沼の水産加工のための供給計画">SEAFOOD SUPPLY PLANNING · KESENNUMA</p><h1 data-ja="水揚げが読めないときも、次の一手を明確に。">A clearer next move when fish supply is uncertain.</h1><p class="lead" data-ja="注文、確定在庫、水揚げ見込みを一枚に。魚測は、不足の可能性とその根拠を示し、人が対応を選ぶためのバイリンガルアプリです。">Orders, confirmed stock and landing outlooks on one sheet. Gyosoku is a bilingual app that helps seafood processors see a possible shortfall, understand its evidence and choose a response.</p><div class="hero-actions"><a class="button" href="/fisherman/" data-ja="漁師さん向けアプリを試す">Try the fisherman app ↗</a><button class="button ghost" id="play-video" type="button" aria-haspopup="dialog"><span aria-hidden="true">▶</span> <span data-ja="動画を見る">Play video</span></button><a class="text-link" href="/public/Gyosoku_Pablo.pdf" data-ja="プレゼン資料を開く（PDF） ↗">Open presentation PDF ↗</a></div><p class="caption" data-ja="英語・日本語 · 人による判断">English / 日本語 · Human decisions</p></div>
+<figure class="hero-art"><img src="/public/gyosoku-cover.png" width="1536" height="1024" alt="Gyosoku illustrated cover with skipjack, waves and a Japanese fishing harbor at dawn"><figcaption data-ja="魚測 — 不確実な供給に、より明確な判断を。">Gyosoku — clarity for the working harbor.</figcaption></figure>
+</section>
+<div class="scroll-cue"><a class="text-link" href="#workflow" data-ja="仕組みを見る ↓">See how it works ↓</a></div>
+<section id="about" class="section intro"><div class="intro-aside"><p class="eyebrow" data-ja="01 / 課題">01 / THE QUESTION</p><figure class="harbor-motion"><figcaption data-ja="スクロールすると、魚が泳ぎます。">Scroll to follow the fish.</figcaption><button class="harbor-play" type="button" data-ja="魚を泳がせる ↗">Make a splash ↗</button></figure></div><div><h2 data-ja="この注文を、まかなえるか？">Can this order be covered?</h2><p class="lead" data-ja="注文には期限があります。在庫は確認できても、水揚げは不確実です。魚測は、確定している情報と見込みを区別し、供給の不足がどこで起こり得るかを見えるようにします。">Orders have deadlines. Stock can be confirmed, but future landings remain uncertain. Gyosoku brings these inputs together while keeping confirmed quantities distinct from expectations, so a possible gap is easier to see.</p><p data-ja="水産加工事業者と供給調整を担う人に向けた構想です。目的は判断を自動化することではなく、判断の根拠を明確にすることです。">The concept is designed for seafood processors and people coordinating supply. Its purpose is to make the evidence behind an operational decision clear.</p></div></section>
+<section id="predictions" class="section intro"><p class="eyebrow" data-ja="みんなの見込み">THE PREDICTION BOARD</p><div><h2 data-ja="水揚げ前に見込みを。水揚げ後に答え合わせ。">Make an estimate. Learn from the landing.</h2><p class="lead" data-ja="漁獲量の見込みと自信度を入力し、水揚げ後に実際の量と比べられるシンプルなボードです。金銭や取引はありません。">A simple board for catch estimates and confidence. Compare your prediction with the actual landing afterward. No money or trading.</p><p data-ja="試作版の入力はこの端末だけに保存されます。他の人との共有機能は未接続で、予測の精度も未検証です。">Prototype entries stay on this device. Shared submissions are not connected yet, and estimates are unvalidated.</p><a class="button" href="/predictions/" data-ja="見込みボードを開く ↗">Open prediction board ↗</a></div></section>
+<section id="workflow" class="section"><div class="section-heading"><p class="eyebrow" data-ja="02 / 使い方">02 / THE WORKFLOW</p><h2 data-ja="注文から、根拠のある判断へ。">From an order to an informed decision.</h2></div><div class="steps">
+<article><span class="number">01</span><h3 data-ja="必要量を確認">Review the need</h3><p data-ja="注文数量、魚種、買い手、納期を確認します。">Start with the order quantity, species, buyer and deadline.</p></article>
+<article><span class="number">02</span><h3 data-ja="供給を比較">Compare supply</h3><p data-ja="確定在庫と水揚げ見込みの幅を比較。仕入先の提案は別に表示します。">Compare confirmed stock with a range of illustrative landings. Supplier offers stay separately visible.</p></article>
+<article><span class="number">03</span><h3 data-ja="根拠を確認">Inspect the evidence</h3><p data-ja="不足の計算を確認し、追加調達、更新待ち、買い手との相談を検討します。">Trace the gap calculation and review options: request another offer, wait for an update or talk to the buyer.</p></article>
+<article><span class="number">04</span><h3 data-ja="人が判断">Make the call</h3><p data-ja="承認、拒否、保留を選び、確認します。デモの履歴に記録されます。">Approve, reject or hold for review, then confirm. The choice appears in the demo activity history.</p></article>
+</div></section>
+<section class="example section"><div><p class="eyebrow" data-ja="03 / デモシナリオ">03 / INSIDE THE DEMO</p><h2 data-ja="カツオの注文を、数字でたどる。">One skipjack order.<br>A gap you can trace.</h2><p data-ja="すべて静的な合成データです。予測モデルの出力や実際の水揚げ予報ではありません。">Every number is a static synthetic input. These are illustrative scenarios, rather than outputs from a forecasting model.</p><a class="text-link" href="/app/#supply" data-ja="供給計画を見る ↗">Explore the supply plan ↗</a></div><div class="ledger"><div><span data-ja="注文数量">Order need</span><strong>5,000 <small>kg</small></strong></div><div><span data-ja="確定在庫">Confirmed stock</span><strong>1,100 <small>kg</small></strong></div><div><span data-ja="水揚げ見込み（P50・例示）">Illustrative landings · P50</span><strong>3,150 <small>kg</small></strong></div><div><span data-ja="想定カバー量">Possible coverage</span><strong>4,250 <small>kg</small></strong></div><div class="gap"><span data-ja="不足見込み（中央値）">Possible gap · median</span><strong>750 <small>kg</small></strong></div><p class="caption" data-ja="想定カバー量の幅：3,600〜4,900 kg。600 kgの仕入先提案は別表示。確認後も見込み合計には含めません。">Coverage range: 3,600–4,900 kg. A 600 kg supplier offer is shown separately and remains outside the outlook total, even when verified.</p></div></section>
+<section class="section"><p class="eyebrow" data-ja="04 / アプリの画面">04 / THE APP</p><h2 data-ja="判断に必要な、5つの視点。">Five views of the same decision.</h2><div class="views"><a href="/app/#overview"><span>01</span><h3 data-ja="概要">Overview ↗</h3><p data-ja="注文、見込み不足、入港予定を一覧で確認。">The order, possible gap and upcoming arrivals at a glance.</p></a><a href="/app/#supply"><span>02</span><h3 data-ja="供給計画">Supply plan ↗</h3><p data-ja="在庫、仕入先提案、見込みの幅と計算内訳。">Stock, supplier offers, outlook ranges and calculation details.</p></a><a href="/app/#decision"><span>03</span><h3 data-ja="意思決定レビュー">Decision review ↗</h3><p data-ja="根拠付きの選択肢と、人による確認。">Suggested next steps with evidence and human confirmation.</p></a><a href="/app/#activity"><span>04</span><h3 data-ja="履歴">Activity ↗</h3><p data-ja="このセッションでの選択を記録。再読込でリセット。">Choices recorded in this session; history resets on reload.</p></a><a href="/app/#technical"><span>05</span><h3 data-ja="技術詳細">Technical details ↗</h3><p data-ja="入力の出所、基準時刻、未検証状態、接続状況。">Input provenance, freshness, validation and integration status.</p></a></div></section>
+<section id="partners" class="section partners" aria-labelledby="partners-title"><div class="partners-heading"><p class="eyebrow" data-ja="パートナー">PARTNERS</p><h2 id="partners-title" data-ja="Gyosokuのパートナー">Partners of Gyosoku.</h2></div><div class="partner-grid"><article class="partner-card"><div class="tracesource-wordmark" aria-label="TraceSource">Trace<span>Source</span></div><p class="partner-name">TraceSource</p><a href="https://app.dev.tracesource.co/apps/6ac7f781714a8f4d47c2595c/harborpulse" target="_blank" rel="noopener noreferrer" data-ja="HarborPulseを開く ↗">Open HarborPulse ↗</a></article><article class="partner-card"><img class="ckash-logo" src="/public/partners/ckash.png" alt="cKash" width="88" height="88" loading="lazy"><p class="partner-name">cKash</p></article><article class="partner-card"><img class="kesenmemento-logo" src="/public/partners/kesenmemento-logo.svg" alt="KesenMemento / ケセンメメント" width="230" height="120" loading="lazy"><p class="partner-name">KesenMemento</p></article></div></section>
+<section class="section faq"><p class="eyebrow" data-ja="05 / よくある質問">05 / QUESTIONS</p><h2 data-ja="試す前に、知っておきたいこと。">A few things to know.</h2>
+<details><summary data-ja="AIは実際の水揚げを予測していますか？">Does AI predict real landings here?</summary><p data-ja="いいえ。このデモは静的な合成データと説明可能な計算を使います。予測精度は未検証です。AIによる予測や運用を想定するには、実データでの検証が必要です。">The current demo uses static synthetic data and explainable arithmetic. Forecast accuracy has not been validated. A future forecasting system would require real-data validation.</p></details>
+<details><summary data-ja="データや判断は保存されますか？">Are my decisions saved?</summary><p data-ja="履歴と提案の確認状態はブラウザーのメモリー内にあり、再読込でリセットされます。言語設定は端末内に保存されます。サーバーに判断を送信しません。">Activity and offer verification live in browser memory and reset on reload. Your language preference is stored on your device. Decisions are not transmitted to a server.</p></details>
+<details><summary data-ja="アプリとしてインストールできますか？">Can I install it as an app?</summary><p data-ja="iPhoneではSafariの共有メニューから「ホーム画面に追加」を選びます。AndroidやデスクトップChromeではブラウザーのインストール機能、または表示されるアプリ内ボタンを使います。App Store配信はありません。">On iPhone, open in Safari and choose Share → Add to Home Screen. On Android or desktop Chrome, use the browser’s install option or the app’s install button when available. It is an installable web app, with no App Store release.</p></details>
+<details><summary data-ja="P10・P50・P90とは？">What are P10, P50 and P90?</summary><p data-ja="水揚げ見込みの幅を示す値です。P50は中央値、P10は低い側、P90は高い側の結果を表します。このデモの値はすべて例示であり、検証済みの確率予測ではありません。">They describe a range of possible landing quantities: a low-side outcome, the median and a high-side outcome. All values here are illustrative, rather than calibrated probability forecasts.</p></details>
+</section>
+<section class="closing"><p class="eyebrow" data-ja="魚測を体験">EXPLORE GYOSOKU</p><h2 data-ja="不足を見つける。根拠を理解する。次の一手を選ぶ。">See the gap.<br>Choose the next move.</h2><a class="button light" href="/fisherman/" data-ja="アプリを開く ↗">Open app ↗</a></section>
+<dialog id="video-dialog" aria-labelledby="video-title"><div class="video-box"><div class="video-head"><h2 id="video-title" data-ja="魚測の紹介動画">Gyosoku introduction</h2><button id="video-close" class="video-close" type="button" aria-label="Close">✕</button></div><video id="video" controls playsinline preload="none"></video><p id="video-empty" class="video-empty" hidden data-ja="動画は近日公開です。">Video coming soon.</p></div></dialog>
+</main><footer><a class="brand" href="/"><img class="mark" src="/public/logo.png" alt="" width="38" height="38"><span>Gyosoku <small>魚測</small></span></a><p data-ja="予測精度は未検証。人による承認が必要です。">Forecast accuracy unvalidated. Human approval required.</p><a href="/public/gyosoku-cover.png" data-ja="ブランドカバー">Brand cover ↗</a></footer>
+<script type="module" src="/src/guide-logo-motion.js"></script></body></html>

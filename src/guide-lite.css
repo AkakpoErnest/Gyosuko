@@ -1,0 +1,24 @@
+/* Guide for the website and processor workspace */
+.lg-fab{position:fixed;right:18px;bottom:18px;z-index:50;width:52px;height:52px;padding:0;border:0;border-radius:17px;background:#0b2a35;overflow:hidden;box-shadow:0 14px 30px -8px rgba(6,32,43,.6),0 0 0 2px #fff;cursor:pointer;animation:lgfloat 4s ease-in-out infinite}
+.lg-fab img{width:100%;height:100%;display:block;filter:brightness(1.3);pointer-events:none}
+.lg-fab.on{outline:3px solid #ff8a4c}
+@keyframes lgfloat{50%{transform:translateY(-5px)}}
+.lg-hint{position:fixed;right:80px;bottom:28px;z-index:50;border:0;background:#fff;color:#0c2c57;font:600 14px/1.3 system-ui,sans-serif;padding:10px 14px;border-radius:16px 16px 4px 16px;box-shadow:0 12px 28px -8px rgba(6,32,43,.5);cursor:pointer}
+.lg-hint[hidden],.lg-panel[hidden]{display:none}
+.lg-panel{position:fixed;right:18px;bottom:82px;z-index:51;width:min(380px,calc(100vw - 24px));max-height:min(70vh,560px);display:flex;flex-direction:column;background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 30px 70px -10px rgba(6,32,43,.55),0 0 0 1px #d9e4df;font:15px/1.5 system-ui,-apple-system,'Hiragino Sans',sans-serif;color:#10272b}
+.lg-head{display:flex;align-items:center;gap:10px;padding:12px 14px;background:linear-gradient(135deg,#0b3a45,#06202b);color:#fff}
+.lg-head img{border-radius:8px}.lg-head strong{flex:1}
+.lg-head button{border:0;background:rgba(255,255,255,.14);color:#fff;width:36px;height:36px;border-radius:11px;cursor:pointer;font-size:15px}
+.lg-log{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;min-height:140px}
+.lg-msg{margin:0;padding:10px 14px;border-radius:16px;max-width:88%;white-space:pre-line}
+.lg-msg--bot{background:#e9f4ef;border-bottom-left-radius:4px;align-self:flex-start}
+.lg-msg--me{background:#0b3a45;color:#fff;border-bottom-right-radius:4px;align-self:flex-end}
+.lg-chips{display:flex;flex-wrap:wrap;gap:8px}
+.lg-chips button{border:1.5px solid #14786f;background:#fff;color:#0b3a45;border-radius:99px;padding:9px 14px;font-weight:700;font-size:14px;min-height:42px;cursor:pointer}
+.lg-note{margin:0;padding:6px 14px 0;font-size:11.5px;color:#5a7176;line-height:1.4}
+.lg-form{display:flex;gap:8px;padding:10px}
+.lg-form input{flex:1;min-width:0;min-height:46px;border:1.5px solid #d9e4df;border-radius:13px;padding:0 12px;font:inherit}
+.lg-form button{border:0;border-radius:13px;padding:0 16px;background:linear-gradient(135deg,#ff8a4c,#ff6b3d);color:#fff;font-weight:700;white-space:nowrap;min-height:46px;cursor:pointer}
+.lg-fab:focus-visible,.lg-hint:focus-visible,.lg-chips button:focus-visible,.lg-form *:focus-visible,.lg-head button:focus-visible{outline:3px solid #ff8a4c;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.lg-fab{animation:none}}
+@media (max-width:640px){.lg-panel{right:12px;bottom:78px}.lg-hint{right:76px}}

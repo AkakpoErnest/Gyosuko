@@ -146,7 +146,8 @@ function renderRibbon(c, { compact = false } = {}) {
     s('line', { x1: pct(c.coverage.p50), x2: pct(c.coverage.p50), y1: top - 6, y2: top + bh + 6, class: 'ribbon__p50' }),
     s('line', { x1: pct(c.need), x2: pct(c.need), y1: compact ? top - 8 : 18, y2: top + bh + 8, class: 'ribbon__need' }),
   ];
-  if (!compact) {
+  const narrow = window.matchMedia('(max-width: 640px)').matches;
+  if (!compact && !narrow) {
     const below = top + bh + 18;
     kids.push(
       text(`${t('common.need')} ${fmtKg(c.need)}`, c.need, 12, 'end', 'is-accent'),
@@ -203,10 +204,30 @@ function arrivalsTable() {
       h('td', {}, chip(a.status))))));
 }
 
+// A plain-language read-out and the next step, ahead of the technical ledger.
+function renderPlainSummary(c) {
+  const o = scenario.order;
+  const short = c.gap.p50 > 0;
+  const vars = { need: fmtKg(c.need), species: t(`species.${o.species}`), date: fmtDate(o.dueDate), stock: fmtKg(c.stock), landings: fmtKg(landingsKg('p50')), gap: fmtKg(c.gap.p50) };
+  const step = (n, title, body) => h('li', { class: 'say__step' }, h('span', { class: 'say__n', 'aria-hidden': 'true' }, n),
+    h('span', {}, h('strong', {}, title), h('span', { class: 'say__b' }, body)));
+  return h('section', { class: `say${short ? ' say--short' : ''}`, 'aria-labelledby': 'say-title' },
+    h('h2', { class: 'say__title', id: 'say-title' }, t('overview.sayTitle')),
+    h('p', { class: 'say__text' }, t(short ? 'overview.say' : 'overview.sayOk', vars)),
+    h('h3', { class: 'say__sub' }, t('overview.nextTitle')),
+    h('ol', { class: 'say__steps' },
+      step('1', t('overview.step1'), t('overview.step1b')),
+      step('2', t('overview.step2'), t('overview.step2b'))),
+    h('div', { class: 'say__actions' },
+      h('a', { class: 'btn btn--primary', href: '#decision' }, `${t('overview.cta')} →`),
+      h('a', { class: 'btn', href: '#supply' }, t('overview.ctaAlt'))));
+}
+
 function renderOverview(c) {
   const o = scenario.order;
   return [
     viewTitle('overview', 'overview.title'), metaLine(),
+    renderPlainSummary(c),
     h('p', { class: 'lede' }, `${o.id} · ${t('overview.orderMeta', { species: t(`species.${o.species}`), buyer: t(`buyer.${o.buyer}`) })} · ${t('overview.due', { date: fmtDate(o.dueDate) })}`),
     figure(t('overview.possibleGap'), c.gap.p50, t('decision.shortageLead', { gap: fmtKg(c.gap.p50) }),
       `P10 ${fmtKg(c.gap.p10)} · P50 ${fmtKg(c.gap.p50)} · P90 ${fmtKg(c.gap.p90)}`),
@@ -441,3 +462,9 @@ dom.dialog.addEventListener('close', () => {
 
 routeFromHash();
 renderAll();
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch((error) => console.warn('Offline setup unavailable:', error));
+  });
+}

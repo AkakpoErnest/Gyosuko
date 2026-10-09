@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f5f3ee"><title>Gyosoku — Prediction board</title><link rel="stylesheet" href="/src/predictions.css"><link rel="icon" href="/public/logo.png"></head>
+<body><header><a href="/">Gyosoku <span>魚測</span></a><button id="language" type="button">日本語</button></header>
+<main><p class="eyebrow" data-en="COMMUNITY OUTLOOK · PROTOTYPE" data-ja="みんなの見込み · 試作版"></p><h1 data-en="What will tomorrow bring?" data-ja="明日は、どれくらい獲れる？"></h1><p class="lead" data-en="Record your catch estimate, add your confidence, then compare it with the actual landing." data-ja="漁獲量の見込みと自信度を記録し、実際の水揚げ量と比べてみましょう。"></p>
+<p class="notice" data-en="Saved on this device only. Other people cannot see these entries yet. Confidence is your own judgment; these estimates are unvalidated. No money or trading." data-ja="この端末だけに保存されます。今は他の人と共有されません。自信度は自己評価で、予測の精度は未検証です。金銭や取引はありません。"></p>
+<div class="layout"><section class="entry"><h2 data-en="Your prediction" data-ja="見込みを入力"></h2><form id="prediction-form">
+<label for="species" data-en="Fish" data-ja="魚種"></label><select id="species" name="species"><option value="skipjack" data-en="Skipjack" data-ja="カツオ"></option><option value="tuna" data-en="Tuna" data-ja="マグロ"></option><option value="mackerel" data-en="Mackerel" data-ja="サバ"></option><option value="sardine" data-en="Sardine" data-ja="イワシ"></option></select>
+<label for="date" data-en="Landing date" data-ja="水揚げ予定日"></label><input id="date" name="date" type="date" required>
+<label for="port" data-en="Landing port" data-ja="水揚げ港"></label><input id="port" name="port" type="text" value="Kesennuma" maxlength="80" required autocomplete="off">
+<label for="quantity" data-en="Estimated catch (kg)" data-ja="漁獲見込み量（kg）"></label><input id="quantity" name="quantity" type="number" min="0" max="1000000" step="1" required inputmode="numeric">
+<label for="confidence" data-en="How confident are you?" data-ja="この見込みへの自信は？"></label><select id="confidence" name="confidence"><option value="30" data-en="30% · Low confidence" data-ja="30% · 低め"></option><option value="60" selected data-en="60% · Fairly confident" data-ja="60% · ある程度"></option><option value="90" data-en="90% · Very confident" data-ja="90% · 高め"></option></select>
+<button class="primary" type="submit" data-en="Save prediction ↗" data-ja="見込みを保存 ↗"></button><p id="feedback" role="status" aria-live="polite"></p>
+</form></section>
+<section class="board"><div class="board-heading"><h2 data-en="Your prediction board" data-ja="あなたの見込み一覧"></h2><span id="count"></span></div><p class="muted" data-en="Add the actual quantity after landing to see how close your estimate was." data-ja="水揚げ後に実際の量を入力すると、見込みとの差を確認できます。"></p><div id="entries"></div></section></div>
+<footer><a href="/fisherman/" data-en="Open fisherman app ↗" data-ja="漁業者アプリを開く ↗"></a><a href="/#about" data-en="About Gyosoku" data-ja="Gyosokuについて"></a></footer></main><script type="module" src="/src/predictions.js"></script></body></html>

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gyosoku</title>
+  <meta name="description" content="Gyosoku for Kesennuma: order, stock and landing outlook on one sheet. Synthetic data only.">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#141516">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Gyosoku">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/public/icons/icon-180.png">
+  <link rel="icon" href="/public/icons/icon-192.png">
+  <meta property="og:title" content="Gyosoku">
+  <meta property="og:description" content="A clearer next move when fish supply is uncertain. Bilingual supply planning demo.">
+  <meta property="og:image" content="https://gyosoku.netlify.app/public/gyosoku-cover.png">
+  <meta property="og:url" content="https://gyosoku.netlify.app/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif&family=BIZ+UDPGothic:wght@400;700&family=Noto+Serif+JP:wght@600&display=swap">
+  <link rel="stylesheet" href="/src/styles.css">
+  <script type="module" src="/src/app.js"></script>
+<link rel="stylesheet" href="/src/guide-lite.css"><script type="module" src="/src/guide-lite.js"></script></head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="app">
+    <nav class="rail" aria-label="Main">
+      <div class="rail__brand">
+        <a class="rail__name" href="/"><img class="mark" src="/public/logo.png" alt="" width="38" height="38"><span>Gyosoku</span></a>
+        <span class="rail__tagline"></span>
+      </div>
+
+      <button class="rail__toggle" type="button" aria-expanded="false" aria-controls="rail-nav" aria-label="Menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" aria-hidden="true" focusable="false">
+          <path d="M4 7h16M4 12h16M4 17h16"/>
+        </svg>
+      </button>
+
+      <div class="rail__nav" id="rail-nav">
+        <button class="rail__link" type="button" data-view="overview">Overview</button>
+        <button class="rail__link" type="button" data-view="supply">Supply plan</button>
+        <button class="rail__link" type="button" data-view="decision">Decision review</button>
+        <button class="rail__link" type="button" data-view="activity">Activity</button>
+        <button class="rail__link" type="button" data-view="technical">Technical details</button>
+      </div>
+
+      <div class="rail__lang">
+        <button class="lang-toggle" type="button">日本語</button>
+      </div>
+    </nav>
+
+    <main class="workspace" id="main" tabindex="-1">
+      <p class="banner banner--demo" role="note">
+        Demo data only. Forecast accuracy has not been validated. Human approval required.
+      </p>
+      <section class="view" data-view="overview" aria-labelledby="view-title-overview"></section>
+      <section class="view" data-view="supply" aria-labelledby="view-title-supply" hidden></section>
+      <section class="view" data-view="decision" aria-labelledby="view-title-decision" hidden></section>
+      <section class="view" data-view="activity" aria-labelledby="view-title-activity" hidden></section>
+      <section class="view" data-view="technical" aria-labelledby="view-title-technical" hidden></section>
+    </main>
+
+    <aside class="signal" aria-label="Signal"></aside>
+  </div>
+
+  <dialog class="confirm" aria-labelledby="confirm-title" aria-describedby="confirm-body">
+    <form method="dialog" class="confirm__form">
+      <h2 class="confirm__title" id="confirm-title">Confirm decision</h2>
+      <p class="confirm__body" id="confirm-body"></p>
+      <p class="confirm__detail"></p>
+      <div class="confirm__actions">
+        <button class="btn btn--ghost confirm__no" type="submit" value="cancel">Cancel</button>
+        <button class="btn btn--primary confirm__yes" type="submit" value="confirm">Confirm</button>
+      </div>
+    </form>
+  </dialog>
+<script type="module" src="/src/guide-logo-motion.js"></script></body>
+</html>

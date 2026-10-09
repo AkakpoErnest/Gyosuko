@@ -3,14 +3,14 @@
 // No document/localStorage access at import time — all guarded and lazy.
 
 export const LANGS = ['en', 'ja'];
-const DEFAULT_LANG = 'en';
+const DEFAULT_LANG = 'ja';
 const STORAGE_KEY = 'gyosoku.lang';
 const TZ = 'Asia/Tokyo';
 
 const en = {
   // App shell
   'app.name': 'Gyosoku',
-  'app.tagline': 'Order, stock and landing forecast on one sheet',
+  'app.tagline': 'Kesennuma · order, stock and landing outlook on one sheet',
   'app.demoBanner': 'Demo data only. Forecast accuracy has not been validated. Human approval required.',
   'app.langToggle': '日本語',
   'app.scenario': 'Synthetic Skipjack scenario',
@@ -48,6 +48,16 @@ const en = {
   'overview.due': 'Due {date}',
   'overview.orderMeta': '{species} · {buyer}',
   'overview.stockMeta': '{location} · verified {date}',
+  'overview.sayTitle': 'In plain words',
+  'overview.say': 'You need {need} of {species} by {date}. You have {stock} in stock and expect about {landings} more to land. That leaves you about {gap} short.',
+  'overview.sayOk': 'You need {need} of {species} by {date}. Stock plus expected landings should cover it.',
+  'overview.nextTitle': 'What to do next',
+  'overview.step1': 'Check the numbers',
+  'overview.step1b': 'See where stock and expected landings come from.',
+  'overview.step2': 'Choose a response',
+  'overview.step2b': 'Compare options, then approve, reject or hold. Nothing is sent automatically.',
+  'overview.cta': 'Review options',
+  'overview.ctaAlt': 'Open the supply plan',
 
   // Supply plan
   'supply.title': 'Supply plan',
@@ -187,7 +197,7 @@ const en = {
 const ja = {
   // App shell
   'app.name': 'Gyosoku',
-  'app.tagline': '注文・在庫・水揚げ見込みを一枚で',
+  'app.tagline': '気仙沼 · 注文・在庫・水揚げ見込みを一枚で',
   'app.demoBanner': 'デモデータのみ。予測精度は未検証です。人による承認が必要です。',
   'app.langToggle': 'English',
   'app.scenario': 'カツオの合成デモシナリオ',
@@ -225,6 +235,16 @@ const ja = {
   'overview.due': '期限 {date}',
   'overview.orderMeta': '{species} · {buyer}',
   'overview.stockMeta': '{location} · {date} 確認',
+  'overview.sayTitle': 'かんたんに言うと',
+  'overview.say': '{date}までに{species}が{need}必要です。在庫は{stock}、これから入る見込みは約{landings}。このままだと約{gap}足りなくなるかもしれません。',
+  'overview.sayOk': '{date}までに{species}が{need}必要です。在庫と水揚げ見込みで足りる見通しです。',
+  'overview.nextTitle': '次にやること',
+  'overview.step1': '数字を確認する',
+  'overview.step1b': '在庫と水揚げ見込みの出どころを見られます。',
+  'overview.step2': '対応を選ぶ',
+  'overview.step2b': '選択肢を比べて、承認・却下・保留を選びます。自動では何も送られません。',
+  'overview.cta': '対応を検討する',
+  'overview.ctaAlt': '供給計画を開く',
 
   // Supply plan
   'supply.title': '供給計画',

@@ -5,6 +5,7 @@
   "type": "module",
   "description": "Gyosoku — bilingual supply-gap decision demo for a seafood processor (static prototype, synthetic data).",
   "scripts": {
+    "build": "node build.mjs",
     "start": "node server.mjs"
   },
   "engines": {
