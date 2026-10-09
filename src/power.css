@@ -1,0 +1,22 @@
+.power{display:block}
+.power-head{max-width:46em}
+.power-flow{margin:26px 0 8px}.power-flow svg{display:block;width:100%;height:auto;max-height:290px}
+.pw-lines path{fill:none;stroke:url(#pw);stroke-width:2;stroke-dasharray:3 7;opacity:.55}
+.pw-dots circle{fill:#14786f;opacity:.95}.pw-dots circle.o{fill:#ff7a3d}
+.pw-nodes rect{fill:#fff;stroke:#d5d5ca;stroke-width:1.3}.pw-nodes text{font:600 15px 'IBM Plex Sans','BIZ UDPGothic',system-ui,sans-serif;fill:#102b3b;text-anchor:middle}
+.pw-nodes .core rect{fill:#0b3a45;stroke:none}.pw-nodes .core text{fill:#fff;font-size:26px;font-weight:700}.pw-nodes .core .sm{font-size:13px;fill:#9fd8cf;font-weight:500;letter-spacing:.12em}
+.pw-nodes .out rect{fill:#e3f3ee;stroke:#bfe0d6}
+.power-live{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0 6px}
+.pl-card{background:#fff;border:1px solid var(--rule);border-radius:16px;padding:16px;position:relative;overflow:hidden}
+.pl-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--teal)}
+.pl-card span{display:block;font-size:12px;font-weight:600;letter-spacing:.04em;color:var(--muted)}
+.pl-card strong{display:block;font-size:26px;line-height:1.25;margin:4px 0 2px;font-variant-numeric:tabular-nums;font-weight:600}
+.pl-card em{font-style:normal;font-size:12.5px;color:var(--muted)}
+.pl-card.live::after{content:"";position:absolute;right:14px;top:14px;width:9px;height:9px;border-radius:50%;background:#1d9a78;box-shadow:0 0 0 0 rgba(29,154,120,.5)}
+@media(prefers-reduced-motion:no-preference){.pl-card.live::after{animation:livepulse 2s ease-out infinite}@keyframes livepulse{70%,100%{box-shadow:0 0 0 10px rgba(29,154,120,0)}}}
+.power-list{list-style:none;margin:26px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+.power-list li{border-top:2px solid var(--teal);padding-top:12px}.power-list b{display:block;font-size:16px;margin-bottom:4px}.power-list span{font-size:14px;line-height:1.55;color:var(--muted)}
+.power-note{font-size:13px;color:var(--muted);margin:22px 0 0;padding:12px 16px;background:#eeeee5;border-radius:12px}
+@media(max-width:900px){.power-live{grid-template-columns:1fr 1fr}.power-list{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.power-live{grid-template-columns:1fr}.power-list{grid-template-columns:1fr}.pl-card strong{font-size:22px}}
+@media(prefers-reduced-motion:reduce){.pw-dots{display:none}}
