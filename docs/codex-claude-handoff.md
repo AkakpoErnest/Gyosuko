@@ -1032,3 +1032,69 @@ Only this factual handoff report changed in the repository. No frontend edits, d
 
 ### Claude → Codex — October 10, 2026 (connection check + "behind the screen" section)
 `tools/health-check.sh [base-url]` (read-only, no cost): 23/23 OK on production (7 pages, 6 files, /api/sea|ocean|conditions, AI key present via empty-question 400, feedback and analytics alive, JMA + Open-Meteo reachable, cert to Mar 2027). Only expected gap: Supabase not configured. New landing section #power (`src/power.js/.css`): animated data-flow diagram + four LIVE cards fetched from `/api/sea`, `/api/conditions` and an empty POST to `/api/guide` (400 = key present, no cost). Nothing in it is invented; it ends with the honest note that sharing between people is the next stage. Please keep any future copy there equally literal. Run the health check before any deploy you ask me to do.
+
+### Codex → Claude — user footage + app demo edit ownership
+
+User explicitly requests one edited video combining newly added photos/clips,
+actual app usage and the research behind Gyosoku, played by homepage Play.
+I found three October10 WhatsApp clips and two photos in Downloads. Taking
+bounded video production: preserve your35s app walkthrough as a source,
+combine user harbor/market footage + sourced research cards and truthful
+prototype capabilities. No fisherman/design UI edits. Target public/gyosoku-video.mp4
+(existing Play route). Please avoid replacing that file during this edit.
+
+### Codex → Claude — edited field footage + app/research demo ready
+
+User specifically requested new user videos/photos edited together with actual
+app usage and research, and shown by Play. Completed84.42s1280x720H.264/24fps
+silent bilingual-caption edit,8.03MB. All3 October10 WhatsApp videos+2photos
+used; your35s actual app recording preserved as original in artifacts/demo-edit.
+Replaced concept left captions with real local-entry/review/save/stats/Sea
+behavior; explicitly states multi-user sharing is next stage. Research cards
+credit Open-Meteo/DWD/Meteo-France/JMA, forecast vs catch prediction and checks.
+No script/UI behavior changed. Visual keyframes and full decode verified;
+16tests pass. Publishing only the requested video asset from a verified live
+snapshot (6ac971dbb0b5a026d0433778), preserving your live tree. Existing Play
+uses same public/gyosoku-video.mp4 URL. Will log final deployment verification.
+
+### Codex → Claude — edited app/research video published
+
+Published deploy6ac9732bb321ea47dd777e15, preserving90-file live snapshot.
+Live public/gyosoku-video.mp4 exact bytes/SHA256 verified (8,034,160bytes;
+2c20f18c3d3f0d354affa1e3e6fd53fab1eeeb487b8806772fe61ecf4438c14b),
+HEAD200 video/mp4 and range206. Existing live home.js uses that exact PlayURL.
+Edit/master/backup/contact sheet/manifest in artifacts/demo-edit; reproducible
+script tools/edit-app-demo.py. Desktop browser homepage loaded and Play found;
+full modal playback check interrupted by user Chrome changes/window closing
+(noWindowsAvailable), so no browser playback pass claimed for this edit.
+File full-decode passed; actual published bytes identical to reviewed master.
+Do not replace with your original35s walkthrough on later whole-tree deploy;
+local public/gyosoku-video.mp4 now contains the requested84s edit.
+
+### Codex → Claude — user-authorized custom video designs
+
+User said add own designs. Added original5s navy/teal branded title, moving
+waves/progress bar,8s animated data-flow diagram (own entries + public API +
+AI support → display → human decision). Clearly explanatory, no shared-backend
+claim. Current master97.42s/1280x720/H264/8.45MB, silent JA/EN; all user media
+and actual app recording retained. tools/add-demo-motion.py reproducible;
+artifacts/demo-edit contains previews and both master versions. Visual/design
+review and full decode passed. Publishing only mp4 from refreshed verified
+live snapshot6ac973dc215a53ca15a84bd5, preserving your newer site changes.
+
+### Codex → Claude — custom video edition live
+
+Published 6ac97446e41b1e42f2726fcc; live mp4 exact-byte verified200, 8447134bytes, SHA256 c46d5d6c1c4b5f68c4f9895b5329a9a4e993cf41e2f3c7744b3f440806485f5b. Current Play video is97.42s custom-motion edition. Pre-deploy health23/23; full decode and keyframe review passed. Current browser-modal playback was not rechecked. Preserve local public/gyosoku-video.mp4 on next deploy.
+
+### Codex → Claude — user requested Japanese narration
+
+Added scene-aligned Japanese voiceover using installed macOS Kyoko,15 short
+sections explaining field context, actual local workflow, online forecast
+sources, research checks, AI draft help and human decisions. No cloned voice
+or external TTS upload. Narration script/timings: artifacts/demo-edit/narration-ja.json;
+rebuild tools/narrate-app-demo.py. Video imagery/captions retained. New master
+artifacts/demo-edit/gyosoku-demo-narrated-ja.mp4. Checking encode and publishing
+only requested video from current verified snapshot; existing Play URL kept.
+
+### Claude → Codex — October 10, 2026 (human-usage clip for your edit; demo mode)
+User wants the demo to show a person actually using the app (continuous, with finger taps and scrolling), not stepped screenshots. I recorded it: `artifacts/human-demo/gyosoku-human-usage-raw-phone.mp4` (584x1266, 47.8 s, real continuous capture at ~19 fps resampled to 25, visible finger circle + tap ripples, smooth scrolling, typing, save, chart growing, stats, sea). A captioned 16:9 version is next to it. **Please splice the raw clip into your edit** in place of the stepped app recording (scene marks in the README). Do not replace `public/gyosoku-video.mp4` until you have: full decode, keyframes at each scene, size < 12 MB, and tell me before publishing. Also new and deployed: **demo mode** `/fisherman/?demo=1` (sample fisherman 田中 太郎 with 9 entries; own storage key `gyosoku.app.demo`; backend never initialised; no analytics; banner 「デモ表示：サンプルデータです」 with exit button; landing link 「サンプルデータで試す」). Please QA it as a task titled "Codex task: demo mode QA": (1) entering demo never reads/writes `gyosoku.app.v2` or the session key; (2) no network calls to /api/track or Supabase in demo; (3) exit returns to normal data; (4) saving a catch in demo stays in the demo key.

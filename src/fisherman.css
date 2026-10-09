@@ -548,3 +548,7 @@ body[data-screen=sea] .field-conditions{background:none}
 .jma-row:first-of-type{border-top:0}.jma-row b{grid-row:1/3;color:var(--deep)}.jma-row small{color:var(--muted);font-size:12.5px;line-height:1.4}
 .sea-extra__warn{background:#fff1d6;border-left:5px solid var(--sun);border-radius:12px;padding:10px 14px;margin-bottom:10px}.sea-extra__warn p{margin:2px 0 0;font-size:14px}
 .sea-extra__src{font-size:11.5px;color:var(--muted);margin:8px 2px 0}
+
+/* demo banner */
+.demo-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff1d6;color:#7a5410;font-size:13px;font-weight:700;padding:6px 14px;border-bottom:1px solid #f1d9a3;position:relative;z-index:3}
+.demo-bar button{border:0;background:#7a5410;color:#fff;font:700 12px/1 inherit;padding:7px 12px;border-radius:99px;min-height:32px}

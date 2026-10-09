@@ -4,7 +4,10 @@
 import * as backend from './backend.js';
 import { askAI } from './guide-ai.js';
 
-const KEY = 'gyosoku.app.v2';
+// Demo mode (?demo=1): a pre-filled sample fisherman for presentations. It uses its OWN storage key, never touches real entries,
+// never connects to the cloud and sends no analytics. A banner makes clear it is sample data.
+const DEMO = (() => { try { if (new URLSearchParams(location.search).get('demo') === '1') sessionStorage.setItem('gy.demo', '1'); return sessionStorage.getItem('gy.demo') === '1'; } catch { return false; } })();
+const KEY = DEMO ? 'gyosoku.app.demo' : 'gyosoku.app.v2';
 const LANG_KEY = 'gyosoku.fisherman.lang';
 const ROLES = ['fisherman', 'captain', 'processor', 'other'];
 const FISHERS = ['fisherman', 'captain'];
@@ -42,7 +45,7 @@ const COPY = {
     recordTitle: '入力した魚の見通し', arrival: '入港予定', state: '状況', remove: 'この入力を削除', removeConfirm: 'この入力を削除しますか？', cancel: 'やめる', deleteNow: '削除する',
     validation: '魚の名前、量、入港日、港を入力してください。', storageError: '保存できませんでした。', syncFail: 'クラウドに送れませんでした。端末には保存しました。', removeFail: 'クラウドから削除できませんでした。記録は残っています。再度お試しください。', sessionLost: 'ログインの有効期限が切れました。端末の記録は残っています。クラウドを使うには再ログインしてください。', cloudLoadFail: 'クラウドの記録を読み込めませんでした。端末の記録を表示しています。', pendingCloud: 'クラウド未同期の記録があります。この端末には保存されています。',
     tabStats: '分析', statsTitle: '入力した見込みの集計', statsLead: 'この端末に保存した入力から計算します。', stats7: '過去7日〜今後7日', stats30: '過去30日〜今後30日', statsKg: '合計', statsN: '件', statsAvg: '1件あたり', statsBySpecies: '魚種ごとの量', statsConfirmed: '確認済みの割合', statsConfirmedHint: '「漁獲量を確認済み」にした量の割合', statsBusy: '一番多い日', statsEmpty: 'まだ分析できる入力がありません。見込みを入れると、ここに集計が出ます。', statsMoon: '今日の月齢', statsMoonNote: '計算による目安です。', moonNew: '新月', moonWax: '満ちていく月', moonFull: '満月', moonWane: '欠けていく月',
-    tabSea: '海況', seaTitle: '気仙沼の海況', seaLead: '天気と波の予報です。出航の判断は、公式の警報と現地の状況で行ってください。', auctionLink: '競り・市場の方はこちら ↗', tabToday: '今日', tabCatch: '入力', tabMe: '私', profile: 'プロフィール', editProfile: 'プロフィールを編集', signout: 'ログアウト', logoutTitle: 'ログアウトしますか？', logoutBody: 'この端末に保存した入力は残ります。もう一度ログインすれば続きから使えます。', loggedOut: 'ログアウトしました。', clear: '端末のデータを消去', clearConfirm: 'この端末の入力をすべて削除しますか？',
+    tabSea: '海況', seaTitle: '気仙沼の海況', seaLead: '天気と波の予報です。出航の判断は、公式の警報と現地の状況で行ってください。', auctionLink: '競り・市場の方はこちら ↗', tabToday: '今日', tabCatch: '入力', tabMe: '私', profile: 'プロフィール', editProfile: 'プロフィールを編集', demoBar: 'デモ表示：サンプルデータです', demoExit: 'デモを終了', signout: 'ログアウト', logoutTitle: 'ログアウトしますか？', logoutBody: 'この端末に保存した入力は残ります。もう一度ログインすれば続きから使えます。', loggedOut: 'ログアウトしました。', clear: '端末のデータを消去', clearConfirm: 'この端末の入力をすべて削除しますか？',
     cleared: '消去しました。', language: '言語', feedbackTitle: 'ご意見をください', projectFeedback: 'Gyosokuに感想を送る ↗', useful: '仕事で使いたいですか？', yes: '使いたい', maybe: '少し変えれば', no: '今は不要',
     easy: '入力は分かりやすいですか？', easyYes: '分かりやすい', easyMaybe: '少し難しい', easyNo: '難しい', change: '変えてほしいこと（任意）', feedbackSave: 'この端末に保存', thanks: 'ご意見をこの端末に保存しました。チームに送るには、下のリンクを開いてください。', feedbackRequired: '2つの質問に回答してください。',
     install: 'ホーム画面に追加', installBody: 'iPhone：Safariの共有 → ホーム画面に追加。Android：Chromeのメニュー → アプリをインストール。', download: 'データを書き出す',
@@ -78,7 +81,7 @@ const COPY = {
     recordTitle: 'Your catch estimate', arrival: 'Expected arrival', state: 'Status', remove: 'Delete this entry', removeConfirm: 'Delete this entry?', cancel: 'Cancel', deleteNow: 'Delete entry',
     validation: 'Enter the fish name, quantity, arrival date and port.', storageError: 'Could not save.', syncFail: 'Could not reach the cloud. Saved on this device.', removeFail: 'Could not delete from the cloud. Your record is still here. Please retry.', sessionLost: 'Your sign-in expired. Records on this device are still here. Sign in again to use the cloud.', cloudLoadFail: 'Could not load cloud records. Showing records saved on this device.', pendingCloud: 'Some records are saved on this device and have not synced to the cloud.',
     tabStats: 'Stats', statsTitle: 'Your catch-entry totals', statsLead: 'Calculated from the entries saved on this device.', stats7: 'Past to next 7 days', stats30: 'Past to next 30 days', statsKg: 'Total', statsN: 'entries', statsAvg: 'Per entry', statsBySpecies: 'Quantity by fish', statsConfirmed: 'Share checked', statsConfirmedHint: 'Share of kilograms marked “Catch quantity checked”', statsBusy: 'Busiest day', statsEmpty: 'Nothing to analyse yet. Add a catch estimate and your totals appear here.', statsMoon: 'Moon age today', statsMoonNote: 'Calculated, approximate.', moonNew: 'New moon', moonWax: 'Waxing', moonFull: 'Full moon', moonWane: 'Waning',
-    tabSea: 'Sea', seaTitle: 'Sea conditions', seaLead: 'Weather and wave forecasts for Kesennuma. Use official warnings and local conditions to decide whether to sail.', auctionLink: 'Auction or market? Start here ↗', tabToday: 'Today', tabCatch: 'Add', tabMe: 'Me', profile: 'Profile', editProfile: 'Edit profile', signout: 'Log out', logoutTitle: 'Log out?', logoutBody: 'Entries saved on this device will stay. Sign in again to carry on.', loggedOut: 'Logged out.', clear: 'Clear this device’s data', clearConfirm: 'Delete everything saved on this device?',
+    tabSea: 'Sea', seaTitle: 'Sea conditions', seaLead: 'Weather and wave forecasts for Kesennuma. Use official warnings and local conditions to decide whether to sail.', auctionLink: 'Auction or market? Start here ↗', tabToday: 'Today', tabCatch: 'Add', tabMe: 'Me', profile: 'Profile', editProfile: 'Edit profile', demoBar: 'Demo: this is sample data', demoExit: 'Exit demo', signout: 'Log out', logoutTitle: 'Log out?', logoutBody: 'Entries saved on this device will stay. Sign in again to carry on.', loggedOut: 'Logged out.', clear: 'Clear this device’s data', clearConfirm: 'Delete everything saved on this device?',
     cleared: 'Cleared.', language: 'Language', feedbackTitle: 'Tell us what you think', projectFeedback: 'Send feedback to Gyosoku ↗', useful: 'Would you use this for work?', yes: 'Yes', maybe: 'With changes', no: 'Not now',
     easy: 'Was it easy to enter a catch?', easyYes: 'Easy', easyMaybe: 'A little hard', easyNo: 'Hard', change: 'What would you change? (optional)', feedbackSave: 'Save on this device', thanks: 'Feedback saved on this device. Open the link below to send it to the team.', feedbackRequired: 'Please answer both questions.',
     install: 'Add to home screen', installBody: 'iPhone: Safari → Share → Add to Home Screen. Android: Chrome menu → Install app.', download: 'Export my data',
@@ -598,6 +601,7 @@ function render() {
   }, icon(k === 'catch' ? 'add' : k), el('span', {}, t(label)))));
   const view = (VIEWS[S.screen] || todayView)();
   main.replaceChildren(...view.flat(Infinity).filter(Boolean));
+  demoBar();
   guideRender();
 }
 
@@ -833,9 +837,30 @@ window.addEventListener('beforeunload', (e) => { if (S.screen === 'catch' && for
 
 backend.onSessionLost?.(() => toast(t('sessionLost')));
 
+function seedDemo() {
+  const d = (n) => addDays(jst(), n), id = () => crypto.randomUUID();
+  S.profile = { role: 'fisherman', name: S.lang === 'ja' ? '田中 太郎' : 'Taro Tanaka', vessel: S.lang === 'ja' ? '第三海幸丸' : 'Daisan Kaiko-maru', reg: '', homePort: '気仙沼港', method: 'poleline', species: ['skipjack', 'tuna'], capacity: 2000, phone: '', photo: '' };
+  const r = (n, sp, q, time, cert, notes = '') => ({ id: id(), species: sp, otherSpecies: '', quantity: q, date: d(n), time, port: '気仙沼港', certainty: cert, notes, createdAt: new Date().toISOString() });
+  S.records = [r(-3, 'tuna', 280, '06:30', 'confirmed'), r(-2, 'saury', 1500, '05:50', 'confirmed'), r(-1, 'skipjack', 700, '14:20', 'confirmed'),
+    r(0, 'skipjack', 800, '15:00', 'expected'), r(0, 'tuna', 350, '17:30', 'confirmed'), r(1, 'saury', 1200, '06:00', 'expected'),
+    r(2, 'skipjack', 950, '13:30', 'expected'), r(3, 'mackerel', 600, '05:30', 'expected'), r(5, 'skipjack', 1100, '15:30', 'expected')];
+  persist();
+}
+function demoBar() {
+  if (!DEMO) return;
+  const phone = document.querySelector('.phone'); if (!phone) return;
+  let bar = document.getElementById('demo-bar');
+  if (!bar) {
+    bar = el('div', { id: 'demo-bar', class: 'demo-bar', role: 'status' }, el('span', {}), el('button', { type: 'button', on: { click: () => { try { sessionStorage.removeItem('gy.demo'); } catch {} location.href = '/fisherman/'; } } }));
+    phone.insertBefore(bar, phone.querySelector('main'));
+  }
+  bar.querySelector('span').textContent = t('demoBar'); bar.querySelector('button').textContent = t('demoExit');
+}
+
 async function boot() {
+  if (DEMO && !S.profile) seedDemo();
   render();
-  await backend.init();
+  if (!DEMO) await backend.init(); // demo mode never touches the cloud
   if (backend.getSession()) {
     const prof = await backend.getProfile();
     if (prof) S.profile = { role: prof.role, name: prof.display_name, ...(prof.details || {}) };
