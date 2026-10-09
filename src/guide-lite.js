@@ -2,8 +2,8 @@
 import { askAI } from './guide-ai.js';
 
 const T = {
-  ja: { name: '魚測AI', hi: 'こんにちは！魚測AIです。サイトとアプリの案内をします。\nやりたいことを書いてください。細かい質問はせず、そのまま進めます。', ph: '質問を入力…', send: '送る', open: 'ガイドを開く', close: '閉じる', thinking: '考え中…', note: '自由な質問はAIに送られることがあります。個人情報は入力しないでください。', fallback: 'すみません、うまく答えられませんでした。下のボタンをお試しください。', hint: '魚測AIに話しかける', done: '開きました。' },
-  en: { name: 'Gyosoku AI', hi: 'Hello! I’m Gyosoku AI. I can guide you around the site and the app.\nJust tell me what you want. I won’t ask lots of questions, I’ll go ahead.', ph: 'Ask a question…', send: 'Send', open: 'Open guide', close: 'Close', thinking: 'Thinking…', note: 'Free-form questions may be sent to an AI service. Please don’t type personal details.', fallback: 'Sorry, I couldn’t answer that. Try the buttons below.', hint: 'Talk to Gyosoku AI', done: 'Opened.' },
+  ja: { name: '魚測AI', hi: 'こんにちは！魚測AIです。サイトとアプリの案内ができます。\nやりたいことを書いてください。', ph: '質問を入力…', send: '送る', open: 'ガイドを開く', close: '閉じる', thinking: '考え中…', note: '自由な質問はAIに送られることがあります。個人情報は入力しないでください。', fallback: 'すみません、うまく答えられませんでした。下のボタンをお試しください。', hint: '魚測AIに話しかける', done: '開きました。' },
+  en: { name: 'Gyosoku AI', hi: 'Hello! I’m Gyosoku AI. I can guide you around the site and the app.\nJust tell me what you want.', ph: 'Ask a question…', send: 'Send', open: 'Open guide', close: 'Close', thinking: 'Thinking…', note: 'Free-form questions may be sent to an AI service. Please don’t type personal details.', fallback: 'Sorry, I couldn’t answer that. Try the buttons below.', hint: 'Talk to Gyosoku AI', done: 'Opened.' },
 };
 const onApp = location.pathname.startsWith('/app');
 const lang = () => (document.documentElement.lang === 'en' ? 'en' : 'ja');

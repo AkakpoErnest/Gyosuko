@@ -2,17 +2,17 @@
 // The numbers are clearly labelled examples. Real numbers need fishermen's shared entries (backend not connected yet).
 const T = {
   ja: { eyebrow: '競り・市場の方へ', title: '競りの前に、入港の見込みを', lead: '漁師さんが入港前にスマホへ入力した「魚種・量・時間」を、競りの前に一覧で見られます。これは見本の画面です。', sample: '見本データ（実際の入力ではありません）',
-    today: '今日の入港見込み', total: '合計の見込み', totalNote: '3人以上の報告が集まった魚種だけ表示します。個別の入力は見えません。', kg: 'kg', boats: '隻', sure: '確認済み', est: '見込み', by: '入港予定', conf: '確認済みの量',
+    today: '入港見込みの例', total: '合計の見込み', totalNote: '実データでは、3人以上の報告が集まった魚種だけを表示する予定です。個別の報告内容は表示されません。', kg: 'kg', boats: '隻', sure: '確認済み', est: '見込み', by: '入港予定', conf: '確認済みの量',
     legend: '濃い部分は漁獲量を確認済み、薄い部分はまだ見込みです。漁師さんの自己申告で、検証された予測ではありません。',
     poll: '見たい情報を教えてください', pollLead: '当てはまるものをすべて選んでください。', want: [['species','魚種ごとの量'],['arrival','入港時間'],['confidence','確認済みか、見込みか'],['boats','入港する船の数'],['port','港ごとの内訳'],['history','過去の水揚げとの比較'],['price','値段の目安'],['weather','天気・海況']],
-    more: 'ほかに知りたいこと（任意）', who: '会社名・お名前（任意）', whoPh: '例：○○市場', contact: '連絡先（任意）', send: '送る', sending: '送信中…', fail: '送れませんでした。電波のよい所でもう一度お試しください。', empty: 'どれか1つ選んでください。',
+    more: 'ほかに知りたいこと（任意）', who: '会社名・お名前（任意）', whoPh: '例：○○市場', contact: '連絡先（任意）', send: '送る', sending: '送信中…', fail: '送れませんでした。しばらくしてから、もう一度お試しください。', empty: 'どれか1つ選んでください。',
     thanks: 'ありがとうございます！', thanksBody: 'ご意見は魚測チームに届きました。', tryApp: '漁師向けアプリも見てみる', sendNote: '送った内容は魚測チームだけが見ます。', lang: 'English',
     rows: [['カツオ','気仙沼港','15:00',2400,1800,3,'800–2,400'],['サンマ','気仙沼港','17:30',1200,300,2,'900–1,400'],['サバ','気仙沼港','翌 05:00',1000,0,4,'600–1,200']] },
   en: { eyebrow: 'FOR AUCTIONS AND MARKETS', title: 'Know what is arriving, before the auction', lead: 'See what fishermen expect to land (fish, quantity, time), entered on their phones before they reach port. This is a sample screen.', sample: 'Sample data (not real entries)',
-    today: 'Expected arrivals today', total: 'Total expected', totalNote: 'Shown only for fish that 3 or more people have reported. Individual entries are never visible.', kg: 'kg', boats: 'boats', sure: 'checked', est: 'estimate', by: 'arrives', conf: 'quantity checked',
+    today: 'Sample expected arrivals', total: 'Total expected', totalNote: 'For real data, totals will be shown only for fish that 3 or more people have reported. Individual entries are never visible.', kg: 'kg', boats: 'boats', sure: 'checked', est: 'estimate', by: 'arrives', conf: 'quantity checked',
     legend: 'Darker part: quantity already checked. Lighter part: still an estimate. These are fishermen’s own estimates, not a validated forecast.',
     poll: 'What would you want to see?', pollLead: 'Select everything that applies.', want: [['species','Quantity by fish'],['arrival','Arrival time'],['confidence','Checked or just an estimate'],['boats','Number of boats'],['port','Breakdown by port'],['history','Compared with past landings'],['price','Price guide'],['weather','Weather and sea conditions']],
-    more: 'Anything else you would want? (optional)', who: 'Company / your name (optional)', whoPh: 'e.g. ○○ market', contact: 'Contact (optional)', send: 'Send', sending: 'Sending…', fail: 'Could not send. Please try again with a better signal.', empty: 'Please select at least one.',
+    more: 'Anything else you would want? (optional)', who: 'Company / your name (optional)', whoPh: 'e.g. ○○ market', contact: 'Contact (optional)', send: 'Send', sending: 'Sending…', fail: 'Could not send. Please try again shortly.', empty: 'Please select at least one.',
     thanks: 'Thank you!', thanksBody: 'Your answers reached the Gyosoku team.', tryApp: 'Also try the fisherman app', sendNote: 'Only the Gyosoku team sees what you send.', lang: '日本語',
     rows: [['Skipjack','Kesennuma','15:00',2400,1800,3,'800–2,400'],['Pacific saury','Kesennuma','17:30',1200,300,2,'900–1,400'],['Mackerel','Kesennuma','05:00 (next day)',1000,0,4,'600–1,200']] },
 };

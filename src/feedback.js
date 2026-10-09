@@ -4,12 +4,12 @@ const T = {
     easy: '入力は分かりやすかったですか？', easy_easy: '分かりやすい', easy_ok: 'ふつう', easy_hard: '難しい',
     useful: '仕事で使いたいですか？', u_yes: '使いたい', u_maybe: '少し変えれば', u_no: '今は不要',
     wish: 'あったらいい機能は？（任意）', wishPh: '例：音声で入力、市場の値段、天気', comment: 'そのほか気づいたこと（任意）', name: 'お名前（任意）', role: '立場（任意）', rolePh: '漁師 / 船長 / 加工会社 / 市場', port: '港（任意）', contact: '連絡先（任意）', contactPh: '電話やメール。お返事が必要なときだけ',
-    send: '送る', sending: '送信中…', fail: '送れませんでした。電波のよい所でもう一度お試しください。', empty: 'どれか1つ答えてください。', thanks: 'ありがとうございます！', thanksBody: 'ご意見は魚測チームに届きました。これからの改善に使います。', back: 'アプリにもどる', note: '送った内容は魚測チームだけが見ます。', lang: 'English' },
+    send: '送る', sending: '送信中…', fail: '送れませんでした。しばらくしてから、もう一度お試しください。', empty: 'どれか1つ答えてください。', thanks: 'ありがとうございます！', thanksBody: 'ご意見は魚測チームに届きました。これからの改善に使います。', back: 'アプリにもどる', note: '送った内容は魚測チームだけが見ます。', lang: 'English' },
   en: { title: 'Tell us what you think', lead: 'How was it? It takes one minute. Answer only what you like.', tried: 'Did you try the app?', yes: 'Yes', partly: 'A little', no: 'No',
     easy: 'Was it easy to enter a catch?', easy_easy: 'Easy', easy_ok: 'OK', easy_hard: 'Hard',
     useful: 'Would you use this for work?', u_yes: 'Yes', u_maybe: 'With changes', u_no: 'Not now',
     wish: 'What would you like it to do? (optional)', wishPh: 'e.g. voice input, market prices, weather', comment: 'Anything else? (optional)', name: 'Your name (optional)', role: 'Your role (optional)', rolePh: 'Fisherman / Captain / Processor / Market', port: 'Port (optional)', contact: 'Contact (optional)', contactPh: 'Phone or email, only if you want a reply',
-    send: 'Send', sending: 'Sending…', fail: 'Could not send. Please try again with a better signal.', empty: 'Please answer at least one question.', thanks: 'Thank you!', thanksBody: 'Your feedback reached the Gyosoku team. We will use it to improve the app.', back: 'Back to the app', note: 'Only the Gyosoku team sees what you send.', lang: '日本語' },
+    send: 'Send', sending: 'Sending…', fail: 'Could not send. Please try again shortly.', empty: 'Please answer at least one question.', thanks: 'Thank you!', thanksBody: 'Your feedback reached the Gyosoku team. We will use it to improve the app.', back: 'Back to the app', note: 'Only the Gyosoku team sees what you send.', lang: '日本語' },
 };
 let lang = 'ja';
 try { lang = localStorage.getItem('gyosoku.fisherman.lang') === 'en' ? 'en' : 'ja'; } catch {}
