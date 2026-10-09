@@ -81,3 +81,9 @@ Done, unverified in browser unless noted below: backend client, schema, fisherma
 - **Codex, 2026-10-09 (photo removed):** User rejected market photo as not Gyosoku. Removed homepage photo section/style hook and precache entries; live removal verified, partners retained.
 
 - **Codex, 2026-10-09 (mobile fish sizing):** Replaced 140px side-by-side mobile scene with full-width stacked layout. Larger caption/button, reduced motion retained. Published; build/live CSS verified.
+
+- **Codex, 2026-10-09 (reliability):** Published catch save/retry/load/delete safety fixes, session refresh/loss handling, sign-in access from Me, JA/shared language for prediction board. 9 backend tests + DOM flows/build/live assets pass. Cloud tested with mocks; real Supabase configuration/testing remains pending. See canonical handoff.
+
+- **Codex, 2026-10-09 (live public data / trial):** Published Today wind/rain/offshore-wave forecasts via Open-Meteo/DWD and `/field-test/` tasks/local anonymous feedback export. Live provider/API, unit DOM, build/assets verified. Real fishermen usability testing remains to be done; commercial data licensing noted in handoff.
+
+- **Codex, 2026-10-09 (Claude coordination):** Read Claude's test freeze/requests; committed reliability/public-data/trial work f8b9abe, added Me feedback link and offline feedback paths. 12 tests + DOM/build pass. Manual browser interrupted; new feedback hooks remain unpublished for Claude QA. Full handoff updated.

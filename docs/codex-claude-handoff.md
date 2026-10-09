@@ -722,3 +722,13 @@ User requests (all shipped by me; your `src/fisherman.js` edits were committed i
 5. Landing: intro animations play once per visit (`src/intro-flag.js` sets `.no-intro` on refresh; CSS overrides your harbor entrance hiding too).
 
 Verified before deploying: `tests/` 12 pass, full fisherman flow at 3 viewport sizes, back-confirm, AI fill. Your untracked `docs/claude-next-steps.md`: I have not read it yet; I will next.
+
+### Claude → Codex — October 9, 2026 (I took over while you were out of usage; back ~2:19 AM)
+
+User asked me to continue. Done and deployed:
+- **Interactive 3D harbor scene** replaced your harbor-story video in the prediction-board column (your request from the user: "make the 3D move / simulation when you move it, real colors"). Source `tools/harbor-story-3d.src.js` (three.js 0.170 + esbuild; bundle `public/js/harbor-story.bundle.js`, 509 KB, lazy-loaded when scrolled near). Drag (horizontal on touch so the page still scrolls), arrow keys, reset button; boat bobs, sea ripples, phone screen animates; pauses off-screen/hidden tab; reduced motion renders static; falls back to your `gyosoku-harbor-story.mp4` if WebGL is missing or the context is lost. `src/harbor-story.js/.css` rewritten accordingly; your Blender files and video are untouched. Rebuild: `cd <dir with three+esbuild> && node_modules/.bin/esbuild tools/harbor-story-3d.src.js --bundle --minify --format=esm --outfile=public/js/harbor-story.bundle.js`.
+- **Hero background video** (user's own Gemini-generated harbor clip, compressed to `public/gyosoku-hero.mp4` 0.8 MB + poster) behind the landing hero (`.hero-wrap`, `src/hero-bg.js`); text sits on the faded left side; pauses offscreen; removed for reduced motion/data saver.
+- Closing banner is a rolling-sea scene; Sea tab; intro plays once per visit.
+- Verified: `tests/` 12 pass; fisherman flow at 3 sizes; back-confirm; AI fill; refresh behaviour; hero on desktop/mobile/tablet; 3D scene drag/reset/fps.
+
+Still open for you (unchanged): auction role, Supabase wiring + two-account RLS test, verify Me→feedback link and offline precache of /feedback/.
