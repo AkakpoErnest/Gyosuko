@@ -89,9 +89,9 @@ dialog?.addEventListener('close', () => video.pause());
   window.__gyoWords = () => {
     // hero: one after another — headline words, then the paragraph words, then the buttons
     let t = 150;
-    hero.forEach((el, i) => { t = split(el, i === 0 ? 85 : 26, t) + 120; });
+    hero.forEach((el, i) => { t = split(el, i === 0 ? 120 : 36, t) + 200; });
     document.querySelectorAll('.hero-actions, .hero .caption').forEach((el) => { el.style.animationDelay = `${t}ms`; });
-    others.forEach((el) => split(el, 70, 60));
+    others.forEach((el) => split(el, 110, 120));
     requestAnimationFrame(() => {
       hero.forEach((el) => { el.classList.remove('in'); void el.offsetWidth; el.classList.add('in'); });
       others.forEach((el) => { if (el.classList.contains('in')) { el.classList.remove('in'); void el.offsetWidth; el.classList.add('in'); } else if (first) io.observe(el); });
@@ -104,7 +104,7 @@ dialog?.addEventListener('close', () => video.pause());
 // Scroll reveal: text and cards fade up as each section comes into view. Content stays visible if JS or motion is unavailable.
 (() => {
   if (document.documentElement.classList.contains('no-intro') || !('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const targets = [...document.querySelectorAll('.section .eyebrow, .section h2, .section h3, .section > div > p, .section > p, .section li, .section .caption, .steps article, .views a, .ledger > div, .faq details, .section .text-link, .closing > *, .scroll-cue')];
+  const targets = [...document.querySelectorAll('.section .eyebrow, .section h2, .section h3, .section > div > p, .section > p, .section li, .section .caption, .steps article, .views a, .ledger > div, .faq details, .section .text-link, .closing > *')];
   const targetsAll = targets; targets.splice(0, targets.length, ...targetsAll.filter((el) => !el.matches('[data-words]')));
   document.documentElement.classList.add('js-reveal');
   const groups = new Map();
@@ -113,11 +113,11 @@ dialog?.addEventListener('close', () => video.pause());
     const parent = el.parentElement;
     const n = groups.get(parent) || 0;
     groups.set(parent, n + 1);
-    el.style.setProperty('--rv-d', `${Math.min(n, 6) * 90}ms`);
+    el.style.setProperty('--rv-d', `${Math.min(n, 8) * 170}ms`);
   }
   const io = new IntersectionObserver((entries) => {
     for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-  }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+  }, { threshold: 0.2, rootMargin: '0px 0px -12% 0px' });
   targets.forEach((el) => io.observe(el));
 })();
 

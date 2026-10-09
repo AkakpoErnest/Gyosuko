@@ -7,7 +7,7 @@ if (a) {
   else {
     const RATE = 0.8, FADE = 1.8; // playback speed; seconds (video time) of overlap at the seam
     a.loop = false; a.playbackRate = RATE;
-    const b = a.cloneNode(); b.id = 'hero-video-2'; b.removeAttribute('poster'); b.loop = false; b.playbackRate = RATE; b.preload = 'auto';
+    const b = a.cloneNode(); b.id = 'hero-video-2'; b.removeAttribute('poster'); b.loop = false; b.playbackRate = RATE; b.preload = 'metadata';
     a.parentElement.append(b);
     a.classList.add('on'); b.classList.remove('on');
     let cur = a, other = b, on = true, raf = 0, switching = false;
