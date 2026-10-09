@@ -1,0 +1,28 @@
+/* Launch animation shown before the fisherman app. Pure CSS motion; splash.js adds/removes the elements. */
+html.splash-on { background: #06202b; }
+html.splash-on body > :not(.splash) { visibility: hidden; }
+html.splash-on body { overflow: hidden; }
+.splash { position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center; overflow: hidden; color: #e9f4ef; cursor: pointer;
+  background: radial-gradient(120% 90% at 50% 0%, #0b3a45 0%, #06202b 70%); transition: opacity .45s ease, transform .45s ease; }
+.splash.is-out { opacity: 0; transform: scale(1.04); pointer-events: none; }
+.splash__sun { position: absolute; left: 50%; top: 24%; width: 28vmin; height: 28vmin; margin: -14vmin 0 0 -14vmin; border-radius: 50%;
+  background: radial-gradient(circle, #ffc06b 0%, #ff8a4c 55%, rgba(255, 138, 76, 0) 72%); opacity: 0; animation: splash-sun 1.6s .1s ease-out forwards; }
+.splash__core { position: relative; z-index: 2; text-align: center; padding: 0 24px; }
+.splash__logo { width: 84px; height: 84px; padding: 10px; box-sizing: border-box; background: #e9f4ef; box-shadow: 0 10px 30px -10px rgba(0, 0, 0, .6); border-radius: 22px; opacity: 0; transform: scale(.6); animation: splash-pop .7s .25s cubic-bezier(.2, 1.3, .4, 1) forwards; }
+.splash__name { margin: 18px 0 0; font: 600 34px/1.1 'IBM Plex Sans', 'BIZ UDPGothic', system-ui, sans-serif; letter-spacing: .02em; opacity: 0; transform: translateY(10px); animation: splash-rise .6s .6s ease-out forwards; }
+.splash__name small { font-size: .55em; font-weight: 500; color: #ffc06b; margin-left: 8px; }
+.splash__tag { margin: 10px auto 0; max-width: 20em; font: 400 15px/1.5 'IBM Plex Sans', 'BIZ UDPGothic', system-ui, sans-serif; color: #b9d3cc; opacity: 0; animation: splash-rise .6s .95s ease-out forwards; }
+.splash__sea { position: absolute; left: 0; right: 0; bottom: 0; height: 34%; z-index: 1; }
+.splash__wave { position: absolute; left: 0; bottom: 0; width: 200%; height: 100%; }
+.splash__wave--a { fill: rgba(20, 120, 111, .55); animation: splash-wave 5s linear infinite; }
+.splash__wave--b { fill: rgba(11, 58, 69, .9); animation: splash-wave 3.4s linear infinite reverse; }
+.splash__fish { position: absolute; left: -90px; bottom: 26%; width: 72px; z-index: 1; fill: #ffc06b; animation: splash-swim 2.2s .3s ease-in-out forwards; }
+@keyframes splash-pop { to { opacity: 1; transform: scale(1); } }
+@keyframes splash-rise { to { opacity: 1; transform: none; } }
+@keyframes splash-sun { to { opacity: .55; } }
+@keyframes splash-wave { to { transform: translateX(-50%); } }
+@keyframes splash-swim { 0% { transform: translate(0, 0); } 50% { transform: translate(55vw, -14px); } 100% { transform: translate(calc(100vw + 160px), 6px); } }
+@media (prefers-reduced-motion: reduce) {
+  .splash *, .splash { animation-duration: .01s !important; animation-delay: 0s !important; }
+  .splash__wave, .splash__fish { display: none; }
+}
