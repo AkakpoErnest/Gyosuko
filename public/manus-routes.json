@@ -1,0 +1,10 @@
+{
+  "routes": [
+    {
+      "path": "/",
+      "title": "Gyosoku",
+      "description": "Supply-gap decision demo for a seafood processor. Single-page app; views are selected by URL hash."
+    }
+  ],
+  "hashViews": ["overview", "supply", "decision", "activity", "technical"]
+}

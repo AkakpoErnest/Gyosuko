@@ -1,0 +1,13 @@
+{
+  "name": "gyosoku",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Gyosoku — bilingual supply-gap decision demo for a seafood processor (static prototype, synthetic data).",
+  "scripts": {
+    "start": "node server.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
