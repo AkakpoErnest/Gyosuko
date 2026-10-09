@@ -22,6 +22,9 @@ if (fig) {
       host.addEventListener('harbor:lost', fallback);
       button.hidden = false; button.addEventListener('click', () => api.reset());
       host.classList.add('ready'); label(); update();
+      // The story follows the page scroll: boat sails in, the fisherman lands the tuna and points at the phone.
+      const progress = () => { const r = fig.getBoundingClientRect(), vh = innerHeight; api.setProgress((vh * 0.92 - r.top) / (vh * 0.55 + r.height * 0.3)); };
+      addEventListener('scroll', progress, { passive: true }); addEventListener('resize', progress); progress();
     } catch { fallback(); }
   }
   new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) load(); update(); }, { rootMargin: '200px', threshold: 0.05 }).observe(fig);

@@ -362,3 +362,55 @@ body[data-screen=access] .phone>main{overflow:hidden;padding-bottom:24px!importa
 /* auction/market entry on the role screen */
 .role-auction{display:block;text-align:center;margin:14px 0 0;padding:10px;color:var(--teal);font-weight:700;text-decoration:none;min-height:44px}
 body[data-screen=role] .roles{margin-bottom:0}
+
+/* ===== Compact layout: slimmer tab bar and tighter sizes, more room for content. Tap targets stay >= 44px. ===== */
+body:not([data-screen=welcome]){font-size:16px;line-height:1.5}
+body:not([data-screen=welcome]) header{padding:calc(8px + env(safe-area-inset-top)) 18px 4px}
+body:not([data-screen=welcome]) .brand{font-size:19px}
+body:not([data-screen=welcome]) .brand .mark{width:28px;height:28px;border-radius:8px}
+body:not([data-screen=welcome]) .brand small{font-size:11px}
+body:not([data-screen=welcome]) .quiet{min-height:40px;font-size:13px}
+body:not([data-screen=welcome]) .phone>main{padding:4px 18px 20px}
+body:not([data-screen=welcome]) h1{font-size:25px;line-height:1.25;margin:2px 0 8px}
+body:not([data-screen=welcome]) h2{font-size:18px;margin:0 0 8px}
+body:not([data-screen=welcome]) h2.section{font-size:13px;margin:20px 0 2px}
+body:not([data-screen=welcome]) p{margin:0 0 12px}
+body:not([data-screen=welcome]) .primary,body:not([data-screen=welcome]) .secondary,body:not([data-screen=welcome]) .linkbtn{min-height:50px;padding:11px 18px;border-radius:14px;font-size:16px}
+body:not([data-screen=welcome]) .actions{gap:10px;margin-top:16px}
+body:not([data-screen=welcome]) label{margin:14px 0 6px;font-size:13.5px}
+body:not([data-screen=welcome]) input,body:not([data-screen=welcome]) select,body:not([data-screen=welcome]) textarea{min-height:48px;padding:9px 12px;border-radius:12px}
+body:not([data-screen=welcome]) textarea{min-height:80px}
+body:not([data-screen=welcome]) fieldset{margin:14px 0}
+body:not([data-screen=welcome]) .choice{padding:9px 12px;min-height:44px;font-size:14px}
+body:not([data-screen=welcome]) .card{padding:16px;margin:14px 0;border-radius:18px}
+body:not([data-screen=welcome]) .card.empty{padding:18px 16px}
+body:not([data-screen=welcome]) .big{font-size:34px;margin:2px 0 8px}
+body:not([data-screen=welcome]) .summary>div{padding:10px 0}
+body:not([data-screen=welcome]) .record{padding:12px 14px;margin:8px 0;border-radius:14px}.body-x{}
+body:not([data-screen=welcome]) .record strong{font-size:16.5px}
+body:not([data-screen=welcome]) .board{margin:10px 0 14px;padding:16px 16px 56px;border-radius:22px}
+body:not([data-screen=welcome]) .board__total{font-size:42px;margin-bottom:12px}
+body:not([data-screen=welcome]) .bar__track{height:84px}
+body:not([data-screen=welcome]) .board__logo{width:36px;height:36px;top:14px;right:14px}
+body:not([data-screen=welcome]) .empty__logo{width:52px;height:52px}
+body:not([data-screen=welcome]) .hello .mini{width:38px;height:38px}
+body:not([data-screen=welcome]) .role{padding-top:6px;padding-bottom:6px}
+body:not([data-screen=role]) .role__icon{width:48px;height:48px}
+body:not([data-screen=welcome]) .avatar,body:not([data-screen=welcome]) .avatar--img{width:68px;height:68px;font-size:30px;margin:4px 0 8px}
+/* slimmer tab bar */
+nav{bottom:calc(8px + env(safe-area-inset-bottom));padding:4px;border-radius:20px;gap:2px;width:min(480px,calc(100% - 20px))}
+nav button{min-height:46px;padding:5px 0 4px;gap:1px;font-size:10.5px;border-radius:16px}
+nav svg{width:20px;height:20px}
+/* floating guide: smaller, sits just above the slimmer bar */
+.guide-fab{width:42px;height:42px;border-radius:13px;bottom:calc(72px + env(safe-area-inset-bottom))}
+@media (min-width:560px){.guide-fab{bottom:76px}}
+/* the last control can still scroll clear of the bar and the guide icon */
+@media (max-width:559px){body:not([data-screen=welcome]) .phone>main{padding-bottom:calc(112px + env(safe-area-inset-bottom))}}
+@media (min-width:560px){body:not([data-screen=welcome]) .phone>main{padding-bottom:112px}}
+body[data-screen=role] .phone>main,body[data-screen=auth] .phone>main,body[data-screen=access] .phone>main{padding-bottom:20px!important}
+
+/* Desktop: a smaller phone frame (390 wide, up to 780 tall) so the app looks like a real phone, not a full window. */
+@media (min-width:560px){
+  body{--frame-h:min(780px,calc(100dvh - 40px))}
+  .phone{width:390px;border-radius:38px}
+}

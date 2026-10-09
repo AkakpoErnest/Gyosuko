@@ -62,7 +62,7 @@ header,main,footer{position:relative;z-index:1}
 /* Hero background video (illustrated Kesennuma harbor); the left side of the picture fades to paper so text stays readable */
 .hero-wrap{position:relative;overflow:hidden;isolation:isolate;background:var(--paper)}
 .hero-bg{position:absolute;inset:0;z-index:-1;background:var(--paper) url(/public/gyosoku-hero.jpg) 68% 100%/cover no-repeat}
-.hero-bg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:68% 100%}
+.hero-bg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:68% 100%;opacity:0;transition:opacity 1.6s ease-in-out}.hero-bg video.on{opacity:1}
 .hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--paper) 0%,rgba(247,244,238,.92) 30%,rgba(247,244,238,0) 62%)}
 .hero-wrap .hero{background:none;min-height:min(86vh,760px);align-content:center}
 .hero-wrap .hero-art{display:none}

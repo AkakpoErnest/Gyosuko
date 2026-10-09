@@ -1,6 +1,3 @@
-// Runs before first paint (classic blocking script): the entrance animations play once per visit.
-// A refresh in the same visit shows the finished page immediately.
-try {
-  if (sessionStorage.getItem('gyosoku.intro.seen')) document.documentElement.classList.add('no-intro');
-  else sessionStorage.setItem('gyosoku.intro.seen', '1');
-} catch {}
+// The entrance animations play on every load, including refreshes (user's choice). This flag script is kept so index.html stays unchanged;
+// to make animations play only once per visit again, set the .no-intro class here when sessionStorage has 'gyosoku.intro.seen'.
+try { sessionStorage.removeItem('gyosoku.intro.seen'); } catch {}
