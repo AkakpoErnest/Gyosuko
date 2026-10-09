@@ -8,15 +8,10 @@ if (main) {
   const el = (t, c, txt) => { const n = document.createElement(t); if (c) n.className = c; if (txt != null) n.textContent = txt; return n; };
   const compass = (d) => ['北', '北東', '東', '南東', '南', '南西', '西', '北西'][Math.round((d % 360) / 45) % 8];
   const compassEn = (d) => ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'][Math.round((d % 360) / 45) % 8];
-  // label by the forecast's real date (JST), so an old or cached forecast is never shown as "Today"
-  const jstDay = (ms) => new Date(ms + 9 * 3600e3).toISOString().slice(0, 10);
-  const day = (iso) => {
-    const diff = Math.round((Date.parse(iso) - Date.parse(jstDay(Date.now()))) / 864e5), m = Number(iso.slice(5, 7)), d = Number(iso.slice(8, 10));
-    if (diff === 0) return ja() ? '今日' : 'Today';
-    if (diff === 1) return ja() ? '明日' : 'Tomorrow';
-    if (diff === 2) return ja() ? '明後日' : 'Day after';
-    return ja() ? `${m}月${d}日` : `${m}/${d}`;
-  };
+  // label by the real date, never by position: an old or cached forecast must not be called "today"
+  const jstDay = (offset = 0) => new Date(Date.now() + 9 * 3600e3 + offset * 86400e3).toISOString().slice(0, 10);
+  const day = (iso) => (iso === jstDay(0) ? (ja() ? '今日' : 'Today') : iso === jstDay(1) ? (ja() ? '明日' : 'Tomorrow') : iso === jstDay(2) ? (ja() ? '明後日' : 'Day after') : `${+iso.slice(5, 7)}/${+iso.slice(8, 10)}`);
+  const stamp = (iso) => { const d = new Date(Date.parse(iso) + 9 * 3600e3); return `${d.getUTCMonth() + 1}/${d.getUTCDate()} ${String(d.getUTCHours()).padStart(2, '0')}:${String(d.getUTCMinutes()).padStart(2, '0')}`; };
   function draw() {
     if (document.body.dataset.screen !== 'sea') { card.remove(); return; }
     if (!data) return;
@@ -36,8 +31,8 @@ if (main) {
     }
     if (data.jma && ja()) {
       const box = el('div', 'sea-extra__jma'); box.append(el('h3', '', `気象庁 宮城県${data.jma.area}の予報`));
-      data.jma.days.forEach((d, i) => { const r = el('div', 'jma-row'); r.append(el('b', '', day(d.date, i)), el('span', '', `${d.weather}`), el('small', '', `風：${d.wind} ／ 波：${d.waves}`)); box.append(r); });
-      card.append(box);
+      data.jma.days.filter((d) => d.date >= jstDay(-1)).forEach((d) => { const r = el('div', 'jma-row'); r.append(el('b', '', day(d.date)), el('span', '', `${d.weather}`), el('small', '', `風：${d.wind} ／ 波：${d.waves}`)); box.append(r); });
+      box.append(el('p', 'sea-extra__src', `発表：${stamp(data.jma.reportedAt)}（${data.jma.office}）`)); card.append(box);
     }
     const cr = el('p', 'sea-extra__src'); cr.textContent = ja() ? '出典：気象庁、Open-Meteo（CC BY 4.0）。予報であり、出航の判断ではありません。' : 'Sources: Japan Meteorological Agency, Open-Meteo (CC BY 4.0). Forecast only, not a sailing decision. JMA text is in Japanese.'; card.append(cr);
     card.hidden = false;
