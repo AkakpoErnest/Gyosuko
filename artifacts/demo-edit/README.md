@@ -35,7 +35,7 @@ no errors; ffprobe verified duration/resolution/codec and no audio track;
 from the source footage are included. Real app behavior was recorded by
 Claude; this edit reused that recording rather than generating fake screens.
 
-## Custom motion-design edition (current Play video)
+## Custom motion-design edition
 
 User authorized original designs. `gyosoku-app-research-demo-designed.mp4`
 adds a5s branded title with wave motion and an8s explanatory data-flow
@@ -44,3 +44,13 @@ as its own84s master. Diagram labels distinguish local records, forecast APIs
 and AI assistance, with people deciding and no shared-backend claim.
 Rebuild motion edition: `python3 tools/add-demo-motion.py`, after base segments
 have been generated. Custom keyframes visually reviewed; full decode passed.
+
+## Japanese narrated edition (current Play video)
+
+`gyosoku-demo-narrated-ja.mp4` adds scene-aligned Japanese narration to the
+97.42s motion edition. Installed macOS Kyoko voice, rate 175; AAC 48kHz mono.
+Exact script and timings: `narration-ja.json`. Rebuild:
+`python3 tools/narrate-app-demo.py`. Video is copied without reencoding;
+full audio/video decode passed. Silent masters remain available.
+
+Japanese wording revised to everyday, conversational explanations at the user’s request.

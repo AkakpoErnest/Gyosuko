@@ -1,0 +1,27 @@
+{
+  "sceneStarts": [
+    0,
+    5,
+    11,
+    17,
+    19.4,
+    23.4,
+    35.9,
+    51.6,
+    71.2,
+    80.2,
+    88.2,
+    96.2,
+    104.2
+  ],
+  "appSegment": [
+    23.4,
+    71.2
+  ],
+  "appCaptionMarks": [
+    23.4,
+    35.9,
+    51.6
+  ],
+  "note": "Review-only. Sample data; existing narration reused without onboarding."
+}

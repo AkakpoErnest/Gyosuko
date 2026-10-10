@@ -1,0 +1,49 @@
+{
+  "result": "PASS",
+  "scope": "Node VM production storage/boot/save/track/exit logic; rendering stubbed, not browser",
+  "demoStorageOperations": [
+    [
+      "write",
+      "gy.demo"
+    ],
+    [
+      "read",
+      "gy.demo"
+    ],
+    [
+      "read",
+      "gyosoku.fisherman.lang"
+    ],
+    [
+      "read",
+      "gyosoku.app.demo"
+    ],
+    [
+      "write",
+      "gyosoku.app.demo"
+    ],
+    [
+      "write",
+      "gyosoku.app.demo"
+    ],
+    [
+      "read",
+      "gy.demo"
+    ],
+    [
+      "read",
+      "gyosoku.fisherman.lang"
+    ],
+    [
+      "read",
+      "gyosoku.app.demo"
+    ],
+    [
+      "read",
+      "gy.demo"
+    ]
+  ],
+  "networkCalls": 0,
+  "savedDemoRecords": 10,
+  "exitNormalProfile": "Normal sentinel"
+}
