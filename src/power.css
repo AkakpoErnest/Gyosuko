@@ -21,11 +21,3 @@
 @media(max-width:520px){.power-live{grid-template-columns:1fr}.power-list{grid-template-columns:1fr}.pl-card strong{font-size:22px}}
 @media(prefers-reduced-motion:reduce){.pw-dots{display:none}}
 
-.why-ai{margin:44px 0 6px;padding-top:30px;border-top:1px solid var(--rule)}.why-ai h3{font:400 clamp(26px,3vw,38px)/1.2 'Instrument Serif','BIZ UDPGothic',Georgia,serif;margin:0 0 10px}
-.why-grid{margin:18px 0;border:1px solid var(--rule);border-radius:16px;overflow:hidden;background:#fff}
-.why-row{display:grid;grid-template-columns:1.1fr 1.4fr 1.8fr;gap:16px;padding:14px 18px;border-top:1px solid var(--rule);font-size:15px;line-height:1.55;align-items:start}.why-row:first-child{border-top:0}
-.why-head{background:#eeeee5;font-weight:600;font-size:13px;letter-spacing:.04em}.why-row b{font-weight:600}.why-row span:nth-child(2){color:var(--muted)}.why-row span:nth-child(3){color:#0b3a45;font-weight:500}
-.ai-role{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:8px 0 6px}.ai-role>div{border-radius:16px;padding:16px 18px}.ai-role>div:first-child{background:#e3f3ee}.ai-role>div:last-child{background:#f3e8e6}
-.ai-role h4{margin:0 0 6px;font-size:15px}.ai-role ul{margin:0;padding-left:1.2em;font-size:14.5px;line-height:1.7}
-@media(max-width:760px){.why-row{grid-template-columns:1fr;gap:4px;padding:14px 16px}.why-head{display:none}.why-row span:nth-child(2)::before{content:"チャットAI：";font-weight:600}.why-row span:nth-child(3)::before{content:"魚測：";font-weight:600}.ai-role{grid-template-columns:1fr}}
-html:not([lang=ja]) .why-row span:nth-child(2)::before{content:"Chatbot: "}html:not([lang=ja]) .why-row span:nth-child(3)::before{content:"Gyosoku: "}

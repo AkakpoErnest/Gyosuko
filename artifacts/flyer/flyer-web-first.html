@@ -1,0 +1,58 @@
+<!doctype html><meta charset="utf-8"><title>Gyosoku flyer (website first)</title><style>
+@page{size:A4;margin:0}*{box-sizing:border-box}html,body{margin:0}
+body{font-family:'Hiragino Sans','Hiragino Kaku Gothic ProN','Yu Gothic','Noto Sans JP',system-ui,sans-serif;color:#10272b;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.page{width:210mm;height:297mm;position:relative;overflow:hidden;background:#f7f4ee;page-break-after:always;display:flex;flex-direction:column}
+.hero{position:relative;height:50mm;flex:none;overflow:hidden}.hero>img{width:100%;height:100%;object-fit:cover;object-position:60% 62%}
+.fade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(247,244,238,.96) 0%,rgba(247,244,238,.7) 34%,rgba(247,244,238,0) 62%)}
+.brand{position:absolute;left:14mm;top:8mm;display:flex;align-items:center;gap:4mm}.brand img{width:20mm;height:20mm;border-radius:5mm;border:.3mm solid rgba(11,42,53,.2);}.brand b{display:block;font-size:30pt;line-height:1;letter-spacing:.04em}.brand span{font-size:13pt;letter-spacing:.2em;color:#14786f;font-weight:700}
+.body{padding:4mm 14mm 0;flex:1;display:flex;flex-direction:column}
+.kicker{margin:0 0 2mm;font-size:11pt;font-weight:700;color:#14786f;letter-spacing:.06em}
+h1{margin:0;font-size:31pt;line-height:1.24;font-weight:800;letter-spacing:-.01em;color:#0b2a35}
+.en h1{font-size:27pt;line-height:1.14}.en .steps h2{font-size:17.5pt}.en .lead{font-size:13pt}
+.lead{margin:2mm 0 3mm;font-size:14pt;line-height:1.6;font-weight:600}.lead span{color:#3d5a60;font-weight:500}
+.grid{display:grid;grid-template-columns:1fr 56mm;gap:5mm;align-items:center;flex:none}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:3mm}
+.steps li{display:flex;gap:5mm;align-items:flex-start}
+.steps b{flex:none;width:14mm;height:14mm;border-radius:50%;background:#0b3a45;color:#fff;font-size:24pt;line-height:14mm;text-align:center}
+.steps li:nth-child(3) b{background:#ff7a3d}
+.steps h2{margin:0;font-size:19pt;line-height:1.3;font-weight:800}
+.steps p{margin:.5mm 0 0;font-size:13pt;line-height:1.5;color:#3d5a60}
+.phones{position:relative;height:56mm}
+.ph{outline:.35mm solid rgba(11,42,53,.35);position:absolute;width:26mm;background:#0b1217;border-radius:5mm;padding:1.2mm;}.ph img{display:block;width:100%;border-radius:4mm}
+.ph.back{left:2mm;top:7mm;transform:rotate(-8deg)}.ph.front{right:0;top:0;width:28mm;transform:rotate(5deg)}
+.qrs{margin-top:3mm;display:grid;grid-template-columns:1.25fr 1fr;gap:7mm;align-items:end}
+.qr{text-align:center}.tag{display:inline-block;background:#ff7a3d;color:#fff;font-weight:800;font-size:16pt;padding:1.2mm 6mm;border-radius:99px;margin-bottom:2mm}.tag.alt{background:#0b3a45}
+.box{background:#fff;border:1.2mm solid #0b3a45;border-radius:5mm;padding:4mm;display:inline-block;width:52mm;height:52mm}.box.small{width:40mm;height:40mm;border-width:.9mm;padding:3mm}.box svg{display:block;width:100%;height:100%}
+.qr.main .box{border-color:#ff7a3d}
+.qr p{margin:1.5mm 0 0;font-size:13pt;font-weight:700;line-height:1.3}.qr small{font-size:11pt;font-weight:600;color:#3d5a60}
+.pts{list-style:none;margin:3mm 0 3mm;padding:0;display:flex;gap:3mm;flex-wrap:wrap}.pts li{background:#e3f3ee;color:#0b3a45;font-weight:800;font-size:12.5pt;padding:1.6mm 4.5mm;border-radius:99px}.pts li:before{content:"✓ ";color:#14786f}
+.foot{flex:none;background:#0b3a45;color:#fff;text-align:center;font-weight:700;font-size:12pt;padding:3.4mm 4mm 3.6mm;letter-spacing:.06em}.foot small{display:block;margin-top:1.2mm;font-size:10pt;font-weight:500;letter-spacing:.05em;color:#bfe4dc}
+
+.qrs{grid-template-columns:1.25fr 1fr}.tag.alt{background:#0b3a45}
+.hint2{margin:2mm 0 0;font-size:11.5pt;color:#3d5a60;font-weight:600}
+.pts li.sm{font-weight:600;font-size:11pt;background:#f3e8e6;color:#5a2a22}.pts li.sm:before{content:"ⓘ "}
+</style>
+<section class="page ja">
+  <div class="hero"><img src="hero.jpg" alt=""><div class="fade"></div><div class="brand"><img src="logo.png" alt=""><div><b>魚測</b><span>Gyosoku</span></div></div></div>
+  <div class="body">
+    <p class="kicker">気仙沼の水産に関わるすべての人へ</p>
+    <h1>入港前の魚の見込みを、<br>スマホで記録しませんか。</h1>
+    <p class="lead">まず、ホームページを見てみてください。<span>使い方も、動画も、アプリへの入り口もあります。</span></p>
+    <div class="grid">
+      <ol class="steps">
+        <li><b>1</b><div><h2>左のQRコードを読み取る</h2><p>スマホのカメラでQRコードを写します。</p></div></li>
+        <li><b>2</b><div><h2>「アプリを開く」を押す</h2><p>ホームページの案内に沿って進みます。</p></div></li>
+        <li><b>3</b><div><h2>魚と量を入れる</h2><p>例：カツオ 800 kg。AIに文字で入力してもOK。</p></div></li>
+      </ol>
+      <div class="phones"><div class="ph back"><img src="shot-ja-add.png" alt=""></div><div class="ph front"><img src="shot-ja-today.png" alt=""></div></div>
+    </div>
+    <div class="qrs">
+      <div class="qr main"><div class="tag">まず、ホームページ</div><div class="box"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37 37" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h37v37H0z"/><path stroke="#0b3a45" d="M0 0.5h7m1 0h1m2 0h1m2 0h1m2 0h3m3 0h1m1 0h2m1 0h1m1 0h7M0 1.5h1m5 0h1m1 0h4m3 0h1m2 0h6m1 0h4m1 0h1m5 0h1M0 2.5h1m1 0h3m1 0h1m1 0h6m2 0h1m2 0h2m5 0h3m1 0h1m1 0h3m1 0h1M0 3.5h1m1 0h3m1 0h1m8 0h2m5 0h1m2 0h3m2 0h1m1 0h3m1 0h1M0 4.5h1m1 0h3m1 0h1m3 0h8m1 0h1m1 0h1m1 0h2m1 0h1m3 0h1m1 0h3m1 0h1M0 5.5h1m5 0h1m1 0h1m1 0h2m3 0h4m2 0h1m1 0h2m2 0h2m1 0h1m5 0h1M0 6.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M8 7.5h3m1 0h1m1 0h1m4 0h1m1 0h2m3 0h1m1 0h1M2 8.5h3m1 0h1m1 0h1m1 0h1m1 0h1m1 0h5m10 0h3m2 0h3M0 9.5h2m1 0h2m2 0h1m1 0h1m2 0h4m5 0h1m1 0h1m1 0h4m1 0h1m2 0h3M0 10.5h1m1 0h2m1 0h2m2 0h1m1 0h2m3 0h1m2 0h1m2 0h1m2 0h2m3 0h1m1 0h1m2 0h2M2 11.5h4m3 0h2m1 0h3m1 0h3m1 0h1m5 0h1m1 0h1m1 0h1M0 12.5h2m4 0h1m2 0h1m2 0h1m4 0h1m1 0h1m1 0h1m3 0h2m1 0h9M0 13.5h1m7 0h1m1 0h3m6 0h1m3 0h2m4 0h1m1 0h1m1 0h3M0 14.5h1m1 0h1m2 0h2m1 0h2m3 0h6m1 0h5m1 0h6m1 0h1m1 0h2M2 15.5h2m1 0h1m2 0h3m1 0h1m2 0h1m1 0h1m2 0h1m1 0h3m3 0h3m4 0h1M0 16.5h3m1 0h1m1 0h2m2 0h2m2 0h1m1 0h3m5 0h3m3 0h3m1 0h2M0 17.5h4m1 0h1m1 0h3m2 0h1m1 0h1m3 0h3m1 0h2m4 0h1m2 0h1m1 0h1M0 18.5h2m1 0h1m2 0h1m1 0h4m1 0h1m2 0h1m3 0h1m3 0h2m1 0h1m2 0h3m1 0h3M1 19.5h1m1 0h1m1 0h1m2 0h1m4 0h1m2 0h1m1 0h1m1 0h5m1 0h1m1 0h1m1 0h1m1 0h1m2 0h2M0 20.5h2m4 0h3m1 0h1m3 0h2m2 0h2m3 0h1m1 0h1m3 0h8M2 21.5h1m5 0h1m3 0h1m1 0h3m2 0h2m3 0h3m2 0h1m1 0h1m1 0h3M1 22.5h1m1 0h13m1 0h1m1 0h1m5 0h3m1 0h1m5 0h2M0 23.5h3m5 0h5m1 0h1m1 0h4m1 0h5m5 0h1m1 0h1m2 0h1M0 24.5h1m2 0h2m1 0h1m1 0h1m3 0h1m2 0h3m1 0h2m2 0h2m1 0h1m1 0h2m1 0h5M0 25.5h1m2 0h1m4 0h3m1 0h2m1 0h2m5 0h1m4 0h1m2 0h1M0 26.5h1m3 0h1m1 0h1m1 0h1m6 0h3m4 0h7m1 0h1m1 0h1m2 0h2M0 27.5h1m2 0h1m4 0h5m2 0h1m3 0h2m1 0h2m2 0h2m1 0h1m5 0h2M0 28.5h1m1 0h1m1 0h1m1 0h2m1 0h2m5 0h1m1 0h1m3 0h11m1 0h1M8 29.5h2m2 0h6m1 0h1m1 0h3m1 0h4m3 0h1M0 30.5h7m2 0h2m1 0h4m2 0h1m2 0h1m2 0h1m1 0h1m1 0h1m1 0h1m1 0h2m1 0h2M0 31.5h1m5 0h1m2 0h2m3 0h2m3 0h1m3 0h1m3 0h2m3 0h1m2 0h2M0 32.5h1m1 0h3m1 0h1m1 0h1m1 0h5m3 0h1m1 0h1m1 0h1m2 0h8m1 0h1M0 33.5h1m1 0h3m1 0h1m1 0h2m1 0h4m1 0h2m2 0h3m1 0h2m1 0h1m2 0h1m1 0h1m1 0h1M0 34.5h1m1 0h3m1 0h1m1 0h4m1 0h3m3 0h2m1 0h1m3 0h2m1 0h1m1 0h1m2 0h1m1 0h1M0 35.5h1m5 0h1m3 0h2m1 0h2m1 0h5m3 0h1m1 0h4m2 0h1m3 0h1M0 36.5h7m3 0h2m1 0h1m4 0h5m1 0h3m4 0h6"/></svg>
+</div><p>ここを読み取って、はじめる</p></div>
+      <div class="qr"><div class="tag alt">動画で見る</div><div class="box small"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 45" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h45v45H0z"/><path stroke="#0b3a45" d="M0 0.5h7m1 0h2m2 0h3m1 0h4m1 0h2m2 0h1m1 0h1m1 0h5m2 0h1m1 0h7M0 1.5h1m5 0h1m1 0h5m1 0h1m5 0h1m1 0h1m2 0h2m1 0h2m1 0h2m2 0h1m2 0h1m5 0h1M0 2.5h1m1 0h3m1 0h1m1 0h1m1 0h1m2 0h2m2 0h3m1 0h3m3 0h3m3 0h1m1 0h1m2 0h1m1 0h3m1 0h1M0 3.5h1m1 0h3m1 0h1m3 0h2m2 0h1m1 0h4m5 0h1m2 0h1m2 0h2m2 0h2m1 0h1m1 0h3m1 0h1M0 4.5h1m1 0h3m1 0h1m2 0h1m1 0h2m2 0h2m3 0h5m2 0h4m1 0h1m1 0h3m1 0h1m1 0h3m1 0h1M0 5.5h1m5 0h1m1 0h3m5 0h3m1 0h1m3 0h1m1 0h2m3 0h3m4 0h1m5 0h1M0 6.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M8 7.5h4m3 0h2m1 0h1m1 0h1m3 0h2m2 0h1m3 0h1m1 0h1M2 8.5h3m1 0h1m1 0h2m1 0h1m1 0h1m1 0h1m1 0h2m1 0h5m2 0h1m1 0h3m2 0h1m2 0h3m2 0h3M0 9.5h1m1 0h1m1 0h1m3 0h1m3 0h1m2 0h1m3 0h1m1 0h1m1 0h1m1 0h2m2 0h2m1 0h2m1 0h3m3 0h2m1 0h1M1 10.5h1m1 0h1m1 0h3m1 0h1m1 0h6m1 0h1m1 0h2m5 0h1m3 0h6m1 0h1m1 0h1m1 0h2M0 11.5h1m3 0h1m2 0h3m5 0h3m1 0h3m1 0h5m1 0h1m1 0h2m1 0h1m4 0h2m1 0h3M4 12.5h4m1 0h2m1 0h2m1 0h1m3 0h2m1 0h2m3 0h5m1 0h1m5 0h1m1 0h1M0 13.5h1m2 0h1m3 0h2m2 0h4m2 0h3m1 0h2m1 0h1m2 0h1m1 0h4m2 0h3m5 0h2M3 14.5h2m1 0h1m4 0h1m2 0h1m1 0h1m2 0h1m1 0h1m1 0h2m1 0h1m1 0h2m1 0h1m1 0h2m1 0h3m3 0h2M1 15.5h1m6 0h5m4 0h3m4 0h2m4 0h1m1 0h4m1 0h2m1 0h3M1 16.5h2m1 0h1m1 0h1m1 0h1m1 0h1m3 0h2m1 0h4m1 0h2m2 0h5m7 0h1m2 0h1M0 17.5h2m1 0h1m1 0h1m1 0h2m7 0h2m1 0h2m2 0h2m5 0h2m3 0h3m1 0h1m4 0h1M0 18.5h2m1 0h1m2 0h1m1 0h2m1 0h2m1 0h1m2 0h1m1 0h3m1 0h3m3 0h2m1 0h3m1 0h1m1 0h2m1 0h1m1 0h1M0 19.5h4m1 0h1m1 0h2m1 0h1m4 0h3m4 0h1m1 0h6m2 0h1m2 0h3m1 0h6M4 20.5h5m1 0h3m4 0h2m1 0h7m4 0h1m1 0h1m2 0h6m1 0h2M0 21.5h1m1 0h1m1 0h1m3 0h1m2 0h1m3 0h1m1 0h1m1 0h2m3 0h1m2 0h3m1 0h1m3 0h2m3 0h1m1 0h1m1 0h1M3 22.5h2m1 0h1m1 0h1m5 0h4m1 0h2m1 0h1m1 0h1m1 0h3m1 0h1m1 0h3m1 0h1m1 0h1m1 0h1m1 0h2M1 23.5h4m3 0h1m3 0h2m2 0h1m1 0h3m3 0h3m9 0h1m3 0h1m1 0h2M0 24.5h3m1 0h5m2 0h1m4 0h2m2 0h7m2 0h1m6 0h5m2 0h2M1 25.5h1m2 0h2m1 0h3m3 0h1m2 0h2m3 0h1m5 0h2m1 0h1m1 0h1m2 0h3m3 0h1m1 0h2M0 26.5h1m3 0h3m4 0h3m2 0h1m1 0h2m1 0h4m9 0h2m1 0h1m1 0h3M0 27.5h5m2 0h1m2 0h1m1 0h1m2 0h1m1 0h1m3 0h1m1 0h3m3 0h1m2 0h1m1 0h2m2 0h1m1 0h3M0 28.5h3m1 0h1m1 0h2m2 0h2m1 0h1m2 0h4m2 0h2m4 0h3m3 0h1m1 0h3m1 0h1M0 29.5h1m2 0h3m3 0h3m1 0h1m1 0h1m1 0h1m1 0h1m1 0h2m6 0h4m4 0h1m3 0h1m1 0h2M3 30.5h5m1 0h6m1 0h1m2 0h1m1 0h1m1 0h3m1 0h1m1 0h1m1 0h7m1 0h1m1 0h1m1 0h1M5 31.5h1m1 0h2m1 0h5m3 0h1m1 0h2m1 0h3m4 0h1m1 0h4m1 0h2m2 0h4M1 32.5h1m1 0h2m1 0h1m1 0h4m3 0h1m1 0h2m4 0h1m3 0h5m4 0h2m2 0h2m1 0h2M2 33.5h1m6 0h1m2 0h1m1 0h2m1 0h1m1 0h1m2 0h4m2 0h5m2 0h1m2 0h2m1 0h4M4 34.5h1m1 0h2m2 0h2m1 0h5m2 0h1m1 0h1m2 0h1m3 0h1m1 0h4m1 0h2m2 0h1m1 0h2M1 35.5h4m2 0h1m1 0h4m1 0h2m3 0h1m2 0h1m7 0h4m1 0h1m2 0h2m1 0h3M0 36.5h1m2 0h2m1 0h1m5 0h1m4 0h11m1 0h1m1 0h1m2 0h1m1 0h6M8 37.5h2m2 0h1m1 0h1m2 0h2m1 0h1m3 0h1m3 0h3m1 0h2m2 0h1m3 0h3m1 0h1M0 38.5h7m2 0h1m1 0h1m1 0h1m6 0h1m1 0h1m1 0h2m1 0h1m2 0h2m1 0h4m1 0h1m1 0h4M0 39.5h1m5 0h1m2 0h6m1 0h1m2 0h2m3 0h4m3 0h2m3 0h1m3 0h1m1 0h3M0 40.5h1m1 0h3m1 0h1m1 0h1m3 0h6m1 0h9m3 0h1m4 0h5M0 41.5h1m1 0h3m1 0h1m1 0h1m1 0h4m1 0h1m3 0h1m5 0h5m1 0h2m2 0h1m4 0h2m1 0h2M0 42.5h1m1 0h3m1 0h1m1 0h2m4 0h1m1 0h4m1 0h1m3 0h2m2 0h3m1 0h6m2 0h1M0 43.5h1m5 0h1m2 0h2m1 0h1m3 0h1m2 0h1m1 0h7m1 0h1m1 0h3m1 0h2m3 0h3M0 44.5h7m2 0h1m1 0h1m1 0h1m1 0h1m7 0h1m4 0h1m4 0h9m1 0h1"/></svg>
+</div><p>約1分の紹介動画</p></div>
+    </div>
+    <ul class="pts"><li>パスワード不要</li><li>無料</li><li>漁獲の記録はこのスマホに保存</li><li class="sm">AIへの質問はAIサービスに送信されます</li></ul>
+  </div>
+  <div class="foot">魚測 Gyosoku · 気仙沼のために<small>気仙沼ハッカツオン2026 から生まれたアプリ</small></div>
+</section>
